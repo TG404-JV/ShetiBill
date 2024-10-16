@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_farm"
+        android:icon="@drawable/ic_farm_tab_img"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_fertilizer"
+        android:icon="@drawable/ic_fertilizer_tab_img"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_weather"
+        android:icon="@drawable/ic_weather_tab_img"
+        android:title="" />
+</menu>

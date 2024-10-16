@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Farmer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="create_account_title">Create Account\n</string>
+    <string name="first_name">First Name</string>
+    <string name="password">Password\n</string>
+    <string name="create_account">Create Account\n</string>
+    <string name="last_name">last name\n</string>
+
+    <!-- App Logo Description -->
+    <string name="app_logo">App Logo</string>
+
+    <!-- Create Account Screen Title -->
+
+    <!-- Input Field Hints -->
+
+    <string name="email">Email Address</string>
+    <string name="mobile_no">Mobile Number</string>
+    <string name="dob">Date of Birth</string>
+    <string name="farm_size">Farm Size (in acres)</string>
+
+    <!-- Buttons and Text -->
+    <string name="log_in">Log In</string>
+    <string name="already_have_account">Already have an account? Log in</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_field">This field cannot be empty</string>
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_password_short">Password must be at least 6 characters long</string>
+    <string name="error_invalid_mobile">Please enter a valid mobile number</string>
+    <string name="mic_desc" translatable="false">mic for search</string>
+    <string name="day">day</string>
+    <string name="pressure">PRESSURE</string>
+    <string name="wind">WIND</string>
+    <string name="humidity">HUMIDITY</string>
+    <string name="enter_city_name">ENTER CITY NAME</string>
+    <string name="updated_at">UPDATED AT</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="search_hint">Search</string>
+    <string name="copy">copy</string>
+    <string name="share">Share</string>
+    <string name="edit">edit</string>
+
+
+</resources>
+
+

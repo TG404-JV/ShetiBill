@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/weightTextView"
+    android:layout_width="40sp"
+    android:layout_height="40sp"
+    android:layout_marginEnd="5sp"
+    android:inputType="number"
+    android:textColor="@color/black"
+    android:background="@drawable/ic_oval_shape"
+    android:text=""
+    android:textAlignment="center"
+    android:textSize="20sp" />
+

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F7FF">
+
+        <!-- Title: Loan EMI Calculator -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loan EMI Calculator"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Loan Type Selector -->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/loanTypeIcon"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_loan_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/loanTypeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/loan_type_array"
+            android:padding="12dp"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/spinner_background"
+            app:layout_constraintTop_toBottomOf="@id/loanTypeIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Loan Amount -->
+        <EditText
+            android:id="@+id/loanAmountInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Loan Amount"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:background="@drawable/input_background"
+            android:textColorHint="#AAAAAA"
+            app:layout_constraintTop_toBottomOf="@id/loanTypeSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Loan Tenure -->
+        <EditText
+            android:id="@+id/loanTenureInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Loan Tenure (Years)"
+            android:inputType="number"
+            android:padding="12dp"
+            android:background="@drawable/input_background"
+            android:textColorHint="#AAAAAA"
+            app:layout_constraintTop_toBottomOf="@id/loanAmountInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Interest Rate -->
+        <EditText
+            android:id="@+id/interestRateInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Interest Rate (%)"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:background="@drawable/input_background"
+            android:textColorHint="#AAAAAA"
+            app:layout_constraintTop_toBottomOf="@id/loanTenureInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Calculate EMI Button -->
+        <Button
+            android:id="@+id/calculateEmiButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Calculate EMI"
+            android:textStyle="bold"
+            android:backgroundTint="@color/greenColor"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/interestRateInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- EMI Circular Progress Result -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/resultLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/calculateEmiButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/circularProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                app:indicatorColor="@color/purple_500"
+                app:indicatorSize="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:trackColor="@color/gray"
+                app:trackThickness="8dp" />
+
+
+            <TextView
+                android:id="@+id/emiResultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#4953F3"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/circularProgress" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Amortization Details -->
+        <TextView
+            android:id="@+id/amortizationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Amortization Details"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            app:layout_constraintTop_toBottomOf="@id/resultLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp" />
+
+        r
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

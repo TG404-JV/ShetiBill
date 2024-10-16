@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="loan_type_array">
+        <item>Home</item>
+        <item>Personal</item>
+        <item>Car</item>
+    </string-array>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:endColor="#D500F9"
+        android:startColor="#7B1FA2" />
+
+    <!-- Creating the wavy shape using path -->
+    <path android:fillColor="@android:color/white">
+        <pathData android:pathData="M 0,100
+                              C 200,150 400,50 600,100
+                              L 600,0
+                              L 0,0 Z" />
+    </path>
+</shape>

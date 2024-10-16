@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:background="@drawable/ic_farmer_bg_img"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/pro"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_farmer_profile_img"
+        android:background="@drawable/ic_oval_shape"
+        android:contentDescription="@string/app_name"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="centerCrop"/>
+
+    <!-- User Name -->
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="User Name"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <!-- User Email -->
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user@example.com"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Login Button (Visible only if user is not logged in) -->
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp" />
+
+        <!-- Logout Button (Visible only if user is logged in) -->
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:padding="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

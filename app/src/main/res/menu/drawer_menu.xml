@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Home Section -->
+    <group android:id="@+id/group_home">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_img"
+            android:title="Home" />
+    </group>
+
+    <!-- Farm Management Section -->
+    <group android:id="@+id/group_farm_management">
+        <item
+            android:id="@+id/nav_expenditure"
+            android:icon="@drawable/ic_expendituer_img"
+            android:title="Expenditure" />
+        <item
+            android:id="@+id/nav_harvest"
+            android:icon="@drawable/ic_harvest_img"
+            android:title="Harvest" />
+        <item
+            android:id="@+id/nav_market"
+            android:icon="@drawable/ic_market_img"
+            android:title="Market" />
+    </group>
+
+    <!-- Finance Section -->
+    <group android:id="@+id/group_finance">
+        <item
+            android:id="@+id/loan_calculator"
+            android:icon="@drawable/ic_loan_img"
+            android:title="Loan Calculator" />
+        <item
+            android:id="@+id/government_scheme"
+            android:icon="@drawable/ic_govermentscheme_img"
+            android:title="Government Schemes" />
+    </group>
+
+    <!-- AI Assistance -->
+    <group android:id="@+id/group_ai">
+        <item
+            android:id="@+id/ai_assistant"
+            android:icon="@drawable/ic_ai_img"
+            android:title="Ask AI" />
+    </group>
+
+</menu>

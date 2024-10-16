@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Customize the shape of the indicator (e.g., rounded rectangle) -->
+    <solid android:color="@color/colorAccent" /> <!-- Set the indicator color -->
+    <corners android:radius="10dp" /> <!-- Set corner radius for rounded effect -->
+    <size android:height="4dp" /> <!-- Set the indicator height -->
+</shape>

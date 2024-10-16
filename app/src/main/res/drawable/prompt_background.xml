@@ -1,0 +1,12 @@
+<!-- res/drawable/prompt_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow layer -->
+    <!-- Background layer -->
+    <item android:top="4dp" android:left="4dp" android:right="4dp" android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#f0f0f0" /> <!-- Light grey background -->
+            <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp" />
+        </shape>
+    </item>
+</layer-list>

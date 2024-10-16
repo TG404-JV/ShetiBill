@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Applying the new farmer-related color scheme -->
+        <item name="colorPrimary">@color/primaryColor</item>           <!-- Vibrant green -->
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>   <!-- Dark green -->
+        <item name="colorAccent">@color/accentColor</item>             <!-- Light teal green accent -->
+        <item name="android:textColor">@color/textPrimary</item>       <!-- Dark green/gray for text -->
+        <item name="android:colorControlNormal">@color/controlNormal</item> <!-- Control color -->
+        <item name="android:windowBackground">@color/backgroundColor</item> <!-- Set window background -->
+    </style>
+</resources>

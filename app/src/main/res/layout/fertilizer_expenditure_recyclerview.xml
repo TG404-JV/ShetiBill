@@ -1,0 +1,194 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="16dp"
+    android:backgroundTint="#F9F9F9"
+    app:cardCornerRadius="15dp"
+    app:cardPreventCornerOverlap="true"
+    android:elevation="10dp"
+    android:radius="16dp">
+
+    <!-- This Is A Recycler View Layout Which Is Used To Manage The Fertilizer Expenditure of A Farmer-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#50C878"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header Section: Fertilizer Name and Date -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <!-- Fertilizer Icon -->
+            <ImageView
+                android:id="@+id/IVfertilizerName"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_fertilizer_name_img"
+                app:tint="@color/white" />
+
+            <!-- Fertilizer Name -->
+            <TextView
+                android:id="@+id/tvItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/IVfertilizerName"
+                android:fontFamily="@font/name_font"
+                android:text="Fertilizer Name"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- Purchase Date Icon -->
+            <ImageView
+                android:id="@+id/dateImg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                app:tint="@color/white"
+                android:layout_toLeftOf="@id/tvPurchaseDate"
+                android:src="@drawable/ic_date_img" />
+
+            <!-- Purchase Date -->
+            <TextView
+                android:id="@+id/tvPurchaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="21 Nov 2023"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <!-- Separator Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#E0E0E0" />
+
+        <!-- Pricing Section -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <!-- Price Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_price_img" />
+
+            <!-- Price Label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Purchase Amount -->
+            <TextView
+                android:id="@+id/tvPurchaseAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="₹450"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Payment Mode Section -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <!-- Payment Mode Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_payment_mode_img" />
+
+            <!-- Payment Mode Label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Mode"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Payment Mode Value -->
+            <TextView
+                android:id="@+id/tvPaymentMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Cash"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Action Buttons Section -->
+        <RelativeLayout
+            android:id="@+id/cardBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"
+            android:visibility="visible">
+
+            <!-- Copy Button -->
+            <ImageButton
+                android:id="@+id/CopyBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="#50C878"
+                app:tint="@color/white"
+                android:contentDescription="@string/copy"
+                android:src="@drawable/ic_copy_btn" />
+
+            <!-- Share Button -->
+            <ImageButton
+                android:id="@+id/ShareBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toRightOf="@id/CopyBtn"
+                android:backgroundTint="#50C878"
+                app:tint="@color/white"
+                android:contentDescription="@string/share"
+                android:src="@drawable/ic_share_btn" />
+
+            <!-- Edit Button -->
+            <ImageButton
+                android:id="@+id/EditBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toRightOf="@id/ShareBtn"
+                android:backgroundTint="#50C878"
+                app:tint="@color/white"
+                android:contentDescription="@string/edit"
+                android:src="@drawable/ic_dark_edit_btn" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

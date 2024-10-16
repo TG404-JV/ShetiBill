@@ -1,0 +1,119 @@
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light"
+    tools:context=".MainActivity">
+
+    <!-- Main content layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Search Icon -->
+        <ImageButton
+            android:id="@+id/search_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/logo"
+            android:layout_marginEnd="30dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_search_img" />
+
+        <!-- Search Bar (Initially Hidden) -->
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/logo"
+            android:layout_toRightOf="@id/app_name"
+            android:visibility="invisible"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:queryHint="Search..."
+        android:iconifiedByDefault="false">
+
+    </SearchView>
+
+    <!-- Top Section with Logo -->
+    <ImageButton
+        android:id="@+id/logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="centerCrop"
+        android:clickable="true"
+        android:background="@drawable/ic_oval_shape"
+        android:src="@drawable/ic_farmer_profile_img" />
+
+    <!-- Menu Button -->
+    <ImageButton
+        android:id="@+id/menu"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/gray_light"
+        android:src="@drawable/menu_icon" />
+
+    <!-- Application Name -->
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/menu"
+        android:fontFamily="@font/ic_poppins_bold"
+        android:layout_marginTop="5dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_below="@id/search_icon"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+
+    <!-- RecyclerView and Fragment Container -->
+    <RelativeLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_view"> <!-- Align RecyclerView below the search bar -->
+
+        <!-- RecyclerView for search results -->
+
+
+        <!-- FrameLayout for fragment pages -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light" />
+    </RelativeLayout>
+</RelativeLayout>
+
+    <!-- Navigation Drawer -->
+<com.google.android.material.navigation.NavigationView
+android:id="@+id/navigation_view"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_gravity="start"
+android:background="@color/drawerBackgroundColor"
+app:headerLayout="@layout/nav_header"
+app:itemIconTint="@color/navItemIconColor"
+app:itemTextColor="@color/navItemTextColor"
+app:menu="@menu/drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>

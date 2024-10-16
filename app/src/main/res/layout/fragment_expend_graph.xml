@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/tvGraphTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fertilizer Expenditure"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="8dp"/>
+
+    <!-- PieChart for displaying the graph -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/fertilizerPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvGraphTitle" />
+
+    <!-- Legend TextView -->
+    <TextView
+        android:id="@+id/tvLegend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Legend: Education, Food, Entertainment, etc."
+        android:textSize="14sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"/>
+
+</RelativeLayout>
