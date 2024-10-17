@@ -21,18 +21,9 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/fertilizerPieChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@id/tvGraphTitle" />
 
-    <!-- Legend TextView -->
-    <TextView
-        android:id="@+id/tvLegend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Legend: Education, Food, Entertainment, etc."
-        android:textSize="14sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="8dp"/>
+
 
 </RelativeLayout>

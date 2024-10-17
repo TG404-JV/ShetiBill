@@ -1,5 +1,7 @@
 package com.example.farmer.graph;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -12,13 +14,17 @@ import android.view.ViewGroup;
 import com.example.farmer.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentExpendGraph extends Fragment {
 
@@ -31,29 +37,72 @@ public class FragmentExpendGraph extends Fragment {
 
         fertilizerPieChart = view.findViewById(R.id.fertilizerPieChart);
         setupPieChart();
+
         return view;
     }
 
     private void setupPieChart() {
-        // Sample data for the pie chart
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(19.7f, "Entertainment"));
-        entries.add(new PieEntry(19.0f, "Food"));
-        entries.add(new PieEntry(19.5f, "Healthcare"));
-        entries.add(new PieEntry(16.2f, "Education"));
-        entries.add(new PieEntry(16.8f, "Other"));
-        entries.add(new PieEntry(8.8f, "Gas"));
+        // Retrieve the expenditure data from SharedPreferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FertilizerPrefs", Context.MODE_PRIVATE);
+        String expenditureData = sharedPreferences.getString("expenditure_list", "[]");
 
-        PieDataSet dataSet = new PieDataSet(entries, "Categories");
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS); // Use Material colors for better visibility
-        dataSet.setValueTextColor(Color.BLACK); // Color of the values on the graph
+        // Variables to store the sum of expenditures for each payment mode
+        float cashTotal = 0f;
+        float cardTotal = 0f;
+        float onlineTotal = 0f;
+
+        try {
+            // Parse the JSON array of expenditures
+            JSONArray jsonArray = new JSONArray(expenditureData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                // Get the price and payment mode
+                float price = Float.parseFloat(jsonObject.getString("PurchaseAmount"));
+                String paymentMode = jsonObject.getString("PaymentMode");
+
+                // Add the price to the corresponding payment mode total
+                if (paymentMode.equals("Cash")) {
+                    cashTotal += price;
+                } else if (paymentMode.equals("Card")) {
+                    cardTotal += price;
+                } else if (paymentMode.equals("Online")) {
+                    onlineTotal += price;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Create a list of PieEntry objects based on the payment mode totals
+        List<PieEntry> entries = new ArrayList<>();
+        if (cashTotal > 0) {
+            entries.add(new PieEntry(cashTotal, "Cash"));
+        }
+        if (cardTotal > 0) {
+            entries.add(new PieEntry(cardTotal, "Card"));
+        }
+        if (onlineTotal > 0) {
+            entries.add(new PieEntry(onlineTotal, "Online"));
+        }
+
+        // If no data is available, add a placeholder entry
+        if (entries.isEmpty()) {
+            entries.add(new PieEntry(1f, "No data available"));
+        }
+
+        // Create a PieDataSet with the entries
+        PieDataSet dataSet = new PieDataSet(entries, "Expenditures by Payment Mode");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS); // Use Material colors for visibility
+        dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(12f);
 
+        // Set the data to the PieChart
         PieData pieData = new PieData(dataSet);
         fertilizerPieChart.setData(pieData);
 
-        // Customize the pie chart appearance
-        fertilizerPieChart.getDescription().setEnabled(false); // Disable the description label
+        // Customize PieChart appearance
+        fertilizerPieChart.getDescription().setEnabled(false); // Disable description label
         fertilizerPieChart.setDrawHoleEnabled(true);
         fertilizerPieChart.setHoleRadius(30f);
         fertilizerPieChart.setTransparentCircleRadius(35f);
@@ -64,6 +113,7 @@ public class FragmentExpendGraph extends Fragment {
         legend.setTextColor(Color.BLACK);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
 
-        fertilizerPieChart.invalidate(); // Refresh the chart
+        // Refresh the chart
+        fertilizerPieChart.invalidate();
     }
 }
