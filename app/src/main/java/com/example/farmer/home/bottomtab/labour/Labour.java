@@ -1,11 +1,14 @@
 package com.example.farmer.home.bottomtab.labour;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Labour {
     private String name;
-    private String date;
+    private String date; // Stored as String in "dd/MM/yyyy" format
     private List<Integer> weights;
     private int totalWeight;
 
@@ -14,7 +17,7 @@ public class Labour {
         this.name = name;
         this.date = date;
         this.weights = new ArrayList<>(); // Initialize weights list
-        this.totalWeight = 0; // Initialize total weight
+        this.totalWeight = calculateTotalWeight(); // Initialize total weight based on weights
     }
 
     // Getters and Setters
@@ -32,10 +35,16 @@ public class Labour {
 
     public void setDate(String date) {
         this.date = date;
+        this.totalWeight = calculateTotalWeight(); // Recalculate total weight if needed
     }
 
     public List<Integer> getWeights() {
         return weights;
+    }
+
+    public void addWeight(int weight) {
+        weights.add(weight); // Add weight to the list
+        this.totalWeight = calculateTotalWeight(); // Update total weight
     }
 
     public int getTotalWeight() {
@@ -53,5 +62,16 @@ public class Labour {
             total += weight;
         }
         return total;
+    }
+
+    // Method to get date as Date object for sorting
+    public Date getDateAsObject() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return format.parse(date); // Convert the string date to Date object
+        } catch (ParseException e) {
+            e.printStackTrace(); // Log the exception
+            return null; // Return null if parsing fails
+        }
     }
 }

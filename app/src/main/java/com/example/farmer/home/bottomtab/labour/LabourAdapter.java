@@ -31,13 +31,18 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
 
     private final List<Labour> labourList;
     private final Context context;
+    private final List<Labour> originalLabourList; // Keep track of the original list for sorting
+    private final Runnable onLabourListChanged; // Callback for changes in the list
+
     private static final String PREFERENCE_KEY = "LabourData"; // SharedPreferences key
     private static final String LABOUR_LIST_KEY = "LabourList"; // Key for saving labour list
 
     // Constructor
-    public LabourAdapter(List<Labour> labourList, Context context) {
+    public LabourAdapter(List<Labour> labourList, Context context, List<Labour> originalLabourList, Runnable onLabourListChanged) {
         this.labourList = labourList;
         this.context = context;
+        this.originalLabourList = originalLabourList; // Initialize the original list
+        this.onLabourListChanged = onLabourListChanged; // Initialize the callback
     }
 
     @NonNull
@@ -95,11 +100,10 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
             labourList.remove(position);
             notifyItemRemoved(position);
             Toast.makeText(context, "Labour details deleted", Toast.LENGTH_SHORT).show();
-            saveLabourData(); // Save updated data to SharedPreferences after deletion
+            onLabourListChanged.run(); // Call the callback to update the main list
         });
 
         updateTotalWeight(labour, holder); // Update the total weight dynamically
-        saveLabourData(); // Save labour data locally in SharedPreferences
     }
 
     @Override
@@ -135,7 +139,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         Gson gson = new Gson();
-        String json = gson.toJson(labourList); // Convert list to JSON
+        String json = gson.toJson(originalLabourList); // Convert the original list to JSON
         editor.putString(LABOUR_LIST_KEY, json);
         editor.apply(); // Save data asynchronously
     }

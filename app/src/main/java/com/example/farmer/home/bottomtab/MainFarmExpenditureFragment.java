@@ -71,7 +71,9 @@ public class MainFarmExpenditureFragment extends Fragment {
         filteredLabourList = new ArrayList<>(labourList); // Clone the list for filtering
 
         // Initialize adapter with the filtered labour list
-        labourAdapter = new LabourAdapter(filteredLabourList, requireContext());
+        labourAdapter = new LabourAdapter(filteredLabourList, requireContext(), labourList, () -> {
+            // Optional: Define behavior for the runnable here
+        });
         labourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         labourRecyclerView.setAdapter(labourAdapter);
 
@@ -142,18 +144,26 @@ public class MainFarmExpenditureFragment extends Fragment {
                 Date labourDate = dateFormat.parse(labour.getDate());
                 if (labourDate != null) {
                     switch (sortOption) {
-                        case 0: // Daily
+                        case 0: // All
+                            filteredLabourList.add(labour);
+                            break;
+                        case 1: // Daily
                             if (isSameDay(labourDate, currentDate)) {
                                 filteredLabourList.add(labour);
                             }
                             break;
-                        case 1: // Weekly
-                            if (isWithinWeek(labourDate, currentDate)) {
+                        case 2: // Weekly
+                            if (isWithinLastDays(labourDate, currentDate, 7)) {
                                 filteredLabourList.add(labour);
                             }
                             break;
-                        case 2: // Monthly
-                            if (isWithinMonth(labourDate, currentDate)) {
+                        case 3: // Monthly
+                            if (isWithinLastDays(labourDate, currentDate, 30)) {
+                                filteredLabourList.add(labour);
+                            }
+                            break;
+                        case 4: // Quarterly
+                            if (isWithinLastDays(labourDate, currentDate, 90)) {
                                 filteredLabourList.add(labour);
                             }
                             break;
@@ -167,7 +177,7 @@ public class MainFarmExpenditureFragment extends Fragment {
         labourAdapter.notifyDataSetChanged();
     }
 
-    // Helper methods to check date ranges
+    // Helper methods to check date conditions
     private boolean isSameDay(Date date1, Date date2) {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
@@ -177,20 +187,12 @@ public class MainFarmExpenditureFragment extends Fragment {
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
-    private boolean isWithinWeek(Date date, Date currentDate) {
+    private boolean isWithinLastDays(Date date, Date currentDate, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
-        Date weekAgo = calendar.getTime();
-        return date.after(weekAgo) && date.before(currentDate);
-    }
-
-    private boolean isWithinMonth(Date date, Date currentDate) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.MONTH, -1);
-        Date monthAgo = calendar.getTime();
-        return date.after(monthAgo) && date.before(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -days);
+        Date dateLimit = calendar.getTime();
+        return date.after(dateLimit) && date.before(currentDate);
     }
 
     // Method to show dialog to add labour name and date using custom buttons
@@ -245,26 +247,20 @@ public class MainFarmExpenditureFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    // Save labour list to SharedPreferences
+    // Load labour data from SharedPreferences
+    private List<Labour> loadLabourData() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString(LABOUR_LIST_KEY, null);
+        Type type = new TypeToken<List<Labour>>() {}.getType();
+        return json != null ? new Gson().fromJson(json, type) : new ArrayList<>();
+    }
+
+    // Save labour data to SharedPreferences
     private void saveLabourData() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(labourList);
+        String json = new Gson().toJson(labourList);
         editor.putString(LABOUR_LIST_KEY, json);
         editor.apply();
-    }
-
-    // Load labour list from SharedPreferences
-    private List<Labour> loadLabourData() {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(LABOUR_LIST_KEY, null);
-        if (json != null) {
-            Type type = new TypeToken<List<Labour>>() {}.getType();
-            return gson.fromJson(json, type);
-        } else {
-            return new ArrayList<>();
-        }
     }
 }

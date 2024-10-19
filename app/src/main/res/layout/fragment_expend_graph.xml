@@ -5,9 +5,9 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <!-- Title TextView -->
+    <!-- Title for Fertilizer Expenditure PieChart -->
     <TextView
-        android:id="@+id/tvGraphTitle"
+        android:id="@+id/tvFertilizerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fertilizer Expenditure"
@@ -17,13 +17,89 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="8dp"/>
 
-    <!-- PieChart for displaying the graph -->
+    <!-- PieChart for Fertilizer Expenditure -->
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/fertilizerPieChart"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_below="@id/tvGraphTitle" />
+        android:layout_below="@id/tvFertilizerTitle" />
 
+    <!-- TextView for empty state message for Fertilizer -->
+    <TextView
+        android:id="@+id/emptyFertilizerStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No fertilizer expenditure data available."
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@id/fertilizerPieChart"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/> <!-- Initially hidden -->
 
+    <!-- Title for Labor Harvesting PieChart -->
+    <TextView
+        android:id="@+id/tvLaborTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Labor Harvested Weight"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/emptyFertilizerStateTextView"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="16dp"/>
+
+    <!-- PieChart for Labor Harvesting -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/laborPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@id/tvLaborTitle" />
+
+    <!-- TextView for empty state message for Labor -->
+    <TextView
+        android:id="@+id/emptyLaborStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No labor harvesting data available."
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@id/laborPieChart"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/> <!-- Initially hidden -->
+
+    <!-- Buttons to select time intervals -->
+    <RadioGroup
+        android:id="@+id/timeIntervalGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emptyLaborStateTextView"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
+
+        <RadioButton
+            android:id="@+id/rbDaily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily" />
+
+        <RadioButton
+            android:id="@+id/rbWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weekly" />
+
+        <RadioButton
+            android:id="@+id/rbMonthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monthly" />
+
+        <RadioButton
+            android:id="@+id/rbQuarterly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quarterly" />
+    </RadioGroup>
 
 </RelativeLayout>
