@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,20 +24,36 @@ import com.example.farmer.R;
 import com.example.farmer.home.bottomtab.labour.Labour;
 import com.example.farmer.home.bottomtab.labour.LabourAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class MainFarmExpenditureFragment extends Fragment {
 
     private FloatingActionButton addLabourFab;
     private RecyclerView labourRecyclerView;
     private LabourAdapter labourAdapter;
-    private List<Labour> labourList;
-    private String userId; // Add userId
+    private List<Labour> labourList, filteredLabourList;
+    private EditText searchBar;
+    private Spinner sortSpinner;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+    private static final String PREFERENCE_KEY = "LabourData"; // SharedPreferences key
+    private static final String LABOUR_LIST_KEY = "LabourList"; // Key for saving labour list
 
     @Nullable
     @Override
@@ -43,28 +62,49 @@ public class MainFarmExpenditureFragment extends Fragment {
 
         // Initialize views
         addLabourFab = view.findViewById(R.id.addLabourBtn);
-        labourRecyclerView = view.findViewById(R.id.AddWeightRecyclerView); // Ensure this matches your layout file
+        labourRecyclerView = view.findViewById(R.id.AddWeightRecyclerView);
+        searchBar = view.findViewById(R.id.searchBar);
+        sortSpinner = view.findViewById(R.id.sortSpinner);
 
-        // Initialize labour list
-        labourList = new ArrayList<>();
+        // Load the labour list from SharedPreferences
+        labourList = loadLabourData();
+        filteredLabourList = new ArrayList<>(labourList); // Clone the list for filtering
 
-        // Get the current user's ID from FirebaseAuth
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            userId = user.getUid(); // Retrieve the user ID
-        } else {
-            Toast.makeText(getContext(), "User not authenticated!", Toast.LENGTH_SHORT).show();
-        }
-
-        // Initialize adapter with context and userId
-        if (userId != null) {
-            labourAdapter = new LabourAdapter(labourList, requireContext(), userId);
-        }
-
+        // Initialize adapter with the filtered labour list
+        labourAdapter = new LabourAdapter(filteredLabourList, requireContext());
         labourRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         labourRecyclerView.setAdapter(labourAdapter);
 
-        // Set FAB click listener to open dialog for adding labor
+        // Set up search functionality
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterLabour(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Set up sort functionality
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.sort_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sortLabourList(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Set FAB click listener to open dialog for adding labour
         addLabourFab.setOnClickListener(v -> showAddLabourDialog());
 
         // Add item decoration to reduce spacing between items
@@ -78,54 +118,119 @@ public class MainFarmExpenditureFragment extends Fragment {
         return view;
     }
 
-    // Method to show dialog to add labor name and date using custom buttons
+    // Filter labour list based on search query
+    private void filterLabour(String query) {
+        filteredLabourList.clear();
+        if (query.isEmpty()) {
+            filteredLabourList.addAll(labourList);
+        } else {
+            filteredLabourList.addAll(labourList.stream()
+                    .filter(labour -> labour.getName().toLowerCase().contains(query.toLowerCase()))
+                    .collect(Collectors.toList()));
+        }
+        labourAdapter.notifyDataSetChanged();
+    }
+
+    // Sort labour list based on selected sorting option
+    private void sortLabourList(int sortOption) {
+        filteredLabourList.clear();
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        for (Labour labour : labourList) {
+            try {
+                Date labourDate = dateFormat.parse(labour.getDate());
+                if (labourDate != null) {
+                    switch (sortOption) {
+                        case 0: // Daily
+                            if (isSameDay(labourDate, currentDate)) {
+                                filteredLabourList.add(labour);
+                            }
+                            break;
+                        case 1: // Weekly
+                            if (isWithinWeek(labourDate, currentDate)) {
+                                filteredLabourList.add(labour);
+                            }
+                            break;
+                        case 2: // Monthly
+                            if (isWithinMonth(labourDate, currentDate)) {
+                                filteredLabourList.add(labour);
+                            }
+                            break;
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        labourAdapter.notifyDataSetChanged();
+    }
+
+    // Helper methods to check date ranges
+    private boolean isSameDay(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+    }
+
+    private boolean isWithinWeek(Date date, Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date weekAgo = calendar.getTime();
+        return date.after(weekAgo) && date.before(currentDate);
+    }
+
+    private boolean isWithinMonth(Date date, Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MONTH, -1);
+        Date monthAgo = calendar.getTime();
+        return date.after(monthAgo) && date.before(currentDate);
+    }
+
+    // Method to show dialog to add labour name and date using custom buttons
     private void showAddLabourDialog() {
-        // Inflate the custom dialog layout
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_labour, null);
 
-        // Initialize UI components in the dialog
         EditText labourNameEditText = dialogView.findViewById(R.id.labourNameEditText);
         TextView labourDateTextView = dialogView.findViewById(R.id.labourDateTextView);
         Button addButton = dialogView.findViewById(R.id.add_button);
         Button cancelButton = dialogView.findViewById(R.id.cancel_button);
 
-        // Set up the DatePicker for the date field
         labourDateTextView.setOnClickListener(v -> showDatePickerDialog(labourDateTextView));
 
-        // Create the dialog
         androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setView(dialogView)
-                .setCancelable(false)  // Disable cancelling by clicking outside the dialog
+                .setCancelable(false)
                 .create();
 
-        // Handle "Add" button click
         addButton.setOnClickListener(v -> {
             String labourName = labourNameEditText.getText().toString();
             String labourDate = labourDateTextView.getText().toString();
 
             if (!labourName.isEmpty() && !labourDate.isEmpty()) {
-                // Create new Labour object and add to the list
                 Labour newLabour = new Labour(labourName, labourDate);
                 labourList.add(newLabour);
-                labourAdapter.notifyDataSetChanged();
-
-                // Dismiss the dialog after adding the labour
+                saveLabourData();
+                filterLabour(searchBar.getText().toString()); // Re-filter based on search term
                 dialog.dismiss();
             } else {
-                // Show an error message if fields are empty
                 Toast.makeText(getContext(), "Please enter name and date", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Handle "Cancel" button click
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 
-        // Show the dialog
         dialog.show();
     }
 
-    // Date picker dialog for selecting date
+    // Date picker dialog for selecting the date
     private void showDatePickerDialog(final TextView dateTextView) {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -138,5 +243,28 @@ public class MainFarmExpenditureFragment extends Fragment {
                     dateTextView.setText(selectedDate);
                 }, year, month, day);
         datePickerDialog.show();
+    }
+
+    // Save labour list to SharedPreferences
+    private void saveLabourData() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(labourList);
+        editor.putString(LABOUR_LIST_KEY, json);
+        editor.apply();
+    }
+
+    // Load labour list from SharedPreferences
+    private List<Labour> loadLabourData() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(LABOUR_LIST_KEY, null);
+        if (json != null) {
+            Type type = new TypeToken<List<Labour>>() {}.getType();
+            return gson.fromJson(json, type);
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

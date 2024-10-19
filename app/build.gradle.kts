@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.play.services.mlkit.text.recognition.common)
     implementation(libs.firebase.firestore)
+    implementation(libs.adapters)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -70,6 +71,11 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
+    implementation ("androidx.room:room-runtime:2.5.0")
+    annotationProcessor ("androidx.room:room-compiler:2.5.0")
+    implementation ("androidx.room:room-ktx:2.5.0")
 
 
 

@@ -1,14 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/AddWeightRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <!-- Search bar -->
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search labour"
+        android:padding="10dp"
+        android:background="@drawable/search_background"
+        android:drawableLeft="@drawable/ic_search_img"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentTop="true"/>
 
+    <!-- Spinner for sorting options -->
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:entries="@array/sort_options"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentStart="true"/>
+
+    <!-- RecyclerView for displaying labour list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AddWeightRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sortSpinner"
+        android:layout_marginTop="8dp"/>
+
+    <!-- FloatingActionButton for adding new labour entry -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addLabourBtn"
         android:layout_width="wrap_content"

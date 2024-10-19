@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +20,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourViewHolder> {
 
     private final List<Labour> labourList;
     private final Context context;
-    private final String userId; // Store the user ID
+    private static final String PREFERENCE_KEY = "LabourData"; // SharedPreferences key
+    private static final String LABOUR_LIST_KEY = "LabourList"; // Key for saving labour list
 
-    // Constructor to include userId
-    public LabourAdapter(List<Labour> labourList, Context context, String userId) {
+    // Constructor
+    public LabourAdapter(List<Labour> labourList, Context context) {
         this.labourList = labourList;
         this.context = context;
-        this.userId = userId; // Initialize userId
     }
 
     @NonNull
@@ -69,7 +72,8 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
             }
         });
 
-        WeightAdapter weightAdapter = new WeightAdapter(labour.getWeights(), weight -> {});
+        WeightAdapter weightAdapter = new WeightAdapter(labour.getWeights(), weight -> {
+        });
 
         holder.weightRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         holder.weightRecyclerView.setAdapter(weightAdapter);
@@ -80,7 +84,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
                 labour.getWeights().remove(labour.getWeights().size() - 1);
                 weightAdapter.notifyDataSetChanged();
                 updateTotalWeight(labour, holder);
-                updateWeightsInFirebase(labour); // Save updated weights to Firebase
+                saveLabourData(); // Save updated data to SharedPreferences
             }
         });
 
@@ -91,10 +95,11 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
             labourList.remove(position);
             notifyItemRemoved(position);
             Toast.makeText(context, "Labour details deleted", Toast.LENGTH_SHORT).show();
+            saveLabourData(); // Save updated data to SharedPreferences after deletion
         });
 
         updateTotalWeight(labour, holder); // Update the total weight dynamically
-        saveLabourToFirebase(labour); // Save or update labour data in Firebase
+        saveLabourData(); // Save labour data locally in SharedPreferences
     }
 
     @Override
@@ -124,6 +129,32 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         }
     }
 
+    // Save labour list to SharedPreferences
+    private void saveLabourData() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(labourList); // Convert list to JSON
+        editor.putString(LABOUR_LIST_KEY, json);
+        editor.apply(); // Save data asynchronously
+    }
+
+    // Load labour list from SharedPreferences
+    public static List<Labour> loadLabourData(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_KEY, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(LABOUR_LIST_KEY, null);
+
+        if (json != null) {
+            Type type = new TypeToken<List<Labour>>() {
+            }.getType();
+            return gson.fromJson(json, type); // Convert JSON back to list
+        } else {
+            return new ArrayList<>(); // Return empty list if no data found
+        }
+    }
+
     private void showAddWeightDialog(Labour labour, WeightAdapter weightAdapter, LabourViewHolder holder) {
         EditText weightInput = new EditText(context);
         weightInput.setHint("Enter weight");
@@ -139,7 +170,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
                             labour.getWeights().add(weight); // Add weight to the labour's list
                             weightAdapter.notifyDataSetChanged();
                             updateTotalWeight(labour, holder);
-                            updateWeightsInFirebase(labour); // Update weights in Firebase
+                            saveLabourData(); // Save updated weights to SharedPreferences
                         } catch (NumberFormatException e) {
                             Toast.makeText(context, "Please enter a valid number", Toast.LENGTH_SHORT).show();
                         }
@@ -179,7 +210,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
                     labour.setName(editName.getText().toString());
                     labour.setDate(editDate.getText().toString());
                     notifyItemChanged(position);
-                    saveLabourToFirebase(labour); // Save updated labour data to Firebase
+                    saveLabourData(); // Save updated data to SharedPreferences
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
@@ -188,68 +219,5 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
     private void updateTotalWeight(Labour labour, LabourViewHolder holder) {
         labour.setTotalWeight(labour.calculateTotalWeight());
         holder.totalWeightTextView.setText(String.valueOf(labour.getTotalWeight())); // Update UI with the total weight
-    }
-
-    private void saveLabourToFirebase(Labour labour) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("labours").child(userId);
-
-        // Create a unique key using userId, labour name, and date
-        String labourKey = labour.getName() + "_" + labour.getDate();
-        DatabaseReference currentLabourRef = databaseReference.child(labourKey);
-
-        currentLabourRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().exists()) {
-                    // Update existing labour entry
-                    currentLabourRef.child("weights").setValue(labour.getWeights())
-                            .addOnSuccessListener(aVoid -> {
-                                currentLabourRef.child("totalWeight").setValue(labour.getTotalWeight())
-                                        .addOnSuccessListener(aVoid1 -> {
-                                            Toast.makeText(context, "Labour details updated!", Toast.LENGTH_SHORT).show();
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            Toast.makeText(context, "Failed to update total weight: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        });
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(context, "Failed to update weights: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                } else {
-                    // Create a new labour entry
-                    currentLabourRef.setValue(labour)
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(context, "Labour details saved!", Toast.LENGTH_SHORT).show();
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(context, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                }
-            } else {
-                Toast.makeText(context, "Error checking data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void updateWeightsInFirebase(Labour labour) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("labours").child(userId);
-
-        // Create a unique key using labour name and date
-        String labourKey = labour.getName() + "_" + labour.getDate();
-        DatabaseReference currentLabourRef = databaseReference.child(labourKey);
-
-        // Update the weights field only
-        currentLabourRef.child("weights").setValue(labour.getWeights())
-                .addOnSuccessListener(aVoid -> {
-                    currentLabourRef.child("totalWeight").setValue(labour.getTotalWeight())
-                            .addOnSuccessListener(aVoid1 -> {
-                                Toast.makeText(context, "Weight added and updated in Firebase!", Toast.LENGTH_SHORT).show();
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(context, "Failed to update total weight: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Failed to update weights: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
     }
 }
