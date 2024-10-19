@@ -21,12 +21,16 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
 
     private List<Crop> cropList;
     private OnCropItemClickListener onCropItemClickListener;
+    private OnCropItemLongClickListener onCropItemLongClickListener; // New interface for long clicks
 
     // Constructor
-    public CropAdapter(List<Crop> cropList, OnCropItemClickListener onCropItemClickListener) {
+    // Keep this constructor definition
+    public CropAdapter(List<Crop> cropList, OnCropItemClickListener onCropItemClickListener, OnCropItemLongClickListener onCropItemLongClickListener) {
         this.cropList = cropList;
         this.onCropItemClickListener = onCropItemClickListener;
+        this.onCropItemLongClickListener = onCropItemLongClickListener;
     }
+
 
     @NonNull
     @Override
@@ -41,8 +45,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         holder.cropNameTextView.setText(crop.getCropName());
         holder.cropQuantityTextView.setText(crop.getCropQuantity());
         holder.cropPriceTextView.setText(crop.getCropPrice());
-        holder.cropSellerNameTextView.setText(crop.getSellerName()); // Use seller name instead
-        holder.sellerLocationTextView.setText(crop.getLocation()); // Bind seller location
+        holder.cropSellerNameTextView.setText(crop.getSellerName());
+        holder.sellerLocationTextView.setText(crop.getLocation());
 
         // Load crop image with placeholder
         Picasso.get()
@@ -50,7 +54,14 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
                 .placeholder(R.drawable.sample_crop_image) // Add a placeholder image resource
                 .into(holder.cropImageView);
 
+        // Handle click for crop item
         holder.itemView.setOnClickListener(view -> onCropItemClickListener.onCropClick(crop));
+
+        // Handle long click for crop item
+        holder.itemView.setOnLongClickListener(v -> {
+            onCropItemLongClickListener.onCropLongClick(crop); // Trigger long click event
+            return true; // Indicate that the long click was handled
+        });
 
         // Handle the call button click
         holder.callButton.setOnClickListener(v -> {
@@ -66,6 +77,10 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
 
     public interface OnCropItemClickListener {
         void onCropClick(Crop crop);
+    }
+
+    public interface OnCropItemLongClickListener { // New interface for long clicks
+        void onCropLongClick(Crop crop);
     }
 
     public static class CropViewHolder extends RecyclerView.ViewHolder {

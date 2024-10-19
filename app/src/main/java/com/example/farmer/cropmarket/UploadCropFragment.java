@@ -1,5 +1,6 @@
 package com.example.farmer.cropmarket;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +49,9 @@ public class UploadCropFragment extends Fragment {
 
     private static final String TAG = "UploadCropFragment";
 
+    // Store the dialog reference
+    private Dialog addCropDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,7 +65,11 @@ public class UploadCropFragment extends Fragment {
         cropAdapter = new CropAdapter(cropList, crop -> {
             // Handle crop click here (e.g., show details or allow editing)
             Toast.makeText(getContext(), "Clicked on: " + crop.getCropName(), Toast.LENGTH_SHORT).show();
+        }, crop -> {
+            // Handle crop long click here
+            showDeleteConfirmationDialog(crop);
         });
+
         cropRecyclerView.setAdapter(cropAdapter);
 
         // Initialize Firebase Database and Storage
@@ -83,17 +88,18 @@ public class UploadCropFragment extends Fragment {
     }
 
     private void showAddCropDialog() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.dialog_add_crop);
+        // Create the dialog instance
+        addCropDialog = new Dialog(getContext());
+        addCropDialog.setContentView(R.layout.dialog_add_crop);
 
-        EditText dialogCropNameEditText = dialog.findViewById(R.id.cropNameEditText);
-        EditText dialogCropQuantityEditText = dialog.findViewById(R.id.cropQuantityEditText);
-        EditText dialogCropPriceEditText = dialog.findViewById(R.id.cropPriceEditText);
-        EditText dialogLocationEditText = dialog.findViewById(R.id.locationTextView);
-        EditText dialogContactEditText = dialog.findViewById(R.id.contact);
-        Button dialogUploadCropButton = dialog.findViewById(R.id.addCropButton);
-        ImageView cropImageView = dialog.findViewById(R.id.cropImageView);
-        EditText sellerName = dialog.findViewById(R.id.SellerName);
+        EditText dialogCropNameEditText = addCropDialog.findViewById(R.id.cropNameEditText);
+        EditText dialogCropQuantityEditText = addCropDialog.findViewById(R.id.cropQuantityEditText);
+        EditText dialogCropPriceEditText = addCropDialog.findViewById(R.id.cropPriceEditText);
+        EditText dialogLocationEditText = addCropDialog.findViewById(R.id.locationTextView);
+        EditText dialogContactEditText = addCropDialog.findViewById(R.id.contact);
+        EditText sellerName = addCropDialog.findViewById(R.id.SellerName);
+        Button dialogUploadCropButton = addCropDialog.findViewById(R.id.addCropButton);
+        ImageView cropImageView = addCropDialog.findViewById(R.id.cropImageView);
 
         // Image picker when clicking on ImageView
         cropImageView.setOnClickListener(v -> openImagePicker());
@@ -114,11 +120,10 @@ public class UploadCropFragment extends Fragment {
 
             // Upload the crop image and details to Firebase
             uploadCropToFirebase(cropName, cropQuantity, cropPrice, location, contactNumber, seller);
-
-            dialog.dismiss(); // Consider moving this inside the upload completion callback
+            addCropDialog.dismiss(); // Close dialog after initiating the upload
         });
 
-        dialog.show();
+        addCropDialog.show(); // Show the dialog
     }
 
     private void openImagePicker() {
@@ -133,10 +138,18 @@ public class UploadCropFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();  // Get the image URI from device storage
+
+            // Set the selected image in the ImageView of the dialog
+            if (addCropDialog != null) {
+                ImageView cropImageView = addCropDialog.findViewById(R.id.cropImageView);
+                if (cropImageView != null) {
+                    cropImageView.setImageURI(imageUri);
+                }
+            }
         }
     }
 
-    private void uploadCropToFirebase(String cropName, String cropQuantity, String cropPrice, String location, String contactNumber,String name) {
+    private void uploadCropToFirebase(String cropName, String cropQuantity, String cropPrice, String location, String contactNumber, String seller) {
         if (imageUri != null) {
             StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
 
@@ -146,22 +159,20 @@ public class UploadCropFragment extends Fragment {
                     String imageUrl = uri.toString();
 
                     // Create a new Crop object with the image URL
-                    Crop newCrop = new Crop(cropName, cropQuantity, cropPrice, location, contactNumber,name, imageUrl);  // Updated constructor
+                    String cropId = cropReference.push().getKey(); // Get the new unique ID
+                    Crop newCrop = new Crop(cropId, cropName, cropQuantity, cropPrice, location, contactNumber, seller, imageUrl); // Updated constructor
 
                     // Upload the crop details along with the image URL to Firebase
-                    String cropId = cropReference.push().getKey();
-                    if (cropId != null) {
-                        cropReference.child(cropId).setValue(newCrop)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(getContext(), "Crop uploaded successfully!", Toast.LENGTH_SHORT).show();
-                                    cropList.add(newCrop);
-                                    cropAdapter.notifyItemInserted(cropList.size() - 1);
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(getContext(), "Failed to upload crop", Toast.LENGTH_SHORT).show();
-                                    Log.e(TAG, "Failed to upload crop: ", e);
-                                });
-                    }
+                    cropReference.child(cropId).setValue(newCrop)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(getContext(), "Crop uploaded successfully!", Toast.LENGTH_SHORT).show();
+                                cropList.add(newCrop);
+                                cropAdapter.notifyItemInserted(cropList.size() - 1);
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), "Failed to upload crop", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "Failed to upload crop: ", e);
+                            });
                 });
             }).addOnFailureListener(e -> {
                 Toast.makeText(getContext(), "Failed to upload image", Toast.LENGTH_SHORT).show();
@@ -174,14 +185,15 @@ public class UploadCropFragment extends Fragment {
         cropReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                cropList.clear();
+                cropList.clear(); // Clear the list to avoid duplicates
                 for (DataSnapshot cropSnapshot : dataSnapshot.getChildren()) {
                     Crop crop = cropSnapshot.getValue(Crop.class);
                     if (crop != null) {
+                        crop.setCropId(cropSnapshot.getKey()); // Set crop ID to match Firebase key
                         cropList.add(crop);
                     }
                 }
-                cropAdapter.notifyDataSetChanged();
+                cropAdapter.notifyDataSetChanged(); // Notify adapter about data change
             }
 
             @Override
@@ -190,5 +202,27 @@ public class UploadCropFragment extends Fragment {
                 Log.e(TAG, "Failed to load crops: ", databaseError.toException());
             }
         });
+    }
+
+    private void showDeleteConfirmationDialog(Crop crop) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Delete Crop")
+                .setMessage("Are you sure you want to delete this crop?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteCrop(crop))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void deleteCrop(Crop crop) {
+        cropReference.child(crop.getCropId()).removeValue() // Use the correct crop ID for deletion
+                .addOnSuccessListener(aVoid -> {
+                    cropList.remove(crop);
+                    cropAdapter.notifyDataSetChanged(); // Notify adapter about the deletion
+                    Toast.makeText(getContext(), "Crop deleted successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to delete crop", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Failed to delete crop: ", e);
+                });
     }
 }

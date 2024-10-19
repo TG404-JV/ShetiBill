@@ -2,6 +2,7 @@ package com.example.farmer.cropmarket;
 
 public class Crop {
 
+    private String cropId; // New field for crop ID
     private String cropName;
     private String cropQuantity;
     private String cropPrice;
@@ -15,8 +16,9 @@ public class Crop {
         // Default constructor required for calls to DataSnapshot.getValue(Crop.class)
     }
 
-    // Constructor with parameters
-    public Crop(String cropName, String cropQuantity, String cropPrice, String location, String contactNumber, String sellerName, String imageUrl) {
+    // Constructor with parameters including cropId
+    public Crop(String cropId, String cropName, String cropQuantity, String cropPrice, String location, String contactNumber, String sellerName, String imageUrl) {
+        this.cropId = cropId; // Assign cropId
         this.cropName = cropName;
         this.cropQuantity = cropQuantity;
         this.cropPrice = cropPrice;
@@ -24,6 +26,15 @@ public class Crop {
         this.contactNumber = contactNumber; // Assign contact number
         this.imageUrl = imageUrl;
         this.sellerName = sellerName; // Assign seller name
+    }
+
+    // Getter and setter for cropId
+    public String getCropId() {
+        return cropId;
+    }
+
+    public void setCropId(String cropId) {
+        this.cropId = cropId;
     }
 
     // Getters
@@ -88,7 +99,8 @@ public class Crop {
     @Override
     public String toString() {
         return "Crop{" +
-                "cropName='" + cropName + '\'' +
+                "cropId='" + cropId + '\'' +  // Include cropId in toString
+                ", cropName='" + cropName + '\'' +
                 ", cropQuantity='" + cropQuantity + '\'' +
                 ", cropPrice='" + cropPrice + '\'' +
                 ", location='" + location + '\'' +
