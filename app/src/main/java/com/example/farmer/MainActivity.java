@@ -85,8 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Initialize RecyclerView
         setupRecyclerView();
 
-        // Search functionality
-        setupSearchFunctionality();
 
         // Load default fragment (Home)
         if (savedInstanceState == null) {
@@ -138,33 +136,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SearchHelper.initializeDummyData(dataList);
     }
 
-    private void setupSearchFunctionality() {
-        ImageButton searchIcon = findViewById(R.id.search_icon);
-        SearchView searchView = findViewById(R.id.search_view);
-
-        searchIcon.setOnClickListener(v -> {
-            if (searchView.getVisibility() == View.INVISIBLE) {
-                searchView.setVisibility(View.VISIBLE);
-            } else {
-                searchView.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        // Handle search input
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                SearchHelper.performSearch(query, dataList, adapter);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                SearchHelper.performSearch(newText, dataList, adapter);
-                return true;
-            }
-        });
-    }
 
     private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)

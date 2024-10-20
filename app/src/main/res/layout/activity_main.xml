@@ -13,32 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Search Icon -->
-        <ImageButton
-            android:id="@+id/search_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@id/logo"
-            android:layout_marginEnd="30dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_search_img" />
 
-        <!-- Search Bar (Initially Hidden) -->
-        <SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_toLeftOf="@+id/logo"
-            android:layout_toRightOf="@id/app_name"
-            android:visibility="invisible"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:queryHint="Search..."
-        android:iconifiedByDefault="false">
-
-    </SearchView>
 
     <!-- Top Section with Logo -->
     <ImageButton
@@ -82,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:layout_below="@id/search_icon"
+            android:layout_below="@id/logo"
             android:layout_marginTop="10dp"
             android:scrollbars="vertical" />
 
@@ -91,7 +66,7 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_view"> <!-- Align RecyclerView below the search bar -->
+        android:layout_below="@id/logo"> <!-- Align RecyclerView below the search bar -->
 
         <!-- RecyclerView for search results -->
 

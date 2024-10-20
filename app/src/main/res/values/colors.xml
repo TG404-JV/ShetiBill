@@ -166,4 +166,16 @@
     <color name="controlNormal">#33433d</color>     <!-- Control color (dark green/gray) -->
     <color name="white">#FFFFFF</color>             <!-- White for contrast where needed -->
 
+    <!-- Background Colors -->
+    <color name="light_background">#F7F8FA</color>  <!-- Very light gray background -->
+
+
+    <!-- Border and Divider Colors -->
+    <color name="divider_color">#D0D0D0</color>  <!-- Light gray for borders and dividers -->
+
+    <!-- Button Colors -->
+    <color name="fab_color">#FF5722</color>  <!-- Bright orange for FloatingActionButton -->
+    <color name="fab_color_hover">#E64A19</color>  <!-- Darker orange for pressed FloatingActionButton -->
+
+
 </resources>

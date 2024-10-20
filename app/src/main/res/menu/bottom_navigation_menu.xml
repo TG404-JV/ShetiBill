@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_farm"
-        android:icon="@drawable/ic_farm_tab_img"
+        android:icon="@drawable/nav_bottom_home"
         android:title="Home" />
     <item
         android:id="@+id/navigation_fertilizer"
-        android:icon="@drawable/ic_fertilizer_tab_img"
+        android:icon="@drawable/nav_bottom_fertilizer"
         android:title="Fertilizer" />
     <item
         android:id="@+id/navigation_weather"
-        android:icon="@drawable/ic_weather_tab_img"
+        android:icon="@drawable/nav_bottom_weather"
         android:title="Weather" />
 </menu>
