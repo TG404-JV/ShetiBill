@@ -11,11 +11,14 @@ public class Labour {
     private String date; // Stored as String in "dd/MM/yyyy" format
     private List<Integer> weights;
     private int totalWeight;
+    private String cropName,workingType;
 
     // Constructor
-    public Labour(String name, String date) {
+    public Labour(String name, String date,String cropName,String workingType) {
         this.name = name;
         this.date = date;
+        this.cropName=cropName;
+        this.workingType=workingType;
         this.weights = new ArrayList<>(); // Initialize weights list
         this.totalWeight = calculateTotalWeight(); // Initialize total weight based on weights
     }
@@ -73,5 +76,21 @@ public class Labour {
             e.printStackTrace(); // Log the exception
             return null; // Return null if parsing fails
         }
+    }
+
+    public String getCropName() {
+        return cropName;
+    }
+
+    public void setCropName(String cropName) {
+        this.cropName = cropName;
+    }
+
+    public String getWorkingType() {
+        return workingType;
+    }
+
+    public void setWorkingType(String workingType) {
+        this.workingType = workingType;
     }
 }

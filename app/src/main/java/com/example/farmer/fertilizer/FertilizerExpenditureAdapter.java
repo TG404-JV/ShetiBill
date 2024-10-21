@@ -128,4 +128,3 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
         }
     }
 }
-

@@ -9,4 +9,10 @@
         <item name="android:colorControlNormal">@color/controlNormal</item> <!-- Control color -->
         <item name="android:windowBackground">@color/backgroundColor</item> <!-- Set window background -->
     </style>
+
+
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@android:color/transparent</item> <!-- Transparent background -->
+        <item name="android:windowBackground">@drawable/rounded_corner_background</item> <!-- Your rounded corner background -->
+    </style>
 </resources>

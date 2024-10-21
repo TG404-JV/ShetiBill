@@ -14,11 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/rounded_nav_background"
-        android:animateLayoutChanges="true"
-        app:itemIconPadding="5dp"
-        app:itemIconSize="25dp"
-        app:labelVisibilityMode="selected"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation_menu" />
+    app:itemIconSize="25dp"
+    app:labelVisibilityMode="labeled"
+    app:itemIconTint="@color/nav_item_color"
+    app:itemTextColor="@color/nav_item_color"
+    app:itemRippleColor="@color/nav_ripple_color"
+    app:menu="@menu/bottom_navigation_menu"
+    android:layout_gravity="bottom"
+    />
+
 
 </RelativeLayout>

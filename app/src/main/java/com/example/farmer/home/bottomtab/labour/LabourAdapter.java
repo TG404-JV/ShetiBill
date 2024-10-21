@@ -57,6 +57,8 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         Labour labour = labourList.get(position);
         holder.labourNameTextView.setText(labour.getName());
         holder.workDateTextView.setText(labour.getDate());
+        holder.CropName.setText(labour.getCropName());
+        holder.laborWorkingType.setText(labour.getWorkingType());
         holder.LabourModificationMenu.setVisibility(View.GONE);
 
         holder.labourNameTextView.setOnClickListener(v -> {
@@ -97,11 +99,29 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         holder.copyBtn.setOnClickListener(v -> copyLabourDetailsToClipboard(labour));
         holder.editBtn.setOnClickListener(v -> showEditDialog(labour, position));
         holder.deleteBtn.setOnClickListener(v -> {
-            labourList.remove(position);
-            notifyItemRemoved(position);
-            Toast.makeText(context, "Labour details deleted", Toast.LENGTH_SHORT).show();
-            onLabourListChanged.run(); // Call the callback to update the main list
+            if (position >= 0 && position < labourList.size()) {
+                // Find the labour in the original list to delete
+                Labour labourToRemove = labourList.get(position);
+
+                // Remove the labour from both lists
+                originalLabourList.remove(labourToRemove); // Remove from the original list
+                labourList.remove(position); // Remove from the displayed list
+
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, labourList.size()); // Update the range after removal
+
+                // Save the updated list to SharedPreferences
+                saveLabourData();
+                onLabourListChanged.run(); // Update the main list if needed
+
+                if (labourList.isEmpty()) {
+                    notifyDataSetChanged(); // Ensure all views are cleared when the list is empty
+                }
+
+                Toast.makeText(context, "Labour details deleted", Toast.LENGTH_SHORT).show();
+            }
         });
+
 
         updateTotalWeight(labour, holder); // Update the total weight dynamically
     }
@@ -112,7 +132,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
     }
 
     static class LabourViewHolder extends RecyclerView.ViewHolder {
-        TextView labourNameTextView, workDateTextView, totalWeightTextView, laborWorkingType;
+        TextView labourNameTextView, workDateTextView, totalWeightTextView, laborWorkingType, CropName;
         RecyclerView weightRecyclerView;
         LinearLayout LabourModificationMenu;
         ImageButton addWeightBtn, subWeightBtn, shareBtn, copyBtn, editBtn, deleteBtn;
@@ -131,6 +151,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
             LabourModificationMenu = itemView.findViewById(R.id.menuTask);
             laborWorkingType = itemView.findViewById(R.id.laborWorkingType);
+            CropName = itemView.findViewById(R.id.CropName);
         }
     }
 

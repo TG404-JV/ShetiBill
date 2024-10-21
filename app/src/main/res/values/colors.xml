@@ -177,5 +177,14 @@
     <color name="fab_color">#FF5722</color>  <!-- Bright orange for FloatingActionButton -->
     <color name="fab_color_hover">#E64A19</color>  <!-- Darker orange for pressed FloatingActionButton -->
 
+    <color name="background_light">#FAFAFA</color>
+    <color name="colorGray">#808080</color>
+    <color name="primaryTextColor">#212121</color> <!-- Example color: dark gray -->
+    <color name="secondaryTextColor">#757575</color> <!-- Example color: medium gray -->
+    <color name="nav_item_active">#000000</color> <!-- Active state (black) -->
+    <color name="nav_item_inactive">#808080</color> <!-- Inactive state (gray) -->
+    <color name="nav_ripple_color">#FFCCBC</color> <!-- Optional ripple color -->
+
+
 
 </resources>

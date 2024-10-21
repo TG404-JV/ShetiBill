@@ -13,13 +13,15 @@ import java.util.List;
 
 public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.WeightViewHolder> {
 
-    private final List<Integer> weightList;
+    private List<Integer> weightList;
     private final OnWeightClickListener listener;
 
+    // Interface to handle click events
     public interface OnWeightClickListener {
         void onWeightClick(int weight);
     }
 
+    // Constructor
     public WeightAdapter(List<Integer> weightList, OnWeightClickListener listener) {
         this.weightList = weightList;
         this.listener = listener;
@@ -43,6 +45,12 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.WeightView
     @Override
     public int getItemCount() {
         return weightList.size();
+    }
+
+    // Method to update the weight list dynamically
+    public void updateWeights(List<Integer> newWeightList) {
+        this.weightList = newWeightList;  // Update internal weight list
+        notifyDataSetChanged();  // Notify the adapter that the data has changed
     }
 
     static class WeightViewHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,7 @@ package com.example.farmer.home.bottomtab;
 
 import android.app.DatePickerDialog;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +28,7 @@ import com.example.farmer.R;
 import com.example.farmer.home.bottomtab.labour.Labour;
 import com.example.farmer.home.bottomtab.labour.LabourAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -200,30 +205,46 @@ public class MainFarmExpenditureFragment extends Fragment {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_labour, null);
 
-        EditText labourNameEditText = dialogView.findViewById(R.id.labourNameEditText);
-        TextView labourDateTextView = dialogView.findViewById(R.id.labourDateTextView);
-        Button addButton = dialogView.findViewById(R.id.add_button);
-        Button cancelButton = dialogView.findViewById(R.id.cancel_button);
+        TextInputEditText labourNameEditText = dialogView.findViewById(R.id.labourNameEditText);
+        TextInputEditText labourDateTextView = dialogView.findViewById(R.id.workDateEditText);
+        Button addButton = dialogView.findViewById(R.id.saveButton);
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+        TextInputEditText cropNameEditText = dialogView.findViewById(R.id.cropNameEditText);
+        RadioGroup workingTypeRadioGroup = dialogView.findViewById(R.id.workingTypeRadioGroup);
 
         labourDateTextView.setOnClickListener(v -> showDatePickerDialog(labourDateTextView));
 
-        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .setCancelable(false)
                 .create();
 
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
         addButton.setOnClickListener(v -> {
             String labourName = labourNameEditText.getText().toString();
             String labourDate = labourDateTextView.getText().toString();
+            String cropName = cropNameEditText.getText().toString();
 
-            if (!labourName.isEmpty() && !labourDate.isEmpty()) {
-                Labour newLabour = new Labour(labourName, labourDate);
-                labourList.add(newLabour);
-                saveLabourData();
-                filterLabour(searchBar.getText().toString()); // Re-filter based on search term
-                dialog.dismiss();
+            // Get the selected RadioButton
+            int selectedId = workingTypeRadioGroup.getCheckedRadioButtonId();
+
+            if (selectedId != -1) { // Ensure a RadioButton is selected
+                RadioButton selectedBtn = dialogView.findViewById(selectedId);
+                String workingType = selectedBtn.getText().toString();
+
+                if (!labourName.isEmpty() && !labourDate.isEmpty()) {
+                    Labour newLabour = new Labour(labourName, labourDate, cropName, workingType);
+                    labourList.add(newLabour);
+                    saveLabourData();
+                    filterLabour(searchBar.getText().toString()); // Re-filter based on search term
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Please enter name and date", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(getContext(), "Please enter name and date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please select a working type", Toast.LENGTH_SHORT).show();
             }
         });
 

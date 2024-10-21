@@ -1,92 +1,176 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_horizontal"
-    app:cardCornerRadius="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="16dp"
+    android:background="@drawable/rounded_corner_background"
+    android:layout_margin="5dp"
+    android:fitsSystemWindows="true"
+    android:elevation="4dp">
 
-    <!--This Is A Also Dialogue Box Which Is Created To Add The Labour Details-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Labour Details"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="16dp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Labour Name:"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Labour Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/labourNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work Date:"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select Work Date">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/workDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crop Name:"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Crop Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cropNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal">
-        <ImageView
-            android:id="@+id/labour_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:contentDescription="Labour Icon"
-            android:src="@drawable/ic_farmer_profile_img" />
+        android:layout_marginTop="16dp">
 
-        <!-- Title Text -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+
+
+
         <TextView
-            android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="Add Labour Details"
-            android:textColor="@color/purple_500"
-            android:textSize="18sp" />
+            android:text="Working Type:"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark" />
 
-        <!-- Name Input -->
-        <EditText
-            android:id="@+id/labourNameEditText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/purple_500"
-            android:hint="Enter Labour Name"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/black" />
-
-        <!-- Date Picker Input -->
-        <TextView
-            android:id="@+id/labourDateTextView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/textview_background"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:hint="Select Date"
-            android:padding="12dp"
-            android:textColor="@android:color/black" />
-
-        <!-- Button Container -->
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/workingTypeRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <!-- Cancel Button -->
-            <Button
-                android:id="@+id/cancel_button"
+            <RadioButton
+                android:id="@+id/dailyBasisRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/button_background"
-                android:text="Cancel"
-                android:textColor="@android:color/white" />
+                android:text="Daily Basis"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="8dp" />
 
-            <!-- Add Button -->
-            <Button
-                android:id="@+id/add_button"
+            <RadioButton
+                android:id="@+id/weeklyBasisRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
-                android:text="Add"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+                android:text="Weekly Basis"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="8dp" />
+
+
+        </RadioGroup>
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:elevation="4dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:text="Cancel"
+            android:backgroundTint="@color/colorGray"
+            android:elevation="4dp"
+            android:padding="12dp" />
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
