@@ -1,215 +1,192 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10sp">
+    android:layout_marginBottom="10dp"
+    android:background="#F0F0F0"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <!-- Total Weight Section -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="20dp">
+        android:background="#F0F0F0"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#50C878"
-            android:padding="10sp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Total Weight Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/appLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle_background"
+                android:foregroundTintMode="multiply"
+                android:src="@drawable/ic_farmer_profile_img" />
+
+            <TextView
+                android:id="@+id/CropName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:gravity="start">
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="Labor Expenditure"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ic_poppins_bold"
-                    android:text="Total Weight: "
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/totalWeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ic_poppins_regular"
-                    android:text="100kg"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <!-- Date Section -->
-            <LinearLayout
-                android:id="@+id/Date"
+            <TextView
+                android:id="@+id/laborWorkingType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:text="Daily"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:fontFamily="@font/ic_poppins_bold"
-                    android:textColor="@color/blue_gray_300"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/divider_color" />
 
-                <TextView
-                    android:id="@+id/WorkDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ic_poppins_regular"
-                    android:text="19/09/2024"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/labourDetail"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Date"
-                android:gravity="center_vertical">
+                android:text="Total Weight:"
+                android:textSize="16sp" />
 
-                <!-- Labor Name Section -->
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ic_oval_shape"
-                    android:src="@drawable/ic_farmer_profile_img" />
+            <TextView
+                android:id="@+id/totalWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100kg"
+                android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@color/divider_color" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ic_poppins_bold"
-                        android:text="Name: "
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Date:"
+                android:textAlignment="viewEnd"
+                android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/LabourName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ic_poppins_regular"
-                        android:text="Tejas Kale"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/workDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19/09/2024"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-            <!-- Weight Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Labor Name:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/laborName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Tejas Kale"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AddWeightRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/menuTask">
             <LinearLayout
-                android:id="@+id/WeightDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/labourDetail"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/Weighttxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ic_poppins_bold"
-                    android:text="Weight: "
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageButton
-                    android:id="@+id/subWeightBtn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="Add Weight"
-                    android:src="@drawable/ic_cancel_circle_btn"
-                    android:background="#50C878"
-                    app:tint="@color/white" />
-
 
                 <ImageButton
                     android:id="@+id/addWeightBtn"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:contentDescription="Add Weight"
-                    android:background="#50C878"
-                    android:src="@drawable/ic_add_btn"
-                    app:tint="@color/white" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_add_btn" />
+
+                <ImageButton
+                    android:id="@+id/removeWeightBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_remove" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/AddWeightRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/WeightDetails"
-                android:scrollbars="horizontal" />
-
             <LinearLayout
-                android:id="@+id/menuTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/AddWeightRecyclerView"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="20sp"
-                android:visibility="visible">
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/CopyBtn"
+                    android:id="@+id/copyBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30sp"
-                    android:background="#50C878"
-                    android:src="@drawable/ic_copy_btn"
-                    app:tint="@color/white" />
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_copy_btn" />
 
                 <ImageButton
-                    android:id="@+id/ShareBtn"
+                    android:id="@+id/shareBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30sp"
-                    android:background="#50C878"
-                    android:src="@drawable/ic_share_btn"
-                    app:tint="@color/white" />
+                    android:layout_marginStart="16dp"
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_share_btn" />
 
                 <ImageButton
-                    android:id="@+id/EditBtn"
+                    android:id="@+id/editBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30sp"
-                    android:background="#50C878"
-                    app:tint="@color/white"
-                    android:src="@drawable/ic_dark_edit_btn" />
+                    android:layout_marginStart="16dp"
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_edit_btn" />
 
                 <ImageButton
                     android:id="@+id/deleteBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30sp"
-                    android:background="#50C878"
-                    android:src="@drawable/ic_delete_btn"
-                    app:tint="@color/white" />
-
+                    android:layout_marginStart="16dp"
+                    android:background="#F0F0F0"
+                    android:src="@drawable/ic_delete_btn" />
             </LinearLayout>
-        </RelativeLayout>
-
-
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

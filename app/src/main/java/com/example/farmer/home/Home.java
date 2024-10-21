@@ -45,6 +45,9 @@ public class Home extends Fragment {
             } else if (item.getItemId() == R.id.navigation_weather) {
                 viewPager.setCurrentItem(2);
                 return true;
+            } else if (item.getItemId() == R.id.Account) {
+                viewPager.setCurrentItem(3);
+                return true;
             }
             return false;
         });

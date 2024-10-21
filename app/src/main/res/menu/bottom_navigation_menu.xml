@@ -12,4 +12,9 @@
         android:id="@+id/navigation_weather"
         android:icon="@drawable/nav_bottom_weather"
         android:title="Weather" />
+
+    <item
+        android:id="@+id/Account"
+        android:icon="@drawable/nav_bottom_account"
+        android:title="Account" />
 </menu>

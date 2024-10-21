@@ -56,14 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private ImageButton menu;
-    private RecyclerView recyclerView;
     private MyAdapter adapter;
     private List<String> dataList = new ArrayList<>(); // Sample data list for search
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
     private ImageView profileImageView; // ImageView in navheader (ID: pro)
 
-    ImageView userlogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Setup header view for user data
         FirebaseHelper.setupHeaderView(this, findViewById(R.id.navigation_view));
 
-        // Initialize RecyclerView
-        setupRecyclerView();
 
 
         // Load default fragment (Home)
@@ -100,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navigation_view);
         menu = findViewById(R.id.menu);
         profileImageView = navigationView.getHeaderView(0).findViewById(R.id.pro); // 'pro' ImageView in navheader
-        userlogo = findViewById(R.id.logo);  // Assuming this is the ImageButton for user logo
 
         menu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
@@ -118,23 +113,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Set click listener for profile image in navheader to upload a new profile picture
         profileImageView.setOnClickListener(v -> selectProfileImage());
 
-        // Click listener for userlogo to load UserProfileFragment
-        userlogo.setOnClickListener(v -> loadFragment(new UserProfileFragment()));
 
         // Setup login and logout buttons
         setupLoginLogout(navigationView);
     }
 
-    private void setupRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerView); // Ensure this ID matches the one in your layout
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new MyAdapter(new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-
-        // Initialize dummy data for testing search functionality
-        SearchHelper.initializeDummyData(dataList);
-    }
 
 
     private void checkPermissions() {
@@ -157,11 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .circleCrop()
                     .into(profileImageView);
 
-            Glide.with(this)
-                    .load(localFile)
-                    .centerCrop()
-                    .circleCrop()
-                    .into(userlogo);
+
         } else {
             // If the local image doesn't exist, fetch it from Firebase
             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -178,11 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             .circleCrop()
                             .into(profileImageView);
 
-                    Glide.with(this)
-                            .load(uri)
-                            .centerCrop()
-                            .circleCrop()
-                            .into(userlogo);
 
                     // Optionally, save this image locally for future use
                     saveImageLocally(uri);
@@ -200,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setDefaultProfileImage() {
         // Set the default image if no profile image is available
         profileImageView.setImageResource(R.drawable.ic_farmer_profile_img);
-        userlogo.setImageResource(R.drawable.ic_farmer_profile_img); // Set the same default image for userlogo
     }
 
     private void selectProfileImage() {

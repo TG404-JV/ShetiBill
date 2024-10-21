@@ -31,18 +31,18 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
 
     private final List<Labour> labourList;
     private final Context context;
-    private final List<Labour> originalLabourList; // Keep track of the original list for sorting
-    private final Runnable onLabourListChanged; // Callback for changes in the list
+    private final List<Labour> originalLabourList;
+    private final Runnable onLabourListChanged;
 
-    private static final String PREFERENCE_KEY = "LabourData"; // SharedPreferences key
-    private static final String LABOUR_LIST_KEY = "LabourList"; // Key for saving labour list
+    private static final String PREFERENCE_KEY = "LabourData";
+    private static final String LABOUR_LIST_KEY = "LabourList";
 
     // Constructor
     public LabourAdapter(List<Labour> labourList, Context context, List<Labour> originalLabourList, Runnable onLabourListChanged) {
         this.labourList = labourList;
         this.context = context;
-        this.originalLabourList = originalLabourList; // Initialize the original list
-        this.onLabourListChanged = onLabourListChanged; // Initialize the callback
+        this.originalLabourList = originalLabourList;
+        this.onLabourListChanged = onLabourListChanged;
     }
 
     @NonNull
@@ -57,7 +57,6 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         Labour labour = labourList.get(position);
         holder.labourNameTextView.setText(labour.getName());
         holder.workDateTextView.setText(labour.getDate());
-
         holder.LabourModificationMenu.setVisibility(View.GONE);
 
         holder.labourNameTextView.setOnClickListener(v -> {
@@ -78,6 +77,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         });
 
         WeightAdapter weightAdapter = new WeightAdapter(labour.getWeights(), weight -> {
+            // Handle weight changes here if needed
         });
 
         holder.weightRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -112,24 +112,25 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
     }
 
     static class LabourViewHolder extends RecyclerView.ViewHolder {
-        TextView labourNameTextView, workDateTextView, totalWeightTextView;
+        TextView labourNameTextView, workDateTextView, totalWeightTextView, laborWorkingType;
         RecyclerView weightRecyclerView;
         LinearLayout LabourModificationMenu;
         ImageButton addWeightBtn, subWeightBtn, shareBtn, copyBtn, editBtn, deleteBtn;
 
         LabourViewHolder(@NonNull View itemView) {
             super(itemView);
-            labourNameTextView = itemView.findViewById(R.id.LabourName);
-            workDateTextView = itemView.findViewById(R.id.WorkDate);
+            labourNameTextView = itemView.findViewById(R.id.laborName);
+            workDateTextView = itemView.findViewById(R.id.workDate);
             totalWeightTextView = itemView.findViewById(R.id.totalWeight);
             weightRecyclerView = itemView.findViewById(R.id.AddWeightRecyclerView);
             addWeightBtn = itemView.findViewById(R.id.addWeightBtn);
-            subWeightBtn = itemView.findViewById(R.id.subWeightBtn);
-            shareBtn = itemView.findViewById(R.id.ShareBtn);
-            copyBtn = itemView.findViewById(R.id.CopyBtn);
-            editBtn = itemView.findViewById(R.id.EditBtn);
+            subWeightBtn = itemView.findViewById(R.id.removeWeightBtn);
+            shareBtn = itemView.findViewById(R.id.shareBtn);
+            copyBtn = itemView.findViewById(R.id.copyBtn);
+            editBtn = itemView.findViewById(R.id.editBtn);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
             LabourModificationMenu = itemView.findViewById(R.id.menuTask);
+            laborWorkingType = itemView.findViewById(R.id.laborWorkingType);
         }
     }
 
@@ -214,14 +215,18 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
                     labour.setName(editName.getText().toString());
                     labour.setDate(editDate.getText().toString());
                     notifyItemChanged(position);
-                    saveLabourData(); // Save updated data to SharedPreferences
+                    saveLabourData(); // Save updated details to SharedPreferences
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
     }
 
+    // Update the total weight displayed
     private void updateTotalWeight(Labour labour, LabourViewHolder holder) {
-        labour.setTotalWeight(labour.calculateTotalWeight());
-        holder.totalWeightTextView.setText(String.valueOf(labour.getTotalWeight())); // Update UI with the total weight
+        int totalWeight = 0;
+        for (int weight : labour.getWeights()) {
+            totalWeight += weight;
+        }
+        holder.totalWeightTextView.setText("Total: " + totalWeight);
     }
 }

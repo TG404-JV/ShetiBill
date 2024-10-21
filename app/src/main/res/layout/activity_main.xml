@@ -15,18 +15,7 @@
 
 
 
-    <!-- Top Section with Logo -->
-    <ImageButton
-        android:id="@+id/logo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="5dp"
-        android:scaleType="centerCrop"
-        android:clickable="true"
-        android:background="@drawable/ic_oval_shape"
-        android:src="@drawable/ic_farmer_profile_img" />
+
 
     <!-- Menu Button -->
     <ImageButton
@@ -52,23 +41,15 @@
         android:textSize="20sp" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_below="@id/logo"
-            android:layout_marginTop="10dp"
-            android:scrollbars="vertical" />
+
 
     <!-- RecyclerView and Fragment Container -->
     <RelativeLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo"> <!-- Align RecyclerView below the search bar -->
+        android:layout_below="@id/app_name"> <!-- Align RecyclerView below the search bar -->
 
-        <!-- RecyclerView for search results -->
 
 
         <!-- FrameLayout for fragment pages -->

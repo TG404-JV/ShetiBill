@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/rounded_nav_background"
-        android:elevation="8dp"
+        android:animateLayoutChanges="true"
         app:itemIconPadding="5dp"
         app:itemIconSize="25dp"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="selected"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu" />
 
