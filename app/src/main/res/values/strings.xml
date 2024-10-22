@@ -1,54 +1,154 @@
 <resources>
-    <string name="app_name">Farmer</string>
+    <string name="app_name" translatable="false">Farmer</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="create_account_title">Create Account\n</string>
-    <string name="first_name">First Name</string>
-    <string name="password">Password\n</string>
-    <string name="create_account">Create Account\n</string>
-    <string name="last_name">last name\n</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="create_account_title" translatable="false">Create Account\</string>
+    <string name="first_name" translatable="false">First Name</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="create_account" translatable="false">Create Account</string>
+    <string name="last_name" translatable="false">last name</string>
 
     <!-- App Logo Description -->
-    <string name="app_logo">App Logo</string>
+    <string name="app_logo" translatable="false">App Logo</string>
 
     <!-- Create Account Screen Title -->
 
     <!-- Input Field Hints -->
 
-    <string name="email">Email Address</string>
-    <string name="mobile_no">Mobile Number</string>
-    <string name="dob">Date of Birth</string>
-    <string name="farm_size">Farm Size (in acres)</string>
+    <string name="email" translatable="false">Email Address</string>
+    <string name="mobile_no" translatable="false">Mobile Number</string>
+    <string name="dob" translatable="false">Date of Birth</string>
+    <string name="farm_size" translatable="false">Farm Size (in acres)</string>
 
     <!-- Buttons and Text -->
-    <string name="log_in">Log In</string>
-    <string name="already_have_account">Already have an account? Log in</string>
+    <string name="log_in" translatable="false">Log In</string>
+    <string name="already_have_account" translatable="false">Already have an account? Log in</string>
 
     <!-- Error Messages -->
-    <string name="error_empty_field">This field cannot be empty</string>
-    <string name="error_invalid_email">Please enter a valid email address</string>
-    <string name="error_password_short">Password must be at least 6 characters long</string>
-    <string name="error_invalid_mobile">Please enter a valid mobile number</string>
+    <string name="error_empty_field" translatable="false">This field cannot be empty</string>
+    <string name="error_invalid_email" translatable="false">Please enter a valid email address</string>
+    <string name="error_password_short" translatable="false">Password must be at least 6 characters long</string>
+    <string name="error_invalid_mobile" translatable="false">Please enter a valid mobile number</string>
     <string name="mic_desc" translatable="false">mic for search</string>
-    <string name="day">day</string>
-    <string name="pressure">PRESSURE</string>
-    <string name="wind">WIND</string>
-    <string name="humidity">HUMIDITY</string>
-    <string name="enter_city_name">ENTER CITY NAME</string>
-    <string name="updated_at">UPDATED AT</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
-    <string name="wednesday">Wednesday</string>
-    <string name="thursday">Thursday</string>
-    <string name="friday">Friday</string>
-    <string name="saturday">Saturday</string>
-    <string name="sunday">Sunday</string>
-    <string name="search_hint">Search</string>
-    <string name="copy">copy</string>
-    <string name="share">Share</string>
-    <string name="edit">edit</string>
+    <string name="day" translatable="false">day</string>
+    <string name="pressure" translatable="false">PRESSURE</string>
+    <string name="wind" translatable="false">WIND</string>
+    <string name="humidity" translatable="false">HUMIDITY</string>
+    <string name="enter_city_name" translatable="false">ENTER CITY NAME</string>
+    <string name="updated_at" translatable="false">UPDATED AT</string>
+    <string name="monday" translatable="false">Monday</string>
+    <string name="tuesday" translatable="false">Tuesday</string>
+    <string name="wednesday" translatable="false">Wednesday</string>
+    <string name="thursday" translatable="false">Thursday</string>
+    <string name="friday" translatable="false">Friday</string>
+    <string name="saturday" translatable="false">Saturday</string>
+    <string name="sunday" translatable="false">Sunday</string>
+    <string name="search_hint" translatable="false">Search</string>
+    <string name="copy" translatable="false">copy</string>
+    <string name="share" translatable="false">Share</string>
+    <string name="edit" translatable="false">edit</string>
+    <string name="skip" translatable="false">Skip</string>
+    <string name="create_your_account" translatable="false">Create Your Account</string>
+    <string name="full_name" translatable="false">Full Name</string>
+    <string name="mobile_number" translatable="false">Mobile Number</string>
+    <string name="mail_id" translatable="false">Email</string>
+    <string name="forgot_password" translatable="false">Forgot Password?</string>
+    <string name="don_t_have_an_account_create_one" translatable="false">Don\'t have an account? Create one</string>
+    <string name="Title" translatable="false">Empowering Farmers, Simplifying Bills</string>
+    <string name="bot_response" translatable="false">Bot message here</string>
+    <string name="crop_image" translatable="false">Crop Image</string>
+    <string name="cabbages" translatable="false">Cabbages</string>
+    <string name="_20_quintal" translatable="false">20 Quintal</string>
+    <string name="space" translatable="false">|</string>
+    <string name="_280_quintal" translatable="false">$280/Quintal</string>
+    <string name="developer_name" translatable="false">Tejas Kale</string>
+    <string name="developer_adderess" translatable="false">Khupta, CHH. Sambhajinagar Maharshtra</string>
+    <string name="call_button" translatable="false">Call Button</string>
+    <string name="crop_name" translatable="false">Crop Name</string>
+    <string name="quantity" translatable="false">Quantity</string>
+    <string name="price_per_unit" translatable="false">Price per Unit</string>
+    <string name="seller_name" translatable="false">Seller Name</string>
+    <string name="developer_contact" translatable="false">8788466016</string>
+    <string name="add_crop" translatable="false">Add Crop</string>
+    <string name="add_labour_details" translatable="false">Add Labour Details</string>
+    <string name="labour_name" translatable="false">Labour Name:</string>
+    <string name="enter_labour_name" translatable="false">Enter Labour Name</string>
+    <string name="work_date" translatable="false">Work Date:</string>
+    <string name="select_work_date" translatable="false">Select Work Date</string>
+    <string name="crop_name_textview" translatable="false">Crop Name:</string>
+    <string name="enter_crop_name" translatable="false">Enter Crop Name</string>
+    <string name="working_type" translatable="false">Working Type:</string>
+    <string name="daily_basis" translatable="false">Daily Basis</string>
+    <string name="per_kg" translatable="false">per KG</string>
+    <string name="save" translatable="false">Save</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="edit_labour_name" translatable="false">Edit Labour Name</string>
+    <string name="edit_work_date" translatable="false">Edit Work Date</string>
+    <string name="enter_work_date" translatable="false">Enter work date</string>
+    <string name="fertilizer_name" translatable="false">Fertilizer Name</string>
+    <string name="_21_nov_2023" translatable="false">21 Nov 2023</string>
+    <string name="price" translatable="false">Price</string>
+    <string name="_450" translatable="false">₹450</string>
+    <string name="payment_mode" translatable="false">Payment Mode</string>
+    <string name="cash" translatable="false">Cash</string>
+    <string name="this_month" translatable="false">This Month</string>
+    <string name="_2_480" translatable="false">$2,480</string>
+    <string name="labor" translatable="false">Labor</string>
+    <string name="fertilizer" translatable="false">Fertilizer</string>
+    <string name="add_expense" translatable="false">Add Expense</string>
+    <string name="attach_image" translatable="false">Attach Image</string>
+    <string name="ask_farmer_ai" translatable="false">Ask Farmer Ai...</string>
+    <string name="send" translatable="false">Send</string>
+    <string name="remove_selected_image" translatable="false">Remove Selected Image</string>
+    <string name="fertilizer_expenditure" translatable="false">Fertilizer Expenditure</string>
+    <string name="item_name_e_g_fertilizer_pesticide" translatable="false">Item Name (e.g., Fertilizer, Pesticide)</string>
+    <string name="purchase_date_dd_mm_yyyy" translatable="false">Purchase Date (dd/mm/yyyy)</string>
+    <string name="purchase_amount_in_currency" translatable="false">Purchase Amount (in currency)</string>
+    <string name="loan_emi_calculator" translatable="false">Loan EMI Calculator</string>
+    <string name="loan_amount" translatable="false">Loan Amount</string>
+    <string name="loan_tenure_years" translatable="false">Loan Tenure (Years)</string>
+    <string name="interest_rate" translatable="false">Interest Rate (%)</string>
+    <string name="calculate_emi" translatable="false">Calculate EMI</string>
+    <string name="your_amortization_details" translatable="false">Your Amortization Details</string>
+    <string name="search_labour" translatable="false">Search labour</string>
+    <string name="sort_by" translatable="false">Sort by</string>
+    <string name="add_labour" translatable="false">Add labour</string>
+    <string name="total_fertilizer_spending" translatable="false">Total Fertilizer Spending</string>
+    <string name="_12_345" translatable="false">₹12,345</string>
+    <string name="average_spending" translatable="false">Average Spending</string>
+    <string name="_1_234" translatable="false">₹1,234</string>
+    <string name="farmer_name" translatable="false">Farmer Name</string>
+    <string name="farmer_example_com" translatable="false">farmer@example.com</string>
+    <string name="birthdate_jan_1_1980" translatable="false">Birthdate: Jan 1, 1980</string>
+    <string name="contact_1234567890" translatable="false">Contact: +1234567890</string>
+    <string name="acres_owned_20" translatable="false">Acres Owned: 20</string>
+    <string name="profile" translatable="false">Profile</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="labor_expenditure" translatable="false">Labor Expenditure</string>
+    <string name="daily" translatable="false">Daily</string>
+    <string name="total_weight" translatable="false">Total Weight:</string>
+    <string name="_100kg" translatable="false">100kg</string>
+    <string name="date" translatable="false">Date:</string>
+    <string name="_19_09_2024" translatable="false">19/09/2024</string>
+    <string name="labor_name" translatable="false">Labor Name:</string>
+    <string name="user_name" translatable="false">User Name</string>
+    <string name="user_example_com" translatable="false">user@example.com</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="user_message_here" translatable="false">User message here</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="weather" translatable="false">Weather</string>
+    <string name="account" translatable="false">Account</string>
+    <string name="expenditure" translatable="false">Expenditure</string>
+    <string name="harvest" translatable="false">Harvest</string>
+    <string name="market" translatable="false">Market</string>
+    <string name="loan_calculator" translatable="false">Loan Calculator</string>
+    <string name="government_schemes" translatable="false">Government Schemes</string>
+    <string name="ask_ai" translatable="false">Ask AI</string>
+    <string name="sort_by_name" translatable="false">Sort by Name</string>
+    <string name="sort_by_date" translatable="false">Sort by Date</string>
+    <string name="sort_by_size" translatable="false">Sort by Size</string>
 
 
 </resources>

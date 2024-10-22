@@ -3,18 +3,18 @@
     <item
         android:id="@+id/navigation_farm"
         android:icon="@drawable/nav_bottom_home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_fertilizer"
         android:icon="@drawable/nav_bottom_fertilizer"
-        android:title="Fertilizer" />
+        android:title="@string/fertilizer" />
     <item
         android:id="@+id/navigation_weather"
         android:icon="@drawable/nav_bottom_weather"
-        android:title="Weather" />
+        android:title="@string/weather" />
 
     <item
         android:id="@+id/Account"
         android:icon="@drawable/nav_bottom_account"
-        android:title="Account" />
+        android:title="@string/account" />
 </menu>

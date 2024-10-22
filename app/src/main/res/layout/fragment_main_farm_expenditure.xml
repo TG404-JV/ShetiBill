@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Search labour"
+            android:hint="@string/search_labour"
             android:background="@android:color/transparent"
             android:drawableStart="@drawable/ic_search_img"
             android:drawablePadding="8dp"
@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sort by"
+                android:text="@string/sort_by"
                 android:textSize="11sp"
                 android:textColor="@color/gray_dark"/>
 
@@ -84,6 +84,6 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add_btn"
         android:backgroundTint="@color/greenColor"
-        android:contentDescription="Add labour" />
+        android:contentDescription="@string/add_labour" />
 
 </RelativeLayout>

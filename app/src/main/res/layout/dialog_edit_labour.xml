@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Labour Name"
+        android:text="@string/edit_labour_name"
         android:textSize="16sp"
         android:textColor="@color/primary_green_dark"
         android:fontFamily="@font/ic_poppins_bold" />
@@ -20,7 +20,7 @@
         android:id="@+id/editLabourName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter labour name"
+        android:hint="@string/enter_labour_name"
         android:fontFamily="@font/ic_poppins_regular"
         android:textColor="@color/black"
         android:padding="12dp"
@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Work Date"
+        android:text="@string/edit_work_date"
         android:textSize="16sp"
         android:textColor="@color/primary_green_dark"
         android:fontFamily="@font/ic_poppins_bold"
@@ -41,7 +41,7 @@
         android:id="@+id/editWorkDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter work date"
+        android:hint="@string/enter_work_date"
         android:fontFamily="@font/ic_poppins_regular"
         android:textColor="@color/black"
         android:padding="12dp"

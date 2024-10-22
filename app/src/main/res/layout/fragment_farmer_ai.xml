@@ -61,7 +61,7 @@
                 android:id="@+id/attachmentButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="Attach Image"
+                android:contentDescription="@string/attach_image"
                 android:src="@android:drawable/ic_menu_camera"
                 android:visibility="gone" />
 
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Ask Farmer Ai..."
+                android:hint="@string/ask_farmer_ai"
                 android:layout_marginStart="20dp"
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/black" />
@@ -80,7 +80,7 @@
                 android:id="@+id/sendButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="Send"
+                android:contentDescription="@string/send"
                 android:src="@drawable/ic_send"
                 android:background="#04FFFFFF" />
         </LinearLayout>
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="Remove Selected Image"
+            android:contentDescription="@string/remove_selected_image"
             android:src="@android:drawable/ic_menu_delete" />
     </LinearLayout>
 </RelativeLayout>

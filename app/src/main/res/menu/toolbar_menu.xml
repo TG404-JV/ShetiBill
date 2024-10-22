@@ -5,19 +5,19 @@
     <!-- Sort by Name -->
     <item
         android:id="@+id/action_sort_name"
-        android:title="Sort by Name"
+        android:title="@string/sort_by_name"
         app:showAsAction="never" />
 
     <!-- Sort by Date -->
     <item
         android:id="@+id/action_sort_date"
-        android:title="Sort by Date"
+        android:title="@string/sort_by_date"
         app:showAsAction="never" />
 
     <!-- Sort by Size -->
     <item
         android:id="@+id/action_sort_size"
-        android:title="Sort by Size"
+        android:title="@string/sort_by_size"
         app:showAsAction="never" />
 
 </menu>

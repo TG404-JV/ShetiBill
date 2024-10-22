@@ -16,5 +16,5 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:maxWidth="250dp"
-        android:text="Bot message here" />
+        android:text="@string/bot_response" />
 </LinearLayout>

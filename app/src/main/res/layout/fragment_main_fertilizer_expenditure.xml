@@ -28,7 +28,7 @@
                     android:id="@+id/totalSpendingLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Fertilizer Spending"
+                    android:text="@string/total_fertilizer_spending"
 
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -47,7 +47,7 @@
                 android:id="@+id/totalSpendingAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹12,345"
+                android:text="@string/_12_345"
                 android:textSize="24sp"
                 android:textColor="@color/greenColor" />
 
@@ -66,14 +66,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Average Spending"
+                    android:text="@string/average_spending"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/averageSpendingAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₹1,234"
+                    android:text="@string/_1_234"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

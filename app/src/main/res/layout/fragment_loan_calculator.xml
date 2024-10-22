@@ -7,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#F5F7FF">
 
         <!-- Title: Loan EMI Calculator -->
@@ -15,7 +15,7 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loan EMI Calculator"
+            android:text="@string/loan_emi_calculator"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -56,7 +56,7 @@
             android:id="@+id/loanAmountInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Loan Amount"
+            android:hint="@string/loan_amount"
             android:inputType="numberDecimal"
             android:padding="12dp"
             android:background="@drawable/input_background"
@@ -72,7 +72,7 @@
             android:id="@+id/loanTenureInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Loan Tenure (Years)"
+            android:hint="@string/loan_tenure_years"
             android:inputType="number"
             android:padding="12dp"
             android:background="@drawable/input_background"
@@ -88,7 +88,7 @@
             android:id="@+id/interestRateInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Interest Rate (%)"
+            android:hint="@string/interest_rate"
             android:inputType="numberDecimal"
             android:padding="12dp"
             android:background="@drawable/input_background"
@@ -104,7 +104,7 @@
             android:id="@+id/calculateEmiButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Calculate EMI"
+            android:text="@string/calculate_emi"
             android:textStyle="bold"
             android:backgroundTint="@color/greenColor"
             android:textColor="#FFFFFF"
@@ -135,6 +135,7 @@
                 app:indicatorSize="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:trackColor="@color/gray"
                 app:trackThickness="8dp" />
 
@@ -158,7 +159,7 @@
             android:id="@+id/amortizationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Amortization Details"
+            android:text="@string/your_amortization_details"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -167,7 +168,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="16dp" />
 
-        r
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

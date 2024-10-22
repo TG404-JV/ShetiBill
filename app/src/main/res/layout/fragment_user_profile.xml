@@ -40,7 +40,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Farmer Name"
+                android:text="@string/farmer_name"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -79,7 +79,7 @@
                     android:id="@+id/profile_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="farmer@example.com"
+                    android:text="@string/farmer_example_com"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -111,7 +111,7 @@
                     android:id="@+id/profile_dob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthdate: Jan 1, 1980"
+                    android:text="@string/birthdate_jan_1_1980"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -142,7 +142,7 @@
                     android:id="@+id/profile_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contact: +1234567890"
+                    android:text="@string/contact_1234567890"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -173,7 +173,7 @@
                     android:id="@+id/profile_acres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Acres Owned: 20"
+                    android:text="@string/acres_owned_20"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -202,7 +202,7 @@
                     android:id="@+id/btn_update_password"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Password"
+                    android:text="@string/password"
                     android:textColor="@android:color/white"
                     android:background="@drawable/button_background_profile"
                     android:padding="12dp"
@@ -217,7 +217,7 @@
                     android:id="@+id/btn_update_profile"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Profile"
+                    android:text="@string/profile"
                     android:textColor="@android:color/white"
                     android:background="@drawable/button_background_profile"
                     android:padding="12dp"
@@ -232,7 +232,7 @@
                 android:id="@+id/btn_logout"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:textColor="@android:color/white"
                 android:background="@drawable/button_background_profile"
                 android:padding="12dp"

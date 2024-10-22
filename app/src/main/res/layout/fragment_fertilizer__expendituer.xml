@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/Fertilizer_Expendituer"
     android:padding="16dp"
-    tools:context=".Fertilizer_Expendituer">
+    tools:context=".fertilizer.Fertilizer_Expendituer">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
-            android:text="Fertilizer Expenditure"
+            android:text="@string/fertilizer_expenditure"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/green_text" />
 
@@ -41,7 +41,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Item Name (e.g., Fertilizer, Pesticide)"
+                android:hint="@string/item_name_e_g_fertilizer_pesticide"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:padding="8dp">
 
@@ -56,7 +56,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Purchase Date (dd/mm/yyyy)"
+                android:hint="@string/purchase_date_dd_mm_yyyy"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:padding="8dp">
 
@@ -71,7 +71,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Purchase Amount (in currency)"
+                android:hint="@string/purchase_amount_in_currency"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:padding="8dp">
 

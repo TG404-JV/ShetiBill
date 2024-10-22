@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:text="Labor Expenditure"
+                android:text="@string/labor_expenditure"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/laborWorkingType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily"
+                android:text="@string/daily"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -62,7 +62,7 @@
                 android:id="@+id/totalWeightName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Weight:"
+                android:text="@string/total_weight"
                 android:textSize="16sp" />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/totalWeightName"
-                android:text="100kg"
+                android:text="@string/_100kg"
                 android:textSize="16sp" />
 
 
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date:"
+                android:text="@string/date"
                 android:layout_toLeftOf="@id/workDate"
                 android:textAlignment="viewEnd"
                 android:textSize="16sp" />
@@ -87,7 +87,7 @@
                 android:id="@+id/workDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19/09/2024"
+                android:text="@string/_19_09_2024"
                 android:layout_alignParentEnd="true"
                 android:textSize="16sp" />
         </RelativeLayout>
@@ -101,14 +101,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Labor Name:"
+                android:text="@string/labor_name"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/laborName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Tejas Kale"
+                android:text="@string/developer_name"
                 android:textSize="16sp" />
         </LinearLayout>
 

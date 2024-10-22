@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Labour Details"
+        android:text="@string/add_labour_details"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
@@ -28,14 +28,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Labour Name:"
+            android:text="@string/labour_name"
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Labour Name">
+            android:hint="@string/enter_labour_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/labourNameEditText"
@@ -55,14 +55,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Work Date:"
+            android:text="@string/work_date"
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select Work Date">
+            android:hint="@string/select_work_date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/workDateEditText"
@@ -75,7 +75,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crop Name:"
+        android:text="@string/crop_name_textview"
         android:textSize="16sp"
         android:textColor="@color/colorPrimaryDark" />
 
@@ -83,7 +83,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Crop Name">
+        android:hint="@string/enter_crop_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cropNameEditText"
@@ -113,7 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Working Type:"
+            android:text="@string/working_type"
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark" />
 
@@ -128,7 +128,7 @@
                 android:id="@+id/dailyBasisRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Basis"
+                android:text="@string/daily_basis"
                 android:textColor="@color/colorPrimaryDark"
                 android:padding="8dp" />
 
@@ -136,7 +136,7 @@
                 android:id="@+id/weeklyBasisRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weekly Basis"
+                android:text="@string/per_kg"
                 android:textColor="@color/colorPrimaryDark"
                 android:padding="8dp" />
 
@@ -156,7 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:backgroundTint="@color/colorAccent"
             android:elevation="4dp"
@@ -167,8 +167,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:text="Cancel"
+            android:layout_marginStart="16dp"
+            android:text="@string/cancel"
             android:backgroundTint="@color/colorGray"
             android:elevation="4dp"
             android:padding="12dp" />

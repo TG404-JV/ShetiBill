@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_img"
-            android:title="Home" />
+            android:title="@string/home" />
     </group>
 
     <!-- Farm Management Section -->
@@ -13,15 +13,15 @@
         <item
             android:id="@+id/nav_expenditure"
             android:icon="@drawable/ic_expendituer_img"
-            android:title="Expenditure" />
+            android:title="@string/expenditure" />
         <item
             android:id="@+id/nav_harvest"
             android:icon="@drawable/ic_harvest_img"
-            android:title="Harvest" />
+            android:title="@string/harvest" />
         <item
             android:id="@+id/nav_market"
             android:icon="@drawable/ic_market_img"
-            android:title="Market" />
+            android:title="@string/market" />
     </group>
 
     <!-- Finance Section -->
@@ -29,11 +29,11 @@
         <item
             android:id="@+id/loan_calculator"
             android:icon="@drawable/ic_loan_img"
-            android:title="Loan Calculator" />
+            android:title="@string/loan_calculator" />
         <item
             android:id="@+id/government_scheme"
             android:icon="@drawable/ic_govermentscheme_img"
-            android:title="Government Schemes" />
+            android:title="@string/government_schemes" />
     </group>
 
     <!-- AI Assistance -->
@@ -41,7 +41,7 @@
         <item
             android:id="@+id/ai_assistant"
             android:icon="@drawable/ic_ai_img"
-            android:title="Ask AI" />
+            android:title="@string/ask_ai" />
     </group>
 
 </menu>

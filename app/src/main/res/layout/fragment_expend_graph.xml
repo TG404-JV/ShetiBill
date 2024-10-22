@@ -9,7 +9,7 @@
         android:id="@+id/tvOverviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This Month"
+        android:text="@string/this_month"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/tvTotalExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$2,480"
+        android:text="@string/_2_480"
         android:textSize="32sp"
         android:textStyle="bold"
         android:paddingTop="8dp"/>
@@ -38,21 +38,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Labor"
+            android:text="@string/labor"
             android:id="@+id/btnLabor"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Fertilizer"
+            android:text="@string/fertilizer"
             android:id="@+id/btnFertilizer"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add Expense"
+            android:text="@string/add_expense"
             android:id="@+id/btnAddExpense"/>
     </LinearLayout>
 

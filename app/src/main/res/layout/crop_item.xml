@@ -16,7 +16,7 @@
         android:layout_marginEnd="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/sample_crop_image"
-        android:contentDescription="Crop Image" />
+        android:contentDescription="@string/crop_image" />
 
     <!-- Details Container -->
     <LinearLayout
@@ -30,7 +30,7 @@
             android:id="@+id/cropNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cabbages"
+            android:text="@string/cabbages"
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -46,20 +46,20 @@
                 android:id="@+id/cropQuantityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20 Quintal"
+                android:text="@string/_20_quintal"
                 android:textColor="#666" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" | "
+                android:text="@string/space"
                 android:textColor="#999" />
 
             <TextView
                 android:id="@+id/cropPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$280/Quintal"
+                android:text="@string/_280_quintal"
                 android:textColor="#666" />
         </LinearLayout>
 
@@ -68,7 +68,7 @@
             android:id="@+id/cropSellerNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="George Anderson"
+            android:text="@string/developer_name"
             android:textSize="14sp"
             android:textColor="#444"
             android:layout_marginTop="6dp" />
@@ -78,7 +78,7 @@
             android:id="@+id/sellerLocationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Texas, USA"
+            android:text="@string/developer_adderess"
             android:textSize="12sp"
             android:textColor="#777" />
     </LinearLayout>
@@ -92,5 +92,5 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="8dp"
-        android:contentDescription="Call Button" />
+        android:contentDescription="@string/call_button" />
 </LinearLayout>
