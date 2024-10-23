@@ -1,247 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6FAE6">
+    android:background="@color/background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/profile_imagelayou"
+        <!-- Profile Header Section -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:elevation="4dp">
-
-            <!-- Background Wave Design -->
+            android:layout_height="280dp">
             <View
-                android:id="@+id/wave_background"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@drawable/ic_wave" />
+                android:layout_height="240dp"
+                android:background="@drawable/profile_header_background" />
 
-            <!-- Profile Image -->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_farmer_profile_img"
-                android:layout_marginBottom="15dp" />
-
-            <!-- Farmer Name -->
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/farmer_name"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_below="@id/profile_image"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp" />
-        </RelativeLayout>
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <!-- Information Section -->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/ic_farmer_profile_img"
+                    app:civ_border_width="3dp"
+                    app:civ_border_color="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Farmer Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:id="@+id/profile_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agricultural Expert"
+                    android:textColor="#E0FFFFFF"
+                    android:textSize="16sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- New Farmer Details Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/profile_card_background"
-            android:padding="16dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:elevation="2dp">
+            android:padding="16dp">
 
-            <!-- Farmer Email (Icon + TextView) -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Farmer Name -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
+                android:text="Farmer Name"
+                android:textSize="12sp"
+                android:textColor="#666666" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_profile_email"
-                android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:id="@+id/profile_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/farmer_example_com"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginVertical="8dp" />
-
-            <!-- Farmer Birthdate (Icon + TextView) -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvFarmerName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
+                android:text="John Doe"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_profile_dob"
-                android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:id="@+id/profile_dob"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/birthdate_jan_1_1980"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginVertical="8dp" />
-
-            <!-- Farmer Contact (Icon + TextView) -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Date of Birth -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
+                android:text="Date of Birth"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_profile_contact"
-                android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:id="@+id/profile_contact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_1234567890"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginVertical="8dp" />
-
-            <!-- Acres Owned (Icon + TextView) -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvDob"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp">
+                android:text="01/01/1970"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_profile_land"
-                android:layout_marginEnd="8dp" />
+            <!-- Mobile Number -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
 
-                <TextView
-                    android:id="@+id/profile_acres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/acres_owned_20"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvMobileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+91 1234567890"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Payment Type -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Type"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvPaymentType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Payment Per Day -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Per Day"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvPaymentPerDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Payment Per KG -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Per KG"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvPaymentPerKg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Day of Payment -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day of Payment"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvDayOfPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <!-- Buttons Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="100dp"
             android:padding="16dp">
 
-            <!-- Update Password and Update Profile Buttons in a horizontal layout -->
-            <LinearLayout
+            <Button
+                android:id="@+id/btnProfileUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp">
-
-                <!-- Update Password Button -->
-                <Button
-                    android:id="@+id/btn_update_password"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/password"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/button_background_profile"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"
-                    android:elevation="4dp"
-                    android:layout_gravity="center"
-                    android:textAllCaps="false" />
-
-                <!-- Update Profile Button -->
-                <Button
-                    android:id="@+id/btn_update_profile"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/profile"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/button_background_profile"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:elevation="4dp"
-                    android:layout_gravity="center"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
-            <!-- Logout Button -->
-            <Button
-                android:id="@+id/btn_logout"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="@string/logout"
+                android:text="Update Profile"
+                android:backgroundTint="@color/primary_color"
                 android:textColor="@android:color/white"
-                android:background="@drawable/button_background_profile"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:elevation="4dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:textAllCaps="false" />
+                android:layout_margin="8dp" />
 
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -50,7 +50,7 @@ public class create_account extends AppCompatActivity {
 
         // Handle "Already have an account? Log in" click
         tvAlreadyHaveAccount.setOnClickListener(v -> {
-            Intent loginIntent = new Intent(create_account.this, LoginActivity.class);
+            Intent loginIntent = new Intent(create_account.this, MainActivity.class);
             startActivity(loginIntent);
         });
 
@@ -102,7 +102,7 @@ public class create_account extends AppCompatActivity {
                                         if (task1.isSuccessful()) {
                                             // Success, redirect to another activity
                                             Toast.makeText(create_account.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(create_account.this, LoginActivity.class);
+                                            Intent intent = new Intent(create_account.this, FarmerDetails.class);
                                             startActivity(intent);
                                             finish(); // Close current activity
                                         } else {

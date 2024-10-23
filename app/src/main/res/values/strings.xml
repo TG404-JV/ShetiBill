@@ -149,6 +149,7 @@
     <string name="sort_by_name" translatable="false">Sort by Name</string>
     <string name="sort_by_date" translatable="false">Sort by Date</string>
     <string name="sort_by_size" translatable="false">Sort by Size</string>
+    <string name="choose_language">Chosse Language</string>
 
 
 </resources>

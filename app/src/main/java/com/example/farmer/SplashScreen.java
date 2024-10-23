@@ -1,6 +1,7 @@
 package com.example.farmer;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -10,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 
 public class SplashScreen extends AppCompatActivity {
@@ -21,6 +24,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+
+
         // Find views
         ImageView splashLogo = findViewById(R.id.splash_logo);
         TextView appName = findViewById(R.id.app_name);
@@ -31,6 +36,7 @@ public class SplashScreen extends AppCompatActivity {
         Animation logoAnim = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
         Animation fadeInSlideUp = AnimationUtils.loadAnimation(this, R.anim.fade_in_slide_up);
         Animation fadeInProgressBar = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
 
         // Start animations
         splashLogo.startAnimation(logoAnim);
@@ -48,4 +54,17 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+    public void setLocale(String langCode) {
+        Locale locale = new Locale(langCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        // Restart activity to apply the new language
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
 }

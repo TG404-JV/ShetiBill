@@ -1,194 +1,215 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="16dp"
-    android:backgroundTint="#F9F9F9"
-    app:cardCornerRadius="15dp"
-    app:cardPreventCornerOverlap="true"
-    android:elevation="10dp"
-    android:radius="16dp">
-
-    <!-- This Is A Recycler View Layout Which Is Used To Manage The Fertilizer Expenditure of A Farmer-->
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E0E0E0">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#50C878"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- Header Section: Fertilizer Name and Date -->
+        <!-- Header Section with Gradient Background -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
+            android:background="@drawable/header_gradient"
+            android:padding="16dp">
 
-            <!-- Fertilizer Icon -->
-            <ImageView
-                android:id="@+id/IVfertilizerName"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_fertilizer_name_img"
-                app:tint="@color/white" />
-
-            <!-- Fertilizer Name -->
-            <TextView
-                android:id="@+id/tvItemName"
+            <!-- Fertilizer Icon with Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/iconContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/IVfertilizerName"
-                android:fontFamily="@font/name_font"
-                android:text="@string/fertilizer_name"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
 
-            <!-- Purchase Date Icon -->
-            <ImageView
-                android:id="@+id/dateImg"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="4dp"
-                app:tint="@color/white"
-                android:layout_toStartOf="@id/tvPurchaseDate"
-                android:src="@drawable/ic_date_img" />
+                <ImageView
+                    android:id="@+id/IVfertilizerName"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_fertilizer_name_img"
+                    app:tint="@color/white" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Purchase Date -->
-            <TextView
-                android:id="@+id/tvPurchaseDate"
+            <!-- Fertilizer Details -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@string/_21_nov_2023"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/iconContainer"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/name_font"
+                    android:text="@string/fertilizer_name"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/dateImg"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/ic_date_img"
+                        app:tint="#E0E0E0" />
+
+                    <TextView
+                        android:id="@+id/tvPurchaseDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_21_nov_2023"
+                        android:textColor="#E0E0E0"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
 
-        <!-- Separator Line -->
-        <View
+        <!-- Content Section -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#E0E0E0" />
-
-        <!-- Pricing Section -->
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Price Icon -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="8dp"
-                app:tint="@color/white"
-                android:src="@drawable/ic_price_img" />
-
-            <!-- Price Label -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Price Section with Material Design -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#F5F5F5"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
 
-            <!-- Purchase Amount -->
-            <TextView
-                android:id="@+id/tvPurchaseAmount"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_price_img"
+                        app:tint="#50C878" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/price"
+                        android:textColor="#424242"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvPurchaseAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/_450"
+                        android:textColor="#50C878"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Payment Mode Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/_450"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                app:cardBackgroundColor="#F5F5F5"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_payment_mode_img"
+                        app:tint="#50C878" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/payment_mode"
+                        android:textColor="#424242"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvPaymentMode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/cash"
+                        android:textColor="#424242"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:id="@+id/cardBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:gravity="end">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/CopyBtn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/copy"
+                    app:icon="@drawable/ic_copy_btn"
+                    app:iconTint="#50C878" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ShareBtn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/share"
+                    app:icon="@drawable/ic_share_btn"
+                    app:iconTint="#50C878" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/EditBtn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/edit"
+                    app:icon="@drawable/ic_dark_edit_btn"
+                    app:iconTint="#50C878" />
+            </LinearLayout>
         </LinearLayout>
-
-        <!-- Payment Mode Section -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <!-- Payment Mode Icon -->
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="8dp"
-                app:tint="@color/white"
-                android:src="@drawable/ic_payment_mode_img" />
-
-            <!-- Payment Mode Label -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/payment_mode"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- Payment Mode Value -->
-            <TextView
-                android:id="@+id/tvPaymentMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/cash"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Action Buttons Section -->
-        <RelativeLayout
-            android:id="@+id/cardBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="12dp"
-            android:visibility="visible">
-
-            <!-- Copy Button -->
-            <ImageButton
-                android:id="@+id/CopyBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:backgroundTint="#50C878"
-                app:tint="@color/white"
-                android:contentDescription="@string/copy"
-                android:src="@drawable/ic_copy_btn" />
-
-            <!-- Share Button -->
-            <ImageButton
-                android:id="@+id/ShareBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@id/CopyBtn"
-                android:backgroundTint="#50C878"
-                app:tint="@color/white"
-                android:contentDescription="@string/share"
-                android:src="@drawable/ic_share_btn" />
-
-            <!-- Edit Button -->
-            <ImageButton
-                android:id="@+id/EditBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@id/ShareBtn"
-                android:backgroundTint="#50C878"
-                app:tint="@color/white"
-                android:contentDescription="@string/edit"
-                android:src="@drawable/ic_dark_edit_btn" />
-        </RelativeLayout>
-
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

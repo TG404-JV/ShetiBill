@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGreenBackground"
     android:padding="16dp"
-    tools:context=".account.LoginActivity">
+    tools:context=".LoginActivity">
 
     <!-- Skip Button -->
     <TextView
@@ -63,6 +62,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMobileNumber"
             android:layout_width="match_parent"
+            style="@style/EditText"
             android:layout_height="wrap_content"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -84,17 +84,17 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/EditText"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Sign In Button -->
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in"
-        android:backgroundTint="@color/darkGreen"
-        android:textColor="@android:color/white"
+        style="@style/Button"
         app:layout_constraintTop_toBottomOf="@id/passwordLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

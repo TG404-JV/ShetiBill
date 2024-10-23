@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmer.R;
+
+import com.example.farmer.language.Language;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -24,12 +26,17 @@ public class Home extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+
+
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         viewPager = view.findViewById(R.id.view_pager);
 
         // Initialize your adapter
         HomePagerAdapter adapter = new HomePagerAdapter(getChildFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
+
+
 
         // Set up BottomNavigationView with ViewPager2
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {

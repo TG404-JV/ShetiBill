@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -109,8 +111,8 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
         TextView tvPurchaseDate;
         TextView tvPurchaseAmount;
         TextView tvPaymentMode;
-        RelativeLayout cardBtn;
-        ImageButton copyBtn, shareBtn, editBtn;
+        LinearLayout cardBtn;
+        MaterialButton copyBtn, shareBtn, editBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

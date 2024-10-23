@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary Colors -->
-    <color name="colorPrimary">#6200EE</color> <!-- Deep Purple -->
     <color name="colorPrimaryDark">#3700B3</color> <!-- Darker Purple -->
     <color name="colorAccent">#03DAC5</color> <!-- Teal -->
 
@@ -23,11 +22,7 @@
 
     <!-- Divider Colors -->
     <color name="dividerColor">#E0E0E0</color> <!-- Light Gray -->
-    <color name="purple_200">#80f9ff</color>
-    <color name="purple_700">#00ADB5</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+
 
     <!-- App Colors -->
     <color name="navBarColor">#00ADB5</color>
@@ -79,7 +74,6 @@
     <color name="accent_color">#FFFFFF</color>
     <color name="text_color_primary">#212121</color>
     <color name="text_color_secondary">#757575</color>
-    <color name="purple_500">#6200EE</color>
     <color name="gray_light">#F5F5F5</color>
 
         <!-- Earth Tones -->
@@ -137,7 +131,6 @@
     <color name="secondary_text">#616161</color> <!-- Secondary text color -->
     <color name="light_blue">#4FB3FF</color>
     <color name="dark_blue">#0076A8</color>
-    <color name="gray">#888888</color>
     <color name="background_green">#EAF5E1</color>
     <color name="dark_green">#4CAF50</color>
     <color name="light_green">#8BC34A</color>
@@ -149,7 +142,6 @@
         <color name="brown_earth">#8B4513</color>        <!-- A brown earthy tone -->
         <color name="dark_brown">#3E2723</color>         <!-- Darker brown for text -->
         <color name="light_beige">#F5F5DC</color>        <!-- Light beige background -->
-        <color name="dark_gray">#3B3B3B</color>          <!-- Dark gray for text -->
         <color name="drawerBackgroundColor">#FFF8E1</color>  <!-- Light cream for drawer background -->
         <color name="navItemTextColor">#4A4A4A</color>   <!-- Gray for navigation items -->
         <color name="navItemIconColor">#8B4513</color>   <!-- Brown for navigation icons -->
@@ -164,7 +156,6 @@
     <color name="textSecondary">#ac748c</color>     <!-- Subtle pink for secondary text -->
     <color name="backgroundColor">#c9c9bd</color>   <!-- Light Gray for background -->
     <color name="controlNormal">#33433d</color>     <!-- Control color (dark green/gray) -->
-    <color name="white">#FFFFFF</color>             <!-- White for contrast where needed -->
 
     <!-- Background Colors -->
     <color name="light_background">#F7F8FA</color>  <!-- Very light gray background -->
@@ -184,6 +175,32 @@
     <color name="nav_item_active">#000000</color> <!-- Active state (black) -->
     <color name="nav_item_inactive">#808080</color> <!-- Inactive state (gray) -->
     <color name="nav_ripple_color">#FFCCBC</color> <!-- Optional ripple color -->
+
+
+    <!-- Working On My Own Color Scheme -->
+
+        <color name="purple_200">#FFBB86FC</color>
+        <color name="purple_500">#FF6200EE</color>
+        <color name="purple_700">#FF3700B3</color>
+        <color name="teal_200">#FF03DAC5</color>
+        <color name="teal_700">#FF018786</color>
+        <color name="black">#FF000000</color>
+        <color name="white">#FFFFFFFF</color>
+
+        <color name="status_bar">#1BA57B</color>
+
+        <color name="defaultDay">#ffffff</color>
+        <color name="defaultNight">#000000</color>
+
+        <color name="defaultDayDark">#f3f7f9</color>
+        <color name="defaultNightDark">#1E2132</color>
+
+        <color name="colorPrimary">#FF1BA57B</color>
+        <color name="ghost_white">#FFF8F8F8</color>
+        <color name="gray">#FF4B4F5A</color>
+        <color name="dark_gray">#FF54555A</color>
+        <color name="light_gray">#FF696969</color>
+        <color name="text_hint_color">#FFA7A7A7</color>
 
 
 

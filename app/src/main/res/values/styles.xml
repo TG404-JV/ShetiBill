@@ -1,18 +1,73 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Applying the new farmer-related color scheme -->
-        <item name="colorPrimary">@color/primaryColor</item>           <!-- Vibrant green -->
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>   <!-- Dark green -->
-        <item name="colorAccent">@color/accentColor</item>             <!-- Light teal green accent -->
-        <item name="android:textColor">@color/textPrimary</item>       <!-- Dark green/gray for text -->
-        <item name="android:colorControlNormal">@color/controlNormal</item> <!-- Control color -->
-        <item name="android:windowBackground">@color/backgroundColor</item> <!-- Set window background -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item> <!-- Set window background -->
     </style>
 
 
     <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
         <item name="android:background">@android:color/transparent</item> <!-- Transparent background -->
         <item name="android:windowBackground">@drawable/rounded_corner_background</item> <!-- Your rounded corner background -->
+    </style>
+
+    <style name="customButton">
+        <item name="android:textSize" >20sp</item>
+        <item name="background">@drawable/rounded_corner_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+        <!-- Base application theme. -->
+        <style name="Theme.JetComposeLoginUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+            <!-- Primary brand color. -->
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryVariant">@color/colorPrimary</item>
+            <item name="colorOnPrimary">@color/white</item>
+            <!-- Secondary brand color. -->
+            <item name="colorSecondary">@color/teal_200</item>
+            <item name="colorSecondaryVariant">@color/teal_700</item>
+            <item name="colorOnSecondary">@color/black</item>
+            <!-- Customize your theme here. -->
+        </style>
+
+        <style name="Theme.JetComposeLoginUI.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+            <!-- Status bar color. -->
+            <item name="android:statusBarColor" >@color/status_bar</item>
+        </style>
+
+        <style name="SplashTheme" parent="Theme.JetComposeLoginUI">
+            <item name="android:windowBackground">@drawable/bg_splash</item>
+            <item name="android:windowFullscreen">true</item>
+            <item name="android:windowTranslucentNavigation">true</item>
+            <item name="android:statusBarColor" >@color/status_bar</item>
+        </style>
+
+        <style name="Theme.JetComposeLoginUI.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <style name="Theme.JetComposeLoginUI.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Designing A Style For Edit Text -->
+    <style name="EditText">
+        <item name="android:background">@drawable/ic_edit_text_bg</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:background">@drawable/rounded_button_background</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
     </style>
 </resources>
