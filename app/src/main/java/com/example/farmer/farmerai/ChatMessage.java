@@ -2,7 +2,7 @@ package com.example.farmer.farmerai;
 
 public class ChatMessage {
 
-    private String message;
+    private String message;  // mesage
     private boolean isUserMessage;
 
     public ChatMessage(String message, boolean isUserMessage) {
