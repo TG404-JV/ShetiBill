@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Fertilizer_Expendituer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/Fertilizer_Expendituer"
+    android:background="@color/background_color"
     android:padding="16dp"
     tools:context=".fertilizer.Fertilizer_Expendituer">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,107 +21,104 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
             android:text="@string/fertilizer_expenditure"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@color/green_text" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/primary_text_color" />
 
         <!-- CardView for Input Fields -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
             android:layout_marginBottom="24dp"
-            app:cardCornerRadius="8dp"
-        app:cardElevation="2dp">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Item Name Input -->
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/item_name_e_g_fertilizer_pesticide"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:padding="8dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etItemName"
+                <!-- Item Name Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/item_name_e_g_fertilizer_pesticide"
+                    android:padding="8dp">
 
-            <!-- Purchase Date Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/purchase_date_dd_mm_yyyy"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:padding="8dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etItemName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPurchaseDate"
+                <!-- Purchase Date Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/purchase_date_dd_mm_yyyy"
+                    android:padding="8dp">
 
-            <!-- Purchase Amount Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/purchase_amount_in_currency"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:padding="8dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPurchaseDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFertilizerPrice"
+                <!-- Purchase Amount Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/purchase_amount_in_currency"
+                    android:padding="8dp">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFertilizerPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <RadioGroup
-                android:id="@+id/rgPaymentMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/rbCash"
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/rgPaymentMode"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cash"/>
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/rbCard"
-                    android:layout_width="wrap_content"
+                    <RadioButton
+                        android:id="@+id/rbCash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cash" />
+
+                    <RadioButton
+                        android:id="@+id/rbCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Card" />
+
+                    <RadioButton
+                        android:id="@+id/rbOnline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Online" />
+                </RadioGroup>
+
+                <!-- Submit Button -->
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Card"/>
-
-                <RadioButton
-                    android:id="@+id/rbOnline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Online"/>
-
-
-
-            </RadioGroup>
-
-            <!-- Submit Button -->
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="@color/greenColor"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
-    </ScrollView>
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/primary_color"
+                    android:text="Submit"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

@@ -37,8 +37,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:padding="8dp"
-                    android:src="@drawable/ic_fertilizer_name_img"
-                    app:tint="@color/white" />
+                    android:src="@drawable/ic_user_profile_img" />
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Fertilizer Details -->

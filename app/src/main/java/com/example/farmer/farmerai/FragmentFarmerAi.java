@@ -1,10 +1,16 @@
 package com.example.farmer.farmerai;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +33,7 @@ import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -34,93 +41,73 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class FragmentFarmerAi extends Fragment {
 
-    private static final int PICK_IMAGE_REQUEST = 1; // Request code for picking images
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private RecyclerView recyclerView;
+    TextToSpeech   textToSpeech;
     private ChatMessageAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
 
     private EditText messageEditText;
     private ImageButton sendButton;
     private ImageButton attachmentButton;
-    ShimmerFrameLayout shimmerFrameLayout;
-
+    private ShimmerFrameLayout shimmerFrameLayout;
     private ImageView selectedImageView;
-
-    private Bitmap selectedImage; // Store the selected image
-
-
+    private Bitmap selectedImage;
 
     private static final String API_KEY = "AIzaSyCG34Q8Y7USJbk3BVYluNy217GqeU67MSw"; // Replace with your Gemini API key
+     String Message;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_farmer_ai, container, false);
 
-
-
         // Initialize views
         recyclerView = view.findViewById(R.id.recyclerViewMessages);
         messageEditText = view.findViewById(R.id.messageEditText);
         sendButton = view.findViewById(R.id.sendButton);
         attachmentButton = view.findViewById(R.id.attachmentButton);
-        selectedImageView = view.findViewById(R.id.selectedImageView); // Ensure you have an ImageView for the selected image in your layout
-
-        shimmerFrameLayout=view.findViewById(R.id.shimmer_view_container);
+        selectedImageView = view.findViewById(R.id.selectedImageView);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
 
         // Set up RecyclerView
         chatMessages = new ArrayList<>();
-        chatAdapter = new ChatMessageAdapter(chatMessages);
+        chatAdapter = new ChatMessageAdapter(chatMessages, this::showUserMessageDialog); // Pass method reference
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(chatAdapter);
-
-        // Load user data
 
         // Send button click listener
         sendButton.setOnClickListener(v -> {
             String userMessage = messageEditText.getText().toString().trim();
-
             shimmerFrameLayout.setVisibility(View.VISIBLE);
 
-            // Check if user message is empty and selectedImage is null
             if (TextUtils.isEmpty(userMessage) && selectedImage == null) {
                 Toast.makeText(getContext(), "Please enter a message or select an image", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Add user message to the list
             addUserMessage(userMessage);
-
-            // Clear the input field
             messageEditText.setText("");
 
-            // Check if an image is selected
             if (selectedImage != null) {
-                // Generate text using the selected image
                 generateTextFromImage(userMessage, selectedImage);
             } else {
-                // Fetch bot response from Gemini AI based on user message
                 fetchBotResponse(userMessage);
             }
         });
 
-        // Attachment button click listener
         attachmentButton.setOnClickListener(v -> openImagePicker());
 
         return view;
     }
 
-    // Load user data from Firebase
-
-    // Load user profile image from Firebase Storage
-
-    // Open the image picker
     private void openImagePicker() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -136,7 +123,7 @@ public class FragmentFarmerAi extends Fragment {
             try {
                 selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 selectedImageView.setImageBitmap(selectedImage);
-                selectedImageView.setVisibility(View.VISIBLE); // Show selected image
+                selectedImageView.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
@@ -144,7 +131,6 @@ public class FragmentFarmerAi extends Fragment {
         }
     }
 
-    // Method to add a user message to the RecyclerView
     private void addUserMessage(String message) {
         ChatMessage userMessage = new ChatMessage(message, true);
         chatMessages.add(userMessage);
@@ -152,7 +138,6 @@ public class FragmentFarmerAi extends Fragment {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-    // Method to add a bot message to the RecyclerView
     private void addBotMessage(String message) {
         ChatMessage botMessage = new ChatMessage(message, false);
         chatMessages.add(botMessage);
@@ -160,77 +145,54 @@ public class FragmentFarmerAi extends Fragment {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-    // Method to generate text from the selected image
     private void generateTextFromImage(String prompt, Bitmap image) {
-        // Initialize an executor for background tasks
         Executor executor = Executors.newSingleThreadExecutor();
-
-        // Initialize Gemini API model for image processing
         GenerativeModel gm = new GenerativeModel("gemini-pro-vision", API_KEY);
         GenerativeModelFutures model = GenerativeModelFutures.from(gm);
 
-        // Create content with the user's prompt and selected image
         Content content = new Content.Builder()
                 .addText(prompt)
-                .addImage(image) // Assuming addImage accepts Bitmap
+                .addImage(image)
                 .build();
 
-        // Fetch AI response
         ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
-                // Extract generated text from the AI response
                 String generatedText = result.getText();
-
-                // Ensure UI updates are done on the main thread
                 requireActivity().runOnUiThread(() -> {
-                    // Add the bot's response to the RecyclerView
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     addBotMessage(generatedText);
-                    selectedImageView.setVisibility(View.GONE); // Hide the image after processing
-                    selectedImage = null; // Clear the selected image
+                    selectedImageView.setVisibility(View.GONE);
+                    selectedImage = null;
                 });
             }
 
             @Override
             public void onFailure(@NonNull Throwable t) {
                 t.printStackTrace();
-                // Ensure UI updates are done on the main thread
                 requireActivity().runOnUiThread(() -> addBotMessage("Sorry, I couldn't generate a response. Please try again."));
             }
         }, executor);
     }
 
-    // Method to fetch a response from Gemini AI if no image is selected
     private void fetchBotResponse(String userMessage) {
-        // Initialize an executor for background tasks
         Executor executor = Executors.newSingleThreadExecutor();
-
-        // Initialize Gemini API model
         GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", API_KEY);
         GenerativeModelFutures model = GenerativeModelFutures.from(gm);
 
-        // Create content with the user's prompt
         Content content = new Content.Builder()
                 .addText(userMessage)
                 .build();
 
-
-        // Fetch AI response
         ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
-                // Extract generated text from the AI response
                 String generatedText = result.getText();
                 String output = generatedText.replace("*", "");
-
-
-                // Ensure UI updates are done on the main thread
                 requireActivity().runOnUiThread(() -> {
-                    // Add the bot's response to the RecyclerView
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     addBotMessage(output);
@@ -240,9 +202,102 @@ public class FragmentFarmerAi extends Fragment {
             @Override
             public void onFailure(@NonNull Throwable t) {
                 t.printStackTrace();
-                // Ensure UI updates are done on the main thread
                 requireActivity().runOnUiThread(() -> addBotMessage("Sorry, I couldn't generate a response. Please try again."));
             }
         }, executor);
+    }
+
+    // Show a dialog when user message is clicked
+// Show a dialog when user message is clicked
+// Show a dialog when user message is clicked
+    private void showUserMessageDialog(ChatMessage message) {
+        // Inflate the custom dialog layout
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View customView = inflater.inflate(R.layout.rounded_circle_dialogue, null);
+
+        // Find the buttons in the custom layout
+        FloatingActionButton btnShare = customView.findViewById(R.id.btnShare);
+        FloatingActionButton btnDelete = customView.findViewById(R.id.btnDelete);
+        FloatingActionButton btnCopy = customView.findViewById(R.id.btnCopy);
+        FloatingActionButton btnRead = customView.findViewById(R.id.btnRead);
+
+        // Set up AlertDialog with the custom view
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(customView);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+
+        // Set up the share button
+        btnShare.setOnClickListener(v -> {
+            // Code to share the message (e.g., using Intent)
+            shareMessage(message.getMessage());
+            dialog.dismiss();
+
+        });
+
+        // Set up the delete button
+        btnDelete.setOnClickListener(v -> {
+            // Code to delete the message
+            chatMessages.removeIf(chatMessage -> chatMessage.getMessage().equals(message.getMessage()));
+            chatAdapter.notifyDataSetChanged();
+            dialog.dismiss();
+        });
+
+        // Set up the copy button
+        btnCopy.setOnClickListener(v -> {
+            // Code to copy the message to clipboard
+            copyToClipboard(message.getMessage());
+            dialog.dismiss();
+
+        });
+
+        // Set up the read button to read the message aloud
+        btnRead.setOnClickListener(v -> {
+            // Code to read the message aloud (you can use TextToSpeech)
+            Message=message.getMessage();
+            readMessageAloud(Message);
+            dialog.dismiss();
+
+        });
+
+        // Show the dialog
+        dialog.show();
+    }
+
+    // Method to share the message
+    private void shareMessage(String message) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
+    // Method to copy the message to clipboard
+    private void copyToClipboard(String message) {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("message", message);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getContext(), "Message copied to clipboard", Toast.LENGTH_SHORT).show();
+    }
+
+    // Method to read the message aloud (TextToSpeech example)
+    private void readMessageAloud(String message) {
+        // Initialize TextToSpeech
+        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int langResult = textToSpeech.setLanguage(Locale.US);
+                    if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(getContext(), "Language not supported", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Text-to-speech initialization failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

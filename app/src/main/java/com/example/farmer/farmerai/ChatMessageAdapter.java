@@ -4,12 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.farmer.R;
-
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -19,19 +16,22 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<ChatMessage> messages;
 
-    public ChatMessageAdapter(List<ChatMessage> messages) {
+    // Listener interface for handling click events
+    public interface OnMessageClickListener {
+        void onMessageClick(ChatMessage message);
+    }
+
+    private OnMessageClickListener clickListener;
+
+    public ChatMessageAdapter(List<ChatMessage> messages, OnMessageClickListener clickListener) {
         this.messages = messages;
+        this.clickListener = clickListener;
     }
 
     @Override
     public int getItemViewType(int position) {
-        // Determine if the message is from the user or bot
         ChatMessage message = messages.get(position);
-        if (message.isUserMessage()) {
-            return VIEW_TYPE_USER_MESSAGE;
-        } else {
-            return VIEW_TYPE_BOT_MESSAGE;
-        }
+        return message.isUserMessage() ? VIEW_TYPE_USER_MESSAGE : VIEW_TYPE_BOT_MESSAGE;
     }
 
     @NonNull
@@ -39,20 +39,32 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_USER_MESSAGE) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_message_item, parent, false);
-            return new ChatMessageAdapter.UserMessageViewHolder(view);
+            return new UserMessageViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bot_message_item, parent, false);
-            return new ChatMessageAdapter.BotMessageViewHolder(view);
+            return new BotMessageViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatMessage message = messages.get(position);
-        if (holder instanceof ChatMessageAdapter.UserMessageViewHolder) {
-            ((ChatMessageAdapter.UserMessageViewHolder) holder).messageTextView.setText(message.getMessage());
-        } else if (holder instanceof ChatMessageAdapter.BotMessageViewHolder) {
-            ((ChatMessageAdapter.BotMessageViewHolder) holder).messageTextView.setText(message.getMessage());
+
+        // Set message text and add long press listener
+        if (holder instanceof UserMessageViewHolder) {
+            ((UserMessageViewHolder) holder).messageTextView.setText(message.getMessage());
+            // Set long press listener for user message
+            holder.itemView.setOnLongClickListener(v -> {
+                clickListener.onMessageClick(message); // Trigger dialog on long press
+                return true;  // Indicate that the event is handled
+            });
+        } else if (holder instanceof BotMessageViewHolder) {
+            ((BotMessageViewHolder) holder).messageTextView.setText(message.getMessage());
+            // Set long press listener for bot message
+            holder.itemView.setOnLongClickListener(v -> {
+                clickListener.onMessageClick(message); // Trigger dialog on long press
+                return true;  // Indicate that the event is handled
+            });
         }
     }
 

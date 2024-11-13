@@ -68,8 +68,7 @@
         <color name="sky_blue">#2196F3</color>
         <color name="neutral_beige">#F5F5DC</color>
 
-    <color name="background_color">#F5F7FB</color>
-    <color name="primary_color">#3D5AFE</color>
+
     <color name="secondary_color">#4CAF50</color>
     <color name="accent_color">#FFFFFF</color>
     <color name="text_color_primary">#212121</color>
@@ -201,6 +200,10 @@
         <color name="dark_gray">#FF54555A</color>
         <color name="light_gray">#FF696969</color>
         <color name="text_hint_color">#FFA7A7A7</color>
+
+    <color name="background_color">#F5F5F5</color>
+    <color name="primary_color">#4CAF50</color>
+    <color name="primary_text_color">#212121</color>
 
 
 

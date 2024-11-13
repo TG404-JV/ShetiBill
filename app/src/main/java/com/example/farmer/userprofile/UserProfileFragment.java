@@ -1,5 +1,7 @@
 package com.example.farmer.userprofile;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmer.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -30,8 +26,8 @@ public class UserProfileFragment extends Fragment {
     private CircleImageView profileImage;
     private Button btnProfileUpdate, btnLogin, btnLogout;
 
-    // Firebase database reference
-    private DatabaseReference farmerRef;
+    // SharedPreferences for local storage
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -42,21 +38,11 @@ public class UserProfileFragment extends Fragment {
         // Initialize the views
         initializeViews(view);
 
-        // Get the current user ID from Firebase Authentication
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String farmerId = currentUser.getUid(); // Get the Firebase user ID
-            Log.d("UserProfileFragment", "Farmer ID: " + farmerId); // Log the farmer ID
+        // Initialize SharedPreferences to fetch local data
+        sharedPreferences = getActivity().getSharedPreferences("FarmerDetails", Context.MODE_PRIVATE);
 
-            // Initialize Firebase reference
-            farmerRef = FirebaseDatabase.getInstance().getReference("Farmers").child(farmerId);
-
-            // Fetch farmer data from Firebase
-            fetchFarmerData();
-        } else {
-            showMessage("User is not logged in.");
-            // Optionally navigate back to login screen
-        }
+        // Fetch farmer data from local storage
+        fetchFarmerDataFromLocalStorage();
 
         // Setup button listeners
         setupButtonListeners();
@@ -78,44 +64,49 @@ public class UserProfileFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
     }
 
-    private void fetchFarmerData() {
-        farmerRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Fetch and set Farmer Name
-                    tvFarmerName.setText(dataSnapshot.child("farmerName").getValue(String.class));
+    private void fetchFarmerDataFromLocalStorage() {
+        // Fetch and set Farmer Name
+        String farmerName = sharedPreferences.getString("farmerName", "N/A");
+        Log.d("UserProfileFragment", "Farmer Name: " + farmerName);
+        tvFarmerName.setText(farmerName);
 
-                    // Fetch and set Date of Birth
-                    tvDob.setText(dataSnapshot.child("dob").getValue(String.class));
+        // Fetch and set Date of Birth
+        String dob = sharedPreferences.getString("dob", "N/A");
+        Log.d("UserProfileFragment", "DOB: " + dob);
+        tvDob.setText(dob);
 
-                    // Fetch and set Mobile Number
-                    tvMobileNumber.setText(dataSnapshot.child("mobileNumber").getValue(String.class));
+        // Fetch and set Mobile Number
+        String mobileNumber = sharedPreferences.getString("mobileNumber", "N/A");
+        Log.d("UserProfileFragment", "Mobile Number: " + mobileNumber);
+        tvMobileNumber.setText(mobileNumber);
 
-                    // Fetch and set Payment Type
-                    tvPaymentType.setText(dataSnapshot.child("paymentType").getValue(String.class));
+        // Fetch and set Payment Type
+        String paymentType = sharedPreferences.getString("paymentType", "N/A");
+        Log.d("UserProfileFragment", "Payment Type: " + paymentType);
+        tvPaymentType.setText(paymentType);
 
-                    // Fetch and set Payment Per Day
-                    tvPaymentPerDay.setText(dataSnapshot.child("paymentPerDay").getValue(String.class));
+        // Fetch and set Payment Per Day
+        String paymentPerDay = sharedPreferences.getString("paymentPerDay", "N/A");
+        Log.d("UserProfileFragment", "Payment Per Day: " + paymentPerDay);
+        tvPaymentPerDay.setText(paymentPerDay);
 
-                    // Fetch and set Payment Per KG
-                    tvPaymentPerKg.setText(dataSnapshot.child("paymentPerKg").getValue(String.class));
+        // Fetch and set Payment Per KG
+        String paymentPerKg = sharedPreferences.getString("paymentPerKg", "N/A");
+        Log.d("UserProfileFragment", "Payment Per KG: " + paymentPerKg);
+        tvPaymentPerKg.setText(paymentPerKg);
 
-                    // Fetch and set Day of Payment
-                    tvDayOfPayment.setText(dataSnapshot.child("dayOfPayment").getValue(String.class));
+        // Fetch and set Day of Payment
+        String dayOfPayment = sharedPreferences.getString("dayOfPayment", "N/A");
+        Log.d("UserProfileFragment", "Day of Payment: " + dayOfPayment);
+        tvDayOfPayment.setText(dayOfPayment);
 
-                    // Optionally, load the profile image if available
-                    // LoadProfileImage(dataSnapshot.child("profileImage").getValue(String.class));
-                } else {
-                    showMessage("No farmer data found.");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                showMessage("Error fetching data: " + databaseError.getMessage());
-            }
-        });
+        // Fetch and set Profile Image URL (if available) from local storage
+        String profileImageUrl = sharedPreferences.getString("profileImage", "");
+        if (!profileImageUrl.isEmpty()) {
+            Picasso.get().load(profileImageUrl).into(profileImage);
+        } else {
+            profileImage.setImageResource(R.drawable.ic_farmer_profile_img); // Default image if no URL
+        }
     }
 
     private void setupButtonListeners() {
@@ -132,6 +123,8 @@ public class UserProfileFragment extends Fragment {
         btnLogout.setOnClickListener(v -> {
             // Implement logout functionality here
             showMessage("Logout button clicked.");
+            // Optionally navigate to login screen after logout
+            // Navigate to login screen using your preferred navigation method
         });
     }
 

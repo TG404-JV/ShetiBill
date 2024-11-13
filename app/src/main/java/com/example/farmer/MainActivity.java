@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,46 +22,41 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.farmer.cropmarket.CropMarket;
 import com.example.farmer.emioptions.Loan_calculator;
-import com.example.farmer.farmerai.FragmentFarmerAi;
 import com.example.farmer.fertilizer.Fertilizer_Expendituer;
 import com.example.farmer.govscheme.FragmentGovtScheme;
 import com.example.farmer.graph.FragmentExpendGraph;
 import com.example.farmer.home.Home;
-import com.example.farmer.mainacthandler.FirebaseHelper;
-import com.example.farmer.mainacthandler.ImageHelper;
-import com.example.farmer.mainacthandler.SearchHelper;
 import com.example.farmer.userprofile.UserProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int PERMISSION_REQUEST_CODE = 100;
-    private static final int PICK_IMAGE_REQUEST = 1; // Request code for image selection
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private DrawerLayout drawerLayout;
     private ImageButton menu;
-    private MyAdapter adapter;
-    private List<String> dataList = new ArrayList<>(); // Sample data list for search
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
-    private ImageView profileImageView; // ImageView in navheader (ID: pro)
-
+    private ImageView profileImageView;
+    private TextView userNameTextView, userEmailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,55 +66,99 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Firebase and permissions setup
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        FirebaseHelper.initializeFirebase(this);
         checkPermissions();
 
         // Setup the navigation drawer
         setupNavigationDrawer();
-
-        // Setup header view for user data
-        FirebaseHelper.setupHeaderView(this, findViewById(R.id.navigation_view));
-
-
 
         // Load default fragment (Home)
         if (savedInstanceState == null) {
             loadFragment(new Home());
         }
 
-        // Load the profile image into the user logo
-        loadProfileImage();
+        // Setup the profile information (image, name, email)
+        setupProfileInfo();
     }
 
     private void setupNavigationDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         menu = findViewById(R.id.menu);
-        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.pro); // 'pro' ImageView in navheader
+        profileImageView = navigationView.getHeaderView(0).findViewById(R.id.pro);
+        userNameTextView = navigationView.getHeaderView(0).findViewById(R.id.userName);
+        userEmailTextView = navigationView.getHeaderView(0).findViewById(R.id.userEmail);
 
         menu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
-        );
+                this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Set the onClick listener for the profile image view
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the gallery to select an image
+                openImagePicker();
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(this);
-
-        // Set click listener for profile image in navheader to upload a new profile picture
-        profileImageView.setOnClickListener(v -> selectProfileImage());
-
-
-        // Setup login and logout buttons
-        setupLoginLogout(navigationView);
     }
 
+    private void setupProfileInfo() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            // Fetch user's email (for now, as fallback)
+            String userEmail = user.getEmail();
+            userEmailTextView.setText(userEmail != null ? userEmail : "No Email");
 
+            // Fetch farmer's information from Firebase Realtime Database using the user UID as the key
+            String userId = user.getUid();
+            DatabaseReference farmerRef = FirebaseDatabase.getInstance().getReference("Users").child(userId); // Assuming "farmers" is the node where the data is stored
 
+            farmerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Fetch farmer's name from Firebase
+                        String farmerName = dataSnapshot.child("name").getValue(String.class);
+                        userNameTextView.setText(farmerName);
+                    } else {
+                        userNameTextView.setText("No Name"); // If no data exists
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors, like no connection or permission issues
+                    Toast.makeText(MainActivity.this, "Failed to load farmer data.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Fetch and set profile image
+            StorageReference profileImageRef = firebaseStorage.getReference().child("profile_images/" + user.getUid() + ".jpg");
+            File localFile = new File(getFilesDir(), firebaseAuth.getUid());
+
+            if (localFile.exists()) {
+                Glide.with(this).load(localFile).circleCrop().into(profileImageView);
+            } else {
+                profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(this).load(uri).circleCrop().into(profileImageView);
+                    saveImageLocally(uri);
+                }).addOnFailureListener(e -> {
+                    setDefaultProfileImage();
+                });
+            }
+        } else {
+            setDefaultProfileImage();
+        }
+    }
+
+    private void setDefaultProfileImage() {
+        profileImageView.setImageResource(R.drawable.ic_farmer_profile_img);
+    }
 
     private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -130,119 +169,81 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void loadProfileImage() {
-        File localFile = new File(getFilesDir(), "profile_image.jpg");
-
-        if (localFile.exists()) {
-            // Load the local image into the profileImageView and userlogo
-            Glide.with(this)
-                    .load(localFile)
-                    .centerCrop()
-                    .circleCrop()
-                    .into(profileImageView);
-
-
-        } else {
-            // If the local image doesn't exist, fetch it from Firebase
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
-                StorageReference profileImageRef = firebaseStorage.getReference()
-                        .child("profile_images/" + user.getUid() + ".jpg");
-
-                // Attempt to fetch the profile image from Firebase Storage
-                profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    // Load the image from Firebase into the profileImageView and userlogo
-                    Glide.with(this)
-                            .load(uri)
-                            .centerCrop()
-                            .circleCrop()
-                            .into(profileImageView);
-
-
-                    // Optionally, save this image locally for future use
-                    saveImageLocally(uri);
-                }).addOnFailureListener(e -> {
-                    // If fetching from Firebase fails, set a default image
-                    setDefaultProfileImage();
-                });
-            } else {
-                // User is not logged in, set a default image
-                setDefaultProfileImage();
-            }
-        }
-    }
-
-    private void setDefaultProfileImage() {
-        // Set the default image if no profile image is available
-        profileImageView.setImageResource(R.drawable.ic_farmer_profile_img);
-    }
-
-    private void selectProfileImage() {
-        // Open the image picker when the user clicks the profile image
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri imageUri = data.getData();
-            uploadImageToFirebase(imageUri);
-        }
-    }
-
-    private void uploadImageToFirebase(Uri imageUri) {
-        if (imageUri != null) {
-            // Upload the selected image to Firebase Storage
-            StorageReference profileImageRef = firebaseStorage.getReference()
-                    .child("profile_images/" + firebaseAuth.getCurrentUser().getUid() + ".jpg");
-
-            profileImageRef.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        // Load the new profile image into the ImageView
-                        Glide.with(MainActivity.this)
-                                .load(imageUri)
-                                .circleCrop()
-                                .into(profileImageView);
-
-                        // Save the image to the local directory
-                        saveImageLocally(imageUri);
-
-                        Toast.makeText(MainActivity.this, "Profile image uploaded", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(MainActivity.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-                    });
-        }
-    }
-
     private void saveImageLocally(Uri imageUri) {
         try {
-            // Open an input stream from the image URI
             InputStream inputStream = getContentResolver().openInputStream(imageUri);
-
-            // Create a file in the app's local directory
             File localFile = new File(getFilesDir(), "profile_image.jpg");
             FileOutputStream outputStream = new FileOutputStream(localFile);
 
-            // Write the input stream to the local file
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
 
-            // Close the streams
             outputStream.close();
             inputStream.close();
 
             Toast.makeText(this, "Profile image saved locally", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Failed to save image locally", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        }
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    // Handle the result of the image picker
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+
+            // Set the selected image on the ImageView
+            profileImageView.setImageURI(imageUri);
+
+            // Upload the selected image to Firebase Storage
+            uploadImageToFirebase(imageUri);
+        }
+    }
+
+    private void uploadImageToFirebase(Uri imageUri) {
+        // Get the Firebase Storage reference for the user's profile image
+        StorageReference profileImageRef = firebaseStorage.getReference().child("profile_images/" + firebaseAuth.getCurrentUser().getUid() + ".jpg");
+
+        profileImageRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // After the image is uploaded successfully, get the image URL
+                    profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        // Set the profile image in the UI
+                        Glide.with(this).load(uri).circleCrop().into(profileImageView);
+
+                        // Save the image URL to Firebase Database
+                        saveProfileImageUrl(uri.toString());
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(MainActivity.this, "Image upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void saveProfileImageUrl(String imageUrl) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            userRef.child("profileImageUrl").setValue(imageUrl)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(MainActivity.this, "Profile image URL saved", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(MainActivity.this, "Failed to save image URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
@@ -261,10 +262,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new Loan_calculator();
         } else if (id == R.id.government_scheme) {
             fragment = new FragmentGovtScheme();
-        } else if (id == R.id.ai_assistant) {
-            fragment = new FragmentFarmerAi();
-        } else if (id==R.id.nav_harvest) {
-            fragment=new FragmentExpendGraph();
+        } else if (id == R.id.nav_harvest) {
+            fragment = new FragmentExpendGraph();
         }
 
         if (fragment != null) {
@@ -274,28 +273,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment); // Ensure this ID matches your layout
-        fragmentTransaction.commit();
-    }
-
-    private void setupLoginLogout(NavigationView navigationView) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            // User is logged in, show user's email
-            navigationView.getHeaderView(0).findViewById(R.id.userEmail).setVisibility(View.VISIBLE);
-        } else {
-            // User is logged out, set onClickListener for login
-            navigationView.getHeaderView(0).findViewById(R.id.userEmail).setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        firebaseAuth.signOut();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
     }
 }

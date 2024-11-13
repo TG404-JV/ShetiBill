@@ -1,16 +1,17 @@
 package com.example.farmer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,6 +27,7 @@ public class FarmerDetails extends AppCompatActivity {
     private RadioButton rbWeekly, rbMonthly;
     private DatabaseReference databaseReference;
     private Map<String, String> farmerData;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,17 @@ public class FarmerDetails extends AppCompatActivity {
         // Initialize Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("Farmers");
 
-        // Initialize layouts
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("FarmerDetails", Context.MODE_PRIVATE);
+
+        // Initialize layouts and fields
+        initializeViews();
+
+        // Initialize farmerData HashMap
+        farmerData = new HashMap<>();
+    }
+
+    private void initializeViews() {
         farmerNameLayout = findViewById(R.id.farmerNameLayout);
         dobLayout = findViewById(R.id.dobLayout);
         mobileNumberLayout = findViewById(R.id.mobileNumberLayout);
@@ -45,7 +57,6 @@ public class FarmerDetails extends AppCompatActivity {
         paymentPerKgLayout = findViewById(R.id.paymentPerKgLayout);
         dayOfPaymentLayout = findViewById(R.id.dayOfPaymentLayout);
 
-        // Initialize EditTexts
         etFarmerName = findViewById(R.id.etFarmerName);
         etDob = findViewById(R.id.etDob);
         etMobileNumber = findViewById(R.id.etMobileNumber);
@@ -54,61 +65,99 @@ public class FarmerDetails extends AppCompatActivity {
         etPaymentPerKg = findViewById(R.id.etPaymentPerKg);
         etDayOfPayment = findViewById(R.id.etDayOfPayment);
 
-        // Radio Group
         radioGroupPaymentType = findViewById(R.id.radioGroupPaymentType);
         rbWeekly = findViewById(R.id.rbWeekly);
         rbMonthly = findViewById(R.id.rbMonthly);
-
-        // Initialize farmerData HashMap
-        farmerData = new HashMap<>();
     }
 
-    // Method to show the next screen
+    // Method to show the next screen with validation
     public void showNextScreen(View view) {
         int id = view.getId();
+        String nextField = null;
+        LinearLayout currentLayout = null, nextLayout = null;
 
         if (id == R.id.btnNextFarmerName) {
             if (validateField(etFarmerName)) {
-                farmerData.put("farmerName", etFarmerName.getText().toString().trim());
-                farmerNameLayout.setVisibility(View.GONE);
-                dobLayout.setVisibility(View.VISIBLE);
+                nextField = "farmerName";
+                currentLayout = farmerNameLayout;
+                nextLayout = dobLayout;
             }
         } else if (id == R.id.btnNextDob) {
             if (validateField(etDob)) {
-                farmerData.put("dob", etDob.getText().toString().trim());
-                dobLayout.setVisibility(View.GONE);
-                mobileNumberLayout.setVisibility(View.VISIBLE);
+                nextField = "dob";
+                currentLayout = dobLayout;
+                nextLayout = mobileNumberLayout;
             }
         } else if (id == R.id.btnNextMobileNumber) {
             if (validateField(etMobileNumber)) {
-                farmerData.put("mobileNumber", etMobileNumber.getText().toString().trim());
-                mobileNumberLayout.setVisibility(View.GONE);
-                farmerOwnerLayout.setVisibility(View.VISIBLE);
+                nextField = "mobileNumber";
+                currentLayout = mobileNumberLayout;
+                nextLayout = farmerOwnerLayout;
             }
         } else if (id == R.id.btnNextFarmerOwner) {
             if (validateField(etFarmerOwner)) {
-                farmerData.put("farmerOwner", etFarmerOwner.getText().toString().trim());
-                farmerOwnerLayout.setVisibility(View.GONE);
-                paymentTypeLayout.setVisibility(View.VISIBLE);
+                nextField = "farmerOwner";
+                currentLayout = farmerOwnerLayout;
+                nextLayout = paymentTypeLayout;
             }
         } else if (id == R.id.btnNextPaymentType) {
-            String paymentType = rbWeekly.isChecked() ? "Weekly" : "Monthly";
-            farmerData.put("paymentType", paymentType);
-            paymentTypeLayout.setVisibility(View.GONE);
-            paymentPerDayLayout.setVisibility(View.VISIBLE);
+            // Ensure the payment type is selected
+            int selectedId = radioGroupPaymentType.getCheckedRadioButtonId();
+            if (selectedId != -1) {
+                String paymentType = (selectedId == R.id.rbWeekly) ? "Weekly" : "Monthly";
+                farmerData.put("paymentType", paymentType); // Save the selected payment type
+                currentLayout = paymentTypeLayout;
+                nextLayout = paymentPerDayLayout;
+                navigateToNextLayout(currentLayout, nextLayout);  // Now move to next layout
+                return; // Prevent further execution in this method
+            } else {
+                // Handle case where no payment type is selected
+                showMessage("Please select a payment type.");
+                return;
+            }
         } else if (id == R.id.btnNextPaymentPerDay) {
             if (validateField(etPaymentPerDay)) {
-                farmerData.put("paymentPerDay", etPaymentPerDay.getText().toString().trim());
-                paymentPerDayLayout.setVisibility(View.GONE);
-                paymentPerKgLayout.setVisibility(View.VISIBLE);
+                nextField = "paymentPerDay";
+                currentLayout = paymentPerDayLayout;
+                nextLayout = paymentPerKgLayout;
             }
         } else if (id == R.id.btnNextPaymentPerKg) {
             if (validateField(etPaymentPerKg)) {
-                farmerData.put("paymentPerKg", etPaymentPerKg.getText().toString().trim());
-                paymentPerKgLayout.setVisibility(View.GONE);
-                dayOfPaymentLayout.setVisibility(View.VISIBLE);
+                nextField = "paymentPerKg";
+                currentLayout = paymentPerKgLayout;
+                nextLayout = dayOfPaymentLayout;
             }
         }
+
+        if (nextField != null) {
+            farmerData.put(nextField, getInputText(view));
+            navigateToNextLayout(currentLayout, nextLayout);
+        }
+    }
+
+    private void navigateToNextLayout(LinearLayout currentLayout, LinearLayout nextLayout) {
+        currentLayout.setVisibility(View.GONE);
+        nextLayout.setVisibility(View.VISIBLE);
+    }
+
+    private String getInputText(View view) {
+        TextInputEditText editText = null;
+
+        if (view.getId() == R.id.btnNextFarmerName) {
+            editText = etFarmerName;
+        } else if (view.getId() == R.id.btnNextDob) {
+            editText = etDob;
+        } else if (view.getId() == R.id.btnNextMobileNumber) {
+            editText = etMobileNumber;
+        } else if (view.getId() == R.id.btnNextFarmerOwner) {
+            editText = etFarmerOwner;
+        } else if (view.getId() == R.id.btnNextPaymentPerDay) {
+            editText = etPaymentPerDay;
+        } else if (view.getId() == R.id.btnNextPaymentPerKg) {
+            editText = etPaymentPerKg;
+        }
+
+        return editText != null ? editText.getText().toString().trim() : null;
     }
 
     // Method to submit data to Firebase
@@ -117,17 +166,18 @@ public class FarmerDetails extends AppCompatActivity {
             String dayOfPayment = etDayOfPayment.getText().toString().trim();
             farmerData.put("dayOfPayment", dayOfPayment);
 
-            // Push the farmer data to Firebase Realtime Database under a unique ID
+            // Save the data locally in SharedPreferences before submitting to Firebase
+            saveFarmerDataLocally();
+
+            // Generate unique key and submit data
             String farmerId = databaseReference.push().getKey(); // Generate a unique key
             if (farmerId != null) {
                 databaseReference.child(farmerId).setValue(farmerData).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Data uploaded successfully
                         showMessage("Farmer data uploaded successfully.");
-                        startActivity(new Intent(FarmerDetails.this, MainActivity.class));
-                        finish(); // Optional: Close this activity to prevent going back
+                        navigateToMainScreen();
                     } else {
-                        // Handle failure
                         showMessage("Error uploading farmer data: " + task.getException().getMessage());
                     }
                 });
@@ -137,9 +187,9 @@ public class FarmerDetails extends AppCompatActivity {
         }
     }
 
-    // Helper method to show a message (you can use Toast or Snackbar)
+    // Helper method to show a message
     private void showMessage(String message) {
-        Toast.makeText(FarmerDetails.this, message, Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
     // Validate input fields
@@ -149,5 +199,20 @@ public class FarmerDetails extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    // Save farmer data locally in SharedPreferences
+    private void saveFarmerDataLocally() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for (Map.Entry<String, String> entry : farmerData.entrySet()) {
+            editor.putString(entry.getKey(), entry.getValue());
+        }
+        editor.apply(); // Save changes
+    }
+
+    // Navigate to the main screen after successful submission
+    private void navigateToMainScreen() {
+        startActivity(new Intent(FarmerDetails.this, MainActivity.class));
+        finish();
     }
 }
