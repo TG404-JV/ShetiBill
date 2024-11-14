@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -182,30 +184,36 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
     }
 
     private void showAddWeightDialog(Labour labour, WeightAdapter weightAdapter, LabourViewHolder holder) {
-        EditText weightInput = new EditText(context);
-        weightInput.setHint("Enter weight");
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialogue_add_weight, null);
+        TextInputEditText weightInput = dialogView.findViewById(R.id.weightInput);
+        Button addButton = dialogView.findViewById(R.id.addButton);
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
 
-        new AlertDialog.Builder(context)
-                .setTitle("Add Weight")
-                .setView(weightInput)
-                .setPositiveButton("Add", (dialog, which) -> {
-                    String weightStr = weightInput.getText().toString();
-                    if (!weightStr.isEmpty()) {
-                        try {
-                            int weight = Integer.parseInt(weightStr);
-                            labour.getWeights().add(weight); // Add weight to the labour's list
-                            weightAdapter.notifyDataSetChanged();
-                            updateTotalWeight(labour, holder);
-                            saveLabourData(); // Save updated weights to SharedPreferences
-                        } catch (NumberFormatException e) {
-                            Toast.makeText(context, "Please enter a valid number", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+
+        addButton.setOnClickListener(v -> {
+            String weightStr = weightInput.getText().toString();
+            if (!weightStr.isEmpty()) {
+                try {
+                    int weight = Integer.parseInt(weightStr);
+                    labour.getWeights().add(weight);
+                    weightAdapter.notifyDataSetChanged();
+                    updateTotalWeight(labour, holder);
+                    saveLabourData();
+                    dialog.dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(context, "Please enter a valid number", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
-
     private void shareLabourDetails(Labour labour) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -223,25 +231,32 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
 
     private void showEditDialog(Labour labour, int position) {
         View editView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_labour, null);
-        EditText editName = editView.findViewById(R.id.editLabourName);
-        EditText editDate = editView.findViewById(R.id.editWorkDate);
+
+        TextInputEditText editName = editView.findViewById(R.id.editLabourName);
+        TextInputEditText editDate = editView.findViewById(R.id.editWorkDate);
+        Button saveButton = editView.findViewById(R.id.saveButton);
+        Button cancelButton = editView.findViewById(R.id.cancelButton);
 
         editName.setText(labour.getName());
         editDate.setText(labour.getDate());
 
-        new AlertDialog.Builder(context)
-                .setTitle("Edit Labour")
+        AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(editView)
-                .setPositiveButton("Save", (dialog, which) -> {
-                    labour.setName(editName.getText().toString());
-                    labour.setDate(editDate.getText().toString());
-                    notifyItemChanged(position);
-                    saveLabourData(); // Save updated details to SharedPreferences
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
-    }
+                .setCancelable(false)
+                .create();
 
+        saveButton.setOnClickListener(v -> {
+            labour.setName(editName.getText().toString());
+            labour.setDate(editDate.getText().toString());
+            notifyItemChanged(position);
+            saveLabourData();
+            dialog.dismiss();
+        });
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
     // Update the total weight displayed
     private void updateTotalWeight(Labour labour, LabourViewHolder holder) {
         int totalWeight = 0;

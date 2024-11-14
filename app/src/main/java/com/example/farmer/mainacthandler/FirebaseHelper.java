@@ -40,7 +40,7 @@ public class FirebaseHelper {
 
     public static void setupHeaderView(Context context, NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);
-        ImageView userImageView = headerView.findViewById(R.id.pro);
+        ImageView userImageView = headerView.findViewById(R.id.profileImage);
         TextView userNameTextView = headerView.findViewById(R.id.userName);
         TextView userEmailTextView = headerView.findViewById(R.id.userEmail);
 

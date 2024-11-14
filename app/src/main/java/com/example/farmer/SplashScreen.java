@@ -1,70 +1,60 @@
 package com.example.farmer;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
-
-
 public class SplashScreen extends AppCompatActivity {
 
-    private static final int SPLASH_DISPLAY_LENGTH = 3000; // Duration of the splash screen
+    private ImageView logoImageView;
+    private TextView appNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        logoImageView = findViewById(R.id.logo);
+        appNameTextView = findViewById(R.id.app_name);
 
+        // Animate the logo and app name
+        animateLogo();
+        animateAppName();
 
-        // Find views
-        ImageView splashLogo = findViewById(R.id.splash_logo);
-        TextView appName = findViewById(R.id.app_name);
-        TextView appTagline = findViewById(R.id.app_tagline);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-
-        // Load animations
-        Animation logoAnim = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
-        Animation fadeInSlideUp = AnimationUtils.loadAnimation(this, R.anim.fade_in_slide_up);
-        Animation fadeInProgressBar = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-
-
-        // Start animations
-        splashLogo.startAnimation(logoAnim);
-        appName.startAnimation(fadeInSlideUp);
-        appTagline.startAnimation(fadeInSlideUp);
-        progressBar.startAnimation(fadeInProgressBar);
-
-        // Transition to MainActivity after splash
-        new Handler().postDelayed(new Runnable() {
+        // Transition to the main activity after the animations are complete
+        Animator.AnimatorListener listener = new AnimatorListenerAdapter() {
             @Override
-            public void run() {
-                Intent mainIntent = new Intent(SplashScreen.this, LoginActivity.class);
-                startActivity(mainIntent);
+            public void onAnimationEnd(Animator animation) {
+                startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 finish();
             }
-        }, SPLASH_DISPLAY_LENGTH);
+        };
+        logoImageView.animate().scaleX(1f).scaleY(1f).setDuration(2000).setInterpolator(new AccelerateInterpolator()).setListener(listener);
     }
 
-    public void setLocale(String langCode) {
-        Locale locale = new Locale(langCode);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        // Restart activity to apply the new language
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
+    private void animateLogo() {
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(logoImageView, View.SCALE_X, 0.5f, 1f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(logoImageView, View.SCALE_Y, 0.5f, 1f);
+        scaleXAnimator.setDuration(2000);
+        scaleYAnimator.setDuration(2000);
+        scaleXAnimator.setInterpolator(new AccelerateInterpolator());
+        scaleYAnimator.setInterpolator(new AccelerateInterpolator());
+        scaleXAnimator.start();
+        scaleYAnimator.start();
     }
 
+    private void animateAppName() {
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(appNameTextView, View.ALPHA, 0f, 1f);
+        alphaAnimator.setDuration(2000);
+        alphaAnimator.setStartDelay(1000);
+        alphaAnimator.start();
+    }
 }

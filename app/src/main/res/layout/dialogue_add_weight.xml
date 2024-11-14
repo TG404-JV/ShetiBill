@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/labour_details"
+        android:text="@string/add_weight"
         android:textSize="18sp"
         android:textColor="@color/primary_green_dark"
         android:fontFamily="@font/ic_poppins_bold" />
@@ -20,27 +20,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editLabourName"
+            android:id="@+id/weightInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labour_name"
-            android:fontFamily="@font/ic_poppins_regular"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editWorkDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/work_date"
+            android:hint="@string/enter_weight"
+            android:inputType="numberDecimal"
             android:fontFamily="@font/ic_poppins_regular"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -62,10 +46,10 @@
             style="?attr/materialButtonOutlinedStyle" />
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:text="@string/add"
             android:layout_marginStart="16dp" />
 
     </LinearLayout>
