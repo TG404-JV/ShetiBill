@@ -12,4 +12,12 @@
         <item>Quarterly</item>
     </string-array>
 
+    <array name="time_intervals">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>All-time</item>
+    </array>
+
+
 </resources>

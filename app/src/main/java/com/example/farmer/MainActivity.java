@@ -26,6 +26,7 @@ import com.example.farmer.fertilizer.Fertilizer_Expendituer;
 import com.example.farmer.govscheme.FragmentGovtScheme;
 import com.example.farmer.graph.FragmentExpendGraph;
 import com.example.farmer.home.Home;
+import com.example.farmer.lang.LocaleHelper;
 import com.example.farmer.userprofile.UserProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // Firebase and permissions setup
         firebaseAuth = FirebaseAuth.getInstance();

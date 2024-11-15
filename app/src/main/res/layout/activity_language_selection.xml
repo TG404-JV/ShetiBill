@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Hi"
+            android:text="Please select your preferred language"
             android:textAlignment="center"
             android:textColor="#666666"
             android:textSize="16sp" />

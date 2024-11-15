@@ -1,59 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Pie Chart for Fertilizer Expenditure -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/fertilizerPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <!-- Message if no data available -->
     <TextView
-        android:id="@+id/tvOverviewTitle"
+        android:id="@+id/emptyFertilizerStateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/this_month"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:text="No Data Available"
+        android:textSize="18sp"
+        android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/tvTotalExpenses"
+    <!-- Time Interval Radio Group -->
+    <RadioGroup
+        android:id="@+id/timeIntervalGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_2_480"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:paddingTop="8dp"/>
-
-    <ListView
-        android:id="@+id/listExpenses"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <Button
-            android:layout_width="0dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radio_daily"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/labor"
-            android:id="@+id/btnLabor"/>
-
-        <Button
-            android:layout_width="0dp"
+            android:text="Daily"/>
+        <RadioButton
+            android:id="@+id/radio_weekly"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/fertilizer"
-            android:id="@+id/btnFertilizer"/>
-
-        <Button
-            android:layout_width="0dp"
+            android:text="Weekly"/>
+        <RadioButton
+            android:id="@+id/radio_monthly"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/add_expense"
-            android:id="@+id/btnAddExpense"/>
-    </LinearLayout>
-
+            android:text="Monthly"/>
+    </RadioGroup>
 </LinearLayout>

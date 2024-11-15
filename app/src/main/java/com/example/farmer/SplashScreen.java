@@ -33,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
         Animator.AnimatorListener listener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                startActivity(new Intent(SplashScreen.this, LanguageSelection.class));
                 finish();
             }
         };

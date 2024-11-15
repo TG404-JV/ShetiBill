@@ -1,6 +1,7 @@
 package com.example.farmer.userprofile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.farmer.LoginActivity;
 import com.example.farmer.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,9 +30,14 @@ public class UserProfileFragment extends Fragment {
     private TextView tvFarmerName, tvDob, tvMobileNumber, tvPaymentType, tvPaymentPerDay, tvPaymentPerKg, tvDayOfPayment;
     private CircleImageView profileImage;
     private Button btnProfileUpdate, btnLogin, btnLogout;
+    private TextView ProfileName;
 
     // SharedPreferences for local storage
     private SharedPreferences sharedPreferences;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+
 
     @Nullable
     @Override
@@ -38,11 +48,24 @@ public class UserProfileFragment extends Fragment {
         // Initialize the views
         initializeViews(view);
 
+        // Initialize Firebase Authentication and Database Reference
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users"); // Assuming user data is stored under "Users"
+
         // Initialize SharedPreferences to fetch local data
         sharedPreferences = getActivity().getSharedPreferences("FarmerDetails", Context.MODE_PRIVATE);
 
         // Fetch farmer data from local storage
         fetchFarmerDataFromLocalStorage();
+
+        // Setup button listeners
+        setupButtonListeners();
+
+
+        // Check if user is logged in
+        checkLoginStatus();
+
+
 
         // Setup button listeners
         setupButtonListeners();
@@ -62,6 +85,7 @@ public class UserProfileFragment extends Fragment {
         btnProfileUpdate = view.findViewById(R.id.btnProfileUpdate);
         btnLogin = view.findViewById(R.id.btnLogin);
         btnLogout = view.findViewById(R.id.btnLogout);
+        ProfileName=view.findViewById(R.id.profile_name);
     }
 
     private void fetchFarmerDataFromLocalStorage() {
@@ -69,6 +93,7 @@ public class UserProfileFragment extends Fragment {
         String farmerName = sharedPreferences.getString("farmerName", "N/A");
         Log.d("UserProfileFragment", "Farmer Name: " + farmerName);
         tvFarmerName.setText(farmerName);
+        ProfileName.setText(farmerName);
 
         // Fetch and set Date of Birth
         String dob = sharedPreferences.getString("dob", "N/A");
@@ -110,23 +135,51 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void setupButtonListeners() {
+        // Profile Update button: Navigate to an activity where user can update profile
         btnProfileUpdate.setOnClickListener(v -> {
-            // Implement profile update functionality here
-            showMessage("Profile Update button clicked.");
+            // Example: Navigate to a new activity to update profile
+            startActivity(new Intent(getActivity(), UserProfileFragment.class));
         });
 
+        // Login button: Navigate to the login screen
         btnLogin.setOnClickListener(v -> {
-            // Implement login functionality here
-            showMessage("Login button clicked.");
+            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(loginIntent);
         });
 
+        // Logout button: Log out from Firebase and clear SharedPreferences
         btnLogout.setOnClickListener(v -> {
-            // Implement logout functionality here
-            showMessage("Logout button clicked.");
-            // Optionally navigate to login screen after logout
-            // Navigate to login screen using your preferred navigation method
+            // Sign out from Firebase Authentication
+            mAuth.signOut();
+
+            // Clear all data from SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
+            // Show a logout message
+            showMessage("You have successfully logged out.");
+
+            // Redirect to LoginActivity
+            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(loginIntent);
+            getActivity().finish(); // Optionally close the current activity
         });
     }
+
+
+    private void checkLoginStatus() {
+        if (mAuth.getCurrentUser() != null) {
+            // User is logged in, show Logout button and hide Login button
+            btnLogout.setVisibility(View.VISIBLE);
+            btnLogin.setVisibility(View.GONE);
+        } else {
+            // User is not logged in, show Login button and hide Logout button
+            btnLogin.setVisibility(View.VISIBLE);
+            btnLogout.setVisibility(View.GONE);
+        }
+    }
+
 
     private void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();

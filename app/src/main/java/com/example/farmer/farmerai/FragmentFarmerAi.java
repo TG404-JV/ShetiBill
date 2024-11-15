@@ -178,20 +178,33 @@ public class FragmentFarmerAi extends Fragment {
     }
 
     private void fetchBotResponse(String userMessage) {
+
+
+
+
+        // Set up the generative model with the provided API key
         Executor executor = Executors.newSingleThreadExecutor();
         GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", API_KEY);
         GenerativeModelFutures model = GenerativeModelFutures.from(gm);
 
+        // Build the content with the full query
         Content content = new Content.Builder()
                 .addText(userMessage)
                 .build();
 
+        // Asynchronously fetch the response from the generative model
         ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
+
+        // Handle the response or failure
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
                 String generatedText = result.getText();
+
+                // Clean up the response by removing unwanted characters or text
                 String output = generatedText.replace("*", "");
+
+                // Run the UI update on the main thread
                 requireActivity().runOnUiThread(() -> {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
@@ -202,6 +215,8 @@ public class FragmentFarmerAi extends Fragment {
             @Override
             public void onFailure(@NonNull Throwable t) {
                 t.printStackTrace();
+
+                // Handle failure case
                 requireActivity().runOnUiThread(() -> addBotMessage("Sorry, I couldn't generate a response. Please try again."));
             }
         }, executor);

@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +23,6 @@ public class FarmerDetails extends AppCompatActivity {
     private TextInputEditText etFarmerName, etDob, etMobileNumber, etFarmerOwner, etPaymentPerDay, etPaymentPerKg, etDayOfPayment;
     private RadioGroup radioGroupPaymentType;
     private RadioButton rbWeekly, rbMonthly;
-    private DatabaseReference databaseReference;
     private Map<String, String> farmerData;
     private SharedPreferences sharedPreferences;
 
@@ -33,9 +30,6 @@ public class FarmerDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.farmer_details);
-
-        // Initialize Firebase Database
-        databaseReference = FirebaseDatabase.getInstance().getReference("Farmers");
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("FarmerDetails", Context.MODE_PRIVATE);
@@ -160,30 +154,20 @@ public class FarmerDetails extends AppCompatActivity {
         return editText != null ? editText.getText().toString().trim() : null;
     }
 
-    // Method to submit data to Firebase
+    // Method to save data locally in SharedPreferences and skip Firebase upload
     public void submitFarmerInfo(View view) {
         if (validateField(etDayOfPayment)) {
             String dayOfPayment = etDayOfPayment.getText().toString().trim();
             farmerData.put("dayOfPayment", dayOfPayment);
 
-            // Save the data locally in SharedPreferences before submitting to Firebase
+            // Save the complete farmer data locally in SharedPreferences
             saveFarmerDataLocally();
 
-            // Generate unique key and submit data
-            String farmerId = databaseReference.push().getKey(); // Generate a unique key
-            if (farmerId != null) {
-                databaseReference.child(farmerId).setValue(farmerData).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Data uploaded successfully
-                        showMessage("Farmer data uploaded successfully.");
-                        navigateToMainScreen();
-                    } else {
-                        showMessage("Error uploading farmer data: " + task.getException().getMessage());
-                    }
-                });
-            } else {
-                showMessage("Error generating farmer ID.");
-            }
+            // Show message to indicate success
+            showMessage("Farmer data saved locally.");
+
+            // Optionally navigate back to the main screen or another activity
+            navigateToMainScreen();
         }
     }
 
@@ -212,7 +196,9 @@ public class FarmerDetails extends AppCompatActivity {
 
     // Navigate to the main screen after successful submission
     private void navigateToMainScreen() {
-        startActivity(new Intent(FarmerDetails.this, MainActivity.class));
-        finish();
+        // This can be modified to navigate to the appropriate screen in your app
+        // Example:
+         startActivity(new Intent(FarmerDetails.this, MainActivity.class));
+         finish();
     }
 }

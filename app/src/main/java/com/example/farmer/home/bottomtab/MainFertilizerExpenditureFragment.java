@@ -3,9 +3,14 @@ package com.example.farmer.home.bottomtab;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.farmer.R;
 import com.example.farmer.fertilizer.FertilizerExpenditure;
 import com.example.farmer.fertilizer.FertilizerExpenditureAdapter;
+import com.example.farmer.home.FertilizerExpenditurePrintAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +33,10 @@ public class MainFertilizerExpenditureFragment extends Fragment {
     private FertilizerExpenditureAdapter adapter;
     private List<FertilizerExpenditure> expenditureList;
 
+    private TextView totalSpendingAmount;
+    private TextView averageSpendingAmount;
+    private ImageView printButton;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,10 +46,16 @@ public class MainFertilizerExpenditureFragment extends Fragment {
         recyclerViewExpenditures.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         expenditureList = new ArrayList<>();
-        adapter = new FertilizerExpenditureAdapter(expenditureList, getContext()); // Pass context to adapter
+        adapter = new FertilizerExpenditureAdapter(expenditureList, getContext());
         recyclerViewExpenditures.setAdapter(adapter);
 
-        reloadData(); // Load the data when the view is created
+        totalSpendingAmount = view.findViewById(R.id.totalSpendingAmount);
+        averageSpendingAmount = view.findViewById(R.id.averageSpendingAmount);
+        printButton = view.findViewById(R.id.Print);
+
+        printButton.setOnClickListener(v -> printExpenditures());
+
+        reloadData();
 
         return view;
     }
@@ -48,6 +64,7 @@ public class MainFertilizerExpenditureFragment extends Fragment {
         expenditureList.clear();
         expenditureList.addAll(loadSavedData());
         adapter.notifyDataSetChanged();
+        updateTotalAndAverage();
     }
 
     private List<FertilizerExpenditure> loadSavedData() {
@@ -68,9 +85,26 @@ public class MainFertilizerExpenditureFragment extends Fragment {
         return expenditureList;
     }
 
+    private void updateTotalAndAverage() {
+        double total = 0;
+        for (FertilizerExpenditure expenditure : expenditureList) {
+            total += Double.parseDouble(expenditure.getAmount()); // Assuming getAmount() returns the expenditure amount
+        }
+
+        totalSpendingAmount.setText(getString(R.string.currency_format, total));
+        double average = expenditureList.size() > 0 ? total / expenditureList.size() : 0;
+        averageSpendingAmount.setText(getString(R.string.currency_format, average));
+    }
+
+    private void printExpenditures() {
+        PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
+        PrintDocumentAdapter adapter = new FertilizerExpenditurePrintAdapter(getContext(), expenditureList);
+        printManager.print("Fertilizer Expenditure Summary", adapter, new PrintAttributes.Builder().build());
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        reloadData(); // Reload data when the fragment is resumed
+        reloadData();
     }
 }

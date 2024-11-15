@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -53,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
         tvCreateAccount = findViewById(R.id.tvCreateAccount);
+
+
 
         // Sign In button click event
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -119,5 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
 }
 

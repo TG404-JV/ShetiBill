@@ -1,0 +1,153 @@
+<resources>
+    <string name="app_name" translatable="false">ShetiBill</string>
+    <string name="hello_blank_fragment" translatable="false">હેલો, ખાલી ફ્રેગમેન્ટ</string>
+    <string name="navigation_drawer_open" translatable="false">નેવિગેશન ડ્રોઅર ખોલો</string>
+    <string name="navigation_drawer_close" translatable="false">નેવિગેશન ડ્રોઅર બંધ કરો</string>
+    <string name="create_account_title" translatable="false">એકાઉન્ટ બનાવો</string>
+    <string name="first_name" translatable="false">પ્રથમ નામ</string>
+    <string name="password" translatable="false">પાસવર્ડ</string>
+    <string name="create_account" translatable="false">એકાઉન્ટ બનાવો</string>
+    <string name="last_name" translatable="false">છેલ્લું નામ</string>
+    <string name="currency_format" translatable="false">₹ %.2f</string>
+
+    <!-- App Logo Description -->
+    <string name="app_logo" translatable="false">એપ્લિકેશન લોગો</string>
+
+    <!-- Input Field Hints -->
+    <string name="email" translatable="false">ઇમેઇલ સરનામું</string>
+    <string name="mobile_no" translatable="false">મોબાઇલ નંબર</string>
+    <string name="dob" translatable="false">જન્મ તારીખ</string>
+    <string name="farm_size" translatable="false">ખેતરનું કદ (એકરમાં)</string>
+
+    <!-- Buttons and Text -->
+    <string name="log_in" translatable="false">લોગ ઇન કરો</string>
+    <string name="already_have_account" translatable="false">તમારું પહેલેથી જ એકાઉન્ટ છે? લોગ ઇન કરો</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_field" translatable="false">આ ફીલ્ડ ખાલી નથી રાખી શકાતું</string>
+    <string name="error_invalid_email" translatable="false">કૃપા કરી માન્ય ઇમેઇલ સરનામું દાખલ કરો</string>
+    <string name="error_password_short" translatable="false">પાસવર્ડ ઓછામાં ઓછો 6 અક્ષરોનો હોવો જોઈએ</string>
+    <string name="error_invalid_mobile" translatable="false">કૃપા કરી માન્ય મોબાઇલ નંબર દાખલ કરો</string>
+    <string name="mic_desc" translatable="false">શોધ માટે માઇક</string>
+    <string name="day" translatable="false">દિવસ</string>
+    <string name="pressure" translatable="false">દબાણ</string>
+    <string name="wind" translatable="false">પવન</string>
+    <string name="humidity" translatable="false">ભેજ</string>
+    <string name="enter_city_name" translatable="false">શહેરનું નામ દાખલ કરો</string>
+    <string name="updated_at" translatable="false">અપડેટેડ</string>
+    <string name="monday" translatable="false">સોમવાર</string>
+    <string name="tuesday" translatable="false">મંગળવાર</string>
+    <string name="wednesday" translatable="false">બુધવાર</string>
+    <string name="thursday" translatable="false">ગુરુવાર</string>
+    <string name="friday" translatable="false">શુક્રવાર</string>
+    <string name="saturday" translatable="false">શનિવાર</string>
+    <string name="sunday" translatable="false">રવિવાર</string>
+    <string name="search_hint" translatable="false">શોધો</string>
+    <string name="copy" translatable="false">કોપી કરો</string>
+    <string name="share" translatable="false">શેર કરો</string>
+    <string name="edit" translatable="false">એડિટ કરો</string>
+    <string name="skip" translatable="false">સ્કિપ કરો</string>
+    <string name="create_your_account" translatable="false">તમારું એકાઉન્ટ બનાવો</string>
+    <string name="full_name" translatable="false">પૂર્ણ નામ</string>
+    <string name="mobile_number" translatable="false">મોબાઇલ નંબર</string>
+    <string name="mail_id" translatable="false">ઇમેઇલ</string>
+    <string name="forgot_password" translatable="false">પાસવર્ડ ભૂલાઈ ગયો?</string>
+    <string name="don_t_have_an_account_create_one" translatable="false">એકાઉન્ટ નથી? એક બનાવો</string>
+    <string name="Title" translatable="false">ખેડૂત સશક્તિકરણ, બિલ સરળ બનાવવું</string>
+    <string name="bot_response" translatable="false">બોટ મેસેજ અહીં</string>
+    <string name="crop_image" translatable="false">છબી ક્રોપ કરો</string>
+    <string name="cabbages" translatable="false">કોબી</string>
+    <string name="_20_quintal" translatable="false">20 ક્વિન્ટલ</string>
+    <string name="space" translatable="false">|</string>
+    <string name="_280_quintal" translatable="false">₹280/ક્વિન્ટલ</string>
+    <string name="developer_name" translatable="false">તેજસ કાલે</string>
+    <string name="developer_adderess" translatable="false">ખુપ્તા, છ. સંભાજીનગર ગુજરાત</string>
+    <string name="call_button" translatable="false">કૉલ બટન</string>
+    <string name="crop_name" translatable="false">પાકનું નામ</string>
+    <string name="quantity" translatable="false">જથ્થો</string>
+    <string name="price_per_unit" translatable="false">પ્રતિ એકમ ભાવ</string>
+    <string name="seller_name" translatable="false">વિક્રેતાનું નામ</string>
+    <string name="developer_contact" translatable="false">8788466016</string>
+    <string name="add_crop" translatable="false">પાક ઉમેરો</string>
+    <string name="add_labour_details" translatable="false">મજૂરીની વિગતો ઉમેરો</string>
+    <string name="labour_name" translatable="false">મજૂરનું નામ:</string>
+    <string name="enter_labour_name" translatable="false">મજૂરનું નામ દાખલ કરો</string>
+    <string name="work_date" translatable="false">કામની તારીખ:</string>
+    <string name="select_work_date" translatable="false">કામની તારીખ પસંદ કરો</string>
+    <string name="crop_name_textview" translatable="false">પાકનું નામ:</string>
+    <string name="enter_crop_name" translatable="false">પાકનું નામ દાખલ કરો</string>
+    <string name="working_type" translatable="false">કામનો પ્રકાર:</string>
+    <string name="daily_basis" translatable="false">દૈનિક</string>
+    <string name="per_kg" translatable="false">પ્રતિ કિગ્રા</string>
+    <string name="save" translatable="false">સાચવો</string>
+    <string name="cancel" translatable="false">રદ કરો</string>
+    <string name="edit_labour_name" translatable="false">મજૂરનું નામ એડિટ કરો</string>
+    <string name="edit_work_date" translatable="false">કામની તારીખ એડિટ કરો</string>
+    <string name="enter_work_date" translatable="false">કામની તારીખ દાખલ કરો</string>
+    <string name="fertilizer_name" translatable="false">ખાતરનું નામ</string>
+    <string name="_21_nov_2023" translatable="false">21 નવેમ્બર 2023</string>
+    <string name="price" translatable="false">ભાવ</string>
+    <string name="_450" translatable="false">₹450</string>
+    <string name="payment_mode" translatable="false">ચુકવણી પ્રકાર</string>
+    <string name="cash" translatable="false">રોકડ</string>
+    <string name="this_month" translatable="false">આ મહિને</string>
+    <string name="_2_480" translatable="false">₹2,480</string>
+    <string name="labor" translatable="false">મજૂરી</string>
+    <string name="fertilizer" translatable="false">ખાતર</string>
+    <string name="add_expense" translatable="false">ખર્ચ ઉમેરો</string>
+    <string name="attach_image" translatable="false">છબી જોડો</string>
+    <string name="ask_farmer_ai" translatable="false">ખેડૂત એઆઈને પૂછો...</string>
+    <string name="send" translatable="false">મોકલો</string>
+    <string name="remove_selected_image" translatable="false">પસંદ કરેલ છબી દૂર કરો</string>
+    <string name="fertilizer_pesticide" translatable="false">વસ્તુનું નામ (ઉદાહરણ તરીકે ખાતર, કીટકનાશક)</string>
+    <string name="purchase_date_dd_mm_yyyy" translatable="false">ખરીદની તારીખ (દિ/મહિ/વર્ષ)</string>
+    <string name="purchase_amount_in_currency" translatable="false">ખરીદની રકમ (ચલનમાં)</string>
+    <string name="loan_emi_calculator" translatable="false">લોન EMI કેલ્ક્યુલેટર</string>
+    <string name="loan_amount" translatable="false">લોનની રકમ</string>
+    <string name="loan_tenure_years" translatable="false">લોન અવધિ (વર્ષ)</string>
+    <string name="interest_rate" translatable="false">વ્યાજ દર (%)</string>
+    <string name="calculate_emi" translatable="false">EMI કેલ્ક્યુલેટ કરો</string>
+    <string name="your_amortization_details" translatable="false">તમારા ઍમૉર્ટાઇઝેશન વિગતો</string>
+    <string name="search_labour" translatable="false">મજૂરો શોધો</string>
+    <string name="sort_by" translatable="false">ક્રમવાર રાખો</string>
+    <string name="add_labour" translatable="false">મજૂર ઉમેરો</string>
+    <string name="total_fertilizer_spending" translatable="false">કુલ ખાતર ખર્ચ</string>
+    <string name="_12_345" translatable="false">₹12,345</string>
+    <string name="average_spending" translatable="false">સરેરાશ ખર્ચ</string>
+    <string name="_1_234" translatable="false">₹1,234</string>
+    <string name="farmer_name" translatable="false">ખેડૂતનું નામ</string>
+    <string name="farmer_example_com" translatable="false">farmer@example.com</string>
+    <string name="birthdate_jan_1_1980" translatable="false">જન્મ તારીખ: 1 જાન્યુઆરી 1980</string>
+    <string name="contact_1234567890" translatable="false">સંપર્ક: +1234567890</string>
+    <string name="acres_owned_20" translatable="false">20 એકર માલિકી</string>
+    <string name="profile" translatable="false">પ્રોફાઇલ</string>
+    <string name="logout" translatable="false">લૉગ આઉટ</string>
+    <string name="labor_expenditure" translatable="false">મજૂરી ખર્ચ</string>
+    <string name="daily" translatable="false">દૈનિક</string>
+    <string name="total_weight" translatable="false">કુલ વજન:</string>
+    <string name="_100kg" translatable="false">100 કિગ્રા</string>
+    <string name="date" translatable="false">તારીખ:</string>
+    <string name="_19_09_2024" translatable="false">19/09/2024</string>
+    <string name="labor_name" translatable="false">મજૂરનું નામ:</string>
+    <string name="user_name" translatable="false">વપરાશકર્તાનું નામ</string>
+    <string name="user_example_com" translatable="false">user@example.com</string>
+    <string name="login" translatable="false">લૉગિન</string>
+    <string name="user_message_here" translatable="false">વપરાશકર્તાનો મેસેજ અહીં</string>
+    <string name="home" translatable="false">મુખ્ય પૃષ્ઠ</string>
+    <string name="weather" translatable="false">હવામાન</string>
+    <string name="account" translatable="false">એકાઉન્ટ</string>
+    <string name="expenditure" translatable="false">ખર્ચ</string>
+    <string name="harvest" translatable="false">પાક</string>
+    <string name="market" translatable="false">બજાર</string>
+    <string name="loan_calculator" translatable="false">લોન કેલ્ક્યુલેટર</string>
+    <string name="government_schemes" translatable="false">સરકારી યોજનાઓ</string>
+    <string name="ask_ai" translatable="false">AI ને પૂછો</string>
+    <string name="sort_by_name" translatable="false">નામ મુજબ ક્રમવાર</string>
+    <string name="sort_by_date" translatable="false">તારીખ મુજબ ક્રમવાર</string>
+    <string name="sort_by_size" translatable="false">કદ મુજબ ક્રમવાર</string>
+    <string name="choose_language" translatable="false">ભાષા પસંદ કરો</string>
+    <string name="labour_details" translatable="false">મજૂરી વિગતો</string>
+    <string name="add" translatable="false">ઉમેરો</string>
+    <string name="enter_weight" translatable="false">વજન દાખલ કરો</string>
+    <string name="add_weight" translatable="false">વજન ઉમેરો</string>
+</resources>

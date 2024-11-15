@@ -9,6 +9,7 @@
     <string name="password" translatable="false">Password</string>
     <string name="create_account" translatable="false">Create Account</string>
     <string name="last_name" translatable="false">last name</string>
+    <string name="currency_format" translatable="false">₹ %.2f</string>
 
     <!-- App Logo Description -->
     <string name="app_logo" translatable="false">App Logo</string>

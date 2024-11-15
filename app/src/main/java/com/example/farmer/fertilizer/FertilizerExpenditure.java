@@ -21,6 +21,11 @@ public class FertilizerExpenditure {
     }
 
     // Getter for itemName
+
+    public String getAmount() {
+        return purchaseAmount;
+    }
+
     public String getItemName() {
         return itemName;
     }
