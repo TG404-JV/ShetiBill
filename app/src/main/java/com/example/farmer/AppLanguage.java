@@ -21,7 +21,7 @@ public class AppLanguage extends Application {
         String selectedLanguage = getSelectedLanguage();
 
         // Set the locale (language) globally based on user selection
-        setLocale(this, selectedLanguage);
+        setLocale(selectedLanguage);
     }
 
     // Retrieve the saved language from SharedPreferences
@@ -31,35 +31,26 @@ public class AppLanguage extends Application {
     }
 
     // Apply the selected language globally using Lingver
-    private void setLocale(Context context, String languageCode) {
-        Locale locale;
-        switch (languageCode) {
-            case "hi":
-                locale = Locale.forLanguageTag("hi"); // Hindi
-                break;
-            case "gu":
-                locale = Locale.forLanguageTag("gu"); // Gujarati
-                break;
-            case "mr":
-                locale = Locale.forLanguageTag("mr"); // Marathi
-                break;
-            case "bn":
-                locale = Locale.forLanguageTag("bn"); // Bengali
-                break;
-            default:
-                locale = Locale.getDefault(); // System default if no selection
-                break;
-        }
+    private void setLocale(String languageCode) {
+        // Create a Locale object from the language code
+        Locale locale = new Locale(languageCode);
 
-        // Set the default locale and initialize Lingver
-        Lingver.init((Application) context, locale);
+        // Set the locale using Lingver
+        Lingver.init(this, locale);  // Initialize Lingver with the context and locale
     }
 
     // Save the selected language to SharedPreferences
     public static void saveLanguage(Context context, String languageCode) {
+        // Save the language preference in SharedPreferences
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(SELECTED_LANGUAGE_KEY, languageCode);
         editor.apply();
+
+        // Create the Locale object from the selected language code
+        Locale locale = new Locale(languageCode);
+
+        // Use Lingver to set the locale globally
+        Lingver.getInstance().setLocale(context, locale); // Correct way to set the locale
     }
 }

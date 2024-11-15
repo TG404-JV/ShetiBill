@@ -3,6 +3,7 @@ package com.example.farmer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar; // This is the correct import
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     private ImageButton menu;
+    private Toolbar toolbar;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
     private ImageView profileImageView;
@@ -59,6 +64,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Firebase and permissions setup
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+
+        // Set up the toolbar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         // Setup the navigation drawer
         setupNavigationDrawer();
@@ -83,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Update the login/logout button based on the user's login state
         updateLoginLogoutButton();
+
+
 
         // Button click listener
         loginLogoutButton.setOnClickListener(v -> {
@@ -115,6 +130,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_change_language) {
+            // Handle language change
+            /* Intent intent = new Intent(this, LanguageSelectionActivity.class);
+            startActivity(intent);
+            return true; */
+            Intent LanguageChange=new Intent(MainActivity.this,LanguageSelection.class);
+            startActivity(LanguageChange);
+        } else if (item.getItemId() == R.id.action_about_app) {
+
+            Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show();  // Toast message
+
+        } else if (item.getItemId() == R.id.action_privacy_policy) {
+            // Handle privacy policy
+            /* Intent intent = new Intent(this, PrivacyPolicyActivity.class);
+            startActivity(intent);
+            return true; */
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setupProfileInfo() {
         FirebaseUser user = firebaseAuth.getCurrentUser();

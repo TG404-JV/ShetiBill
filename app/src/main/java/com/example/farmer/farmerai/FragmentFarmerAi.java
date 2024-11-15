@@ -56,9 +56,9 @@ public class FragmentFarmerAi extends Fragment {
 
     private EditText messageEditText;
     private ImageButton sendButton;
-    private ImageButton attachmentButton;
+
     private ShimmerFrameLayout shimmerFrameLayout;
-    private ImageView selectedImageView;
+;
     private Bitmap selectedImage;
 
     private static final String API_KEY = "AIzaSyCG34Q8Y7USJbk3BVYluNy217GqeU67MSw"; // Replace with your Gemini API key
@@ -71,10 +71,9 @@ public class FragmentFarmerAi extends Fragment {
 
         // Initialize views
         recyclerView = view.findViewById(R.id.recyclerViewMessages);
-        messageEditText = view.findViewById(R.id.messageEditText);
-        sendButton = view.findViewById(R.id.sendButton);
-        attachmentButton = view.findViewById(R.id.attachmentButton);
-        selectedImageView = view.findViewById(R.id.selectedImageView);
+        messageEditText = view.findViewById(R.id.searchEditText);
+        sendButton = view.findViewById(R.id.searchButton);
+
         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
 
         // Set up RecyclerView
@@ -96,14 +95,11 @@ public class FragmentFarmerAi extends Fragment {
             addUserMessage(userMessage);
             messageEditText.setText("");
 
-            if (selectedImage != null) {
-                generateTextFromImage(userMessage, selectedImage);
-            } else {
+
                 fetchBotResponse(userMessage);
-            }
+
         });
 
-        attachmentButton.setOnClickListener(v -> openImagePicker());
 
         return view;
     }
@@ -115,21 +111,6 @@ public class FragmentFarmerAi extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == -1 && data != null) {
-            Uri imageUri = data.getData();
-            try {
-                selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-                selectedImageView.setImageBitmap(selectedImage);
-                selectedImageView.setVisibility(View.VISIBLE);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private void addUserMessage(String message) {
         ChatMessage userMessage = new ChatMessage(message, true);
@@ -145,37 +126,6 @@ public class FragmentFarmerAi extends Fragment {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-    private void generateTextFromImage(String prompt, Bitmap image) {
-        Executor executor = Executors.newSingleThreadExecutor();
-        GenerativeModel gm = new GenerativeModel("gemini-pro-vision", API_KEY);
-        GenerativeModelFutures model = GenerativeModelFutures.from(gm);
-
-        Content content = new Content.Builder()
-                .addText(prompt)
-                .addImage(image)
-                .build();
-
-        ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
-        Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
-            @Override
-            public void onSuccess(GenerateContentResponse result) {
-                String generatedText = result.getText();
-                requireActivity().runOnUiThread(() -> {
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    addBotMessage(generatedText);
-                    selectedImageView.setVisibility(View.GONE);
-                    selectedImage = null;
-                });
-            }
-
-            @Override
-            public void onFailure(@NonNull Throwable t) {
-                t.printStackTrace();
-                requireActivity().runOnUiThread(() -> addBotMessage("Sorry, I couldn't generate a response. Please try again."));
-            }
-        }, executor);
-    }
 
     private void fetchBotResponse(String userMessage) {
 

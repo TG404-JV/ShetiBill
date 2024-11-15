@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!-- Sort by Name -->
     <item
-        android:id="@+id/action_sort_name"
-        android:title="@string/sort_by_name"
-        app:showAsAction="never" />
-
-    <!-- Sort by Date -->
+        android:id="@+id/action_change_language"
+        android:title="Change Languge" />
     <item
-        android:id="@+id/action_sort_date"
-        android:title="@string/sort_by_date"
-        app:showAsAction="never" />
+        android:id="@+id/action_about_app"
+        android:title="About App" />
 
-    <!-- Sort by Size -->
     <item
-        android:id="@+id/action_sort_size"
-        android:title="@string/sort_by_size"
-        app:showAsAction="never" />
-
+        android:id="@+id/action_privacy_policy"
+        android:title="Privicy Policy" />
 </menu>

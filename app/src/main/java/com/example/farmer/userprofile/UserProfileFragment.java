@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.farmer.FarmerDetails;
 import com.example.farmer.LoginActivity;
 import com.example.farmer.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -138,7 +139,8 @@ public class UserProfileFragment extends Fragment {
         // Profile Update button: Navigate to an activity where user can update profile
         btnProfileUpdate.setOnClickListener(v -> {
             // Example: Navigate to a new activity to update profile
-            startActivity(new Intent(getActivity(), UserProfileFragment.class));
+            Intent ProfileUpdate=new Intent(getActivity(), FarmerDetails.class);
+            startActivity(ProfileUpdate);
         });
 
         // Login button: Navigate to the login screen
