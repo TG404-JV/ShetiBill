@@ -17,28 +17,6 @@
         android:layout_marginBottom="40dp" />
 
     <!-- Shimmer Layout for Loading Effect -->
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerViewMessages"
-        android:visibility="gone"> <!-- Initially hidden -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Shimmer for a single item, you can repeat as needed -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/shimmer_gradient"
-                android:layout_marginBottom="8dp" />
-
-
-        </LinearLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 

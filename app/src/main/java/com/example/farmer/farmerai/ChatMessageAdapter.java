@@ -6,7 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.farmer.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -50,20 +53,32 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatMessage message = messages.get(position);
 
-        // Set message text and add long press listener
         if (holder instanceof UserMessageViewHolder) {
-            ((UserMessageViewHolder) holder).messageTextView.setText(message.getMessage());
-            // Set long press listener for user message
+            UserMessageViewHolder userHolder = (UserMessageViewHolder) holder;
+            userHolder.messageTextView.setText(message.getMessage());
             holder.itemView.setOnLongClickListener(v -> {
-                clickListener.onMessageClick(message); // Trigger dialog on long press
-                return true;  // Indicate that the event is handled
+                clickListener.onMessageClick(message);
+                return true;
             });
         } else if (holder instanceof BotMessageViewHolder) {
-            ((BotMessageViewHolder) holder).messageTextView.setText(message.getMessage());
-            // Set long press listener for bot message
+            BotMessageViewHolder botHolder = (BotMessageViewHolder) holder;
+
+            if (message.isLoading()) {
+                // Show shimmer effect
+                botHolder.messageTextView.setVisibility(View.GONE);
+                botHolder.shimmerContainer.setVisibility(View.VISIBLE);
+                botHolder.shimmerContainer.startShimmer();
+            } else {
+                // Show bot message
+                botHolder.shimmerContainer.stopShimmer();
+                botHolder.shimmerContainer.setVisibility(View.GONE);
+                botHolder.messageTextView.setVisibility(View.VISIBLE);
+                botHolder.messageTextView.setText(message.getMessage());
+            }
+
             holder.itemView.setOnLongClickListener(v -> {
-                clickListener.onMessageClick(message); // Trigger dialog on long press
-                return true;  // Indicate that the event is handled
+                clickListener.onMessageClick(message);
+                return true;
             });
         }
     }
@@ -73,7 +88,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return messages.size();
     }
 
-    // ViewHolder for user messages
     public static class UserMessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageTextView;
 
@@ -83,13 +97,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    // ViewHolder for bot messages
     public static class BotMessageViewHolder extends RecyclerView.ViewHolder {
         TextView messageTextView;
+        ShimmerFrameLayout shimmerContainer;
 
         public BotMessageViewHolder(@NonNull View itemView) {
             super(itemView);
             messageTextView = itemView.findViewById(R.id.messageTextView);
+            shimmerContainer = itemView.findViewById(R.id.shimmerContainer);
         }
     }
 }

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,6 @@ public class FragmentFarmerAi extends Fragment {
     private EditText messageEditText;
     private ImageButton sendButton;
 
-    private ShimmerFrameLayout shimmerFrameLayout;
 ;
     private Bitmap selectedImage;
 
@@ -74,7 +74,6 @@ public class FragmentFarmerAi extends Fragment {
         messageEditText = view.findViewById(R.id.searchEditText);
         sendButton = view.findViewById(R.id.searchButton);
 
-        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
 
         // Set up RecyclerView
         chatMessages = new ArrayList<>();
@@ -85,7 +84,6 @@ public class FragmentFarmerAi extends Fragment {
         // Send button click listener
         sendButton.setOnClickListener(v -> {
             String userMessage = messageEditText.getText().toString().trim();
-            shimmerFrameLayout.setVisibility(View.VISIBLE);
 
             if (TextUtils.isEmpty(userMessage) && selectedImage == null) {
                 Toast.makeText(getContext(), "Please enter a message or select an image", Toast.LENGTH_SHORT).show();
@@ -128,10 +126,13 @@ public class FragmentFarmerAi extends Fragment {
 
 
     private void fetchBotResponse(String userMessage) {
+        // Add a loading message to the chat
+        ChatMessage loadingMessage = new ChatMessage(true);  // Loading state
+        chatMessages.add(loadingMessage);
+        chatAdapter.notifyItemInserted(chatMessages.size() - 1);
+        recyclerView.scrollToPosition(chatMessages.size() - 1);
 
-
-
-
+        userMessage="If User Ask You Question Regarding Farming Then Only Give Him Answer Otherwise Say Him Hey Im Bhumi Developed By Tejas Kale To Solve Only Farming Releted Queries"+" Question Is "+ userMessage;
         // Set up the generative model with the provided API key
         Executor executor = Executors.newSingleThreadExecutor();
         GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", API_KEY);
@@ -149,25 +150,35 @@ public class FragmentFarmerAi extends Fragment {
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
+                // Log the generated text
                 String generatedText = result.getText();
 
                 // Clean up the response by removing unwanted characters or text
                 String output = generatedText.replace("*", "");
+                ChatMessage botMessage = new ChatMessage(output, false);
+
 
                 // Run the UI update on the main thread
                 requireActivity().runOnUiThread(() -> {
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    addBotMessage(output);
+                    // Replace loading message with bot response
+                        chatMessages.set(chatMessages.size() - 1, botMessage);  // Replace the loading message
+                        chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
+
                 });
             }
 
             @Override
             public void onFailure(@NonNull Throwable t) {
-                t.printStackTrace();
+                // Log error
+                Log.e("BotResponseError", "Error generating response", t);
 
                 // Handle failure case
-                requireActivity().runOnUiThread(() -> addBotMessage("Sorry, I couldn't generate a response. Please try again."));
+                requireActivity().runOnUiThread(() -> {
+                    // Replace loading message with an error message
+                    ChatMessage errorMessage = new ChatMessage("Sorry, I couldn't generate a response. Please try again.", false);
+                    chatMessages.set(chatMessages.size() - 1, errorMessage);  // Replace loading message
+                    chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
+                });
             }
         }, executor);
     }
