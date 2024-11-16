@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base gradient with farming colors -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="#E8F5E9"
+            android:centerColor="#C8E6C9"
+            android:endColor="#A5D6A7"
+            android:centerY="0.6" />
+        </shape>
+    </item>
+    <!-- Subtle pattern overlay -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="100%p"
+                android:centerX="0.5"
+                android:centerY="0.0"
+                android:startColor="#15558B2F"
+            android:endColor="#00558B2F"
+            />
+        </shape>
+    </item>
+</layer-list>

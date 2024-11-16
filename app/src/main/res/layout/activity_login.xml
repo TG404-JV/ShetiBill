@@ -4,127 +4,172 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@drawable/farmer_theme_gradient"
     tools:context=".LoginActivity">
 
-    <!-- Skip Button -->
+    <!-- Skip Button with farming icon -->
     <TextView
         android:id="@+id/tvSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skip"
         android:textSize="16sp"
-        android:textColor="@color/darkGreen"
+        android:textColor="#2E7D32"
+        android:drawableEnd="@drawable/ic_skip_img"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Logo/Image -->
-    <ImageView
-        android:id="@+id/logoImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_farmer_profile_img"
-        android:contentDescription="App Logo"
+    <!-- Enhanced Logo with Card Background -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Title Text -->
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_farmer_profile_img"
+            android:contentDescription="App Logo"
+            android:padding="8dp"
+            android:background="#F1F8E9"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Welcome Text with farming style -->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to Fresh Food App"
-        android:textColor="@color/darkGreen"
-        android:textSize="18sp"
+        android:textColor="#1B5E20"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintTop_toBottomOf="@id/logoCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <!-- Mobile Number Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mobileNumberLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/mail_id"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMobileNumber"
-            android:layout_width="match_parent"
-            style="@style/EditText"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Password Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        app:layout_constraintTop_toBottomOf="@id/mobileNumberLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        app:passwordToggleEnabled="true"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditText"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Sign In Button -->
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/log_in"
-        style="@style/Button"
-        app:layout_constraintTop_toBottomOf="@id/passwordLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.7"
         android:layout_marginTop="24dp" />
 
-    <!-- Forgot Password -->
+    <!-- Input Fields Card Container -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/inputFieldsCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Mobile Number Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobileNumberLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mail_id"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMobileNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_marginTop="16dp"
+                app:passwordToggleEnabled="true"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Sign In Button with farming theme -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignIn"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="@string/log_in"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="28dp"
+        android:backgroundTint="#2E7D32"
+        app:layout_constraintTop_toBottomOf="@id/inputFieldsCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.85"
+        android:layout_marginTop="32dp" />
+
+    <!-- Forgot Password with enhanced styling -->
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
-        android:textColor="@color/darkGreen"
+        android:textColor="#2E7D32"
         android:textSize="14sp"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@id/btnSignIn"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp" />
 
-    <!-- Create Account Text -->
-    <TextView
-        android:id="@+id/tvCreateAccount"
+    <!-- Create Account Container -->
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/don_t_have_an_account_create_one"
-        android:textSize="16sp"
-        android:textColor="@color/darkGreen"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvForgotPassword"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#E8F5E9"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/don_t_have_an_account_create_one"
+            android:textSize="16sp"
+            android:textColor="#1B5E20"
+            android:textStyle="bold"
+            android:padding="12dp" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.play.services.mlkit.text.recognition.common)
     implementation(libs.firebase.firestore)
     implementation(libs.adapters)
+    implementation(libs.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

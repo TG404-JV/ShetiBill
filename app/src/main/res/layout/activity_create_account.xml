@@ -4,153 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGreenBackground"
-    android:padding="16dp"
+    android:background="@drawable/farmer_theme_gradient"
     tools:context=".create_account">
 
-    <!-- Skip Button -->
+    <!-- Skip Button with farming icon -->
     <TextView
         android:id="@+id/tvSkipCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/skip"
         android:textSize="16sp"
-        android:textColor="@color/darkGreen"
+        android:textColor="#2E7D32"
+        android:drawableEnd="@drawable/ic_skip_img"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Logo/Image -->
-    <ImageView
-        android:id="@+id/logoImageCreate"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_farmer_profile_img"
-        android:contentDescription="@string/app_logo"
+    <!-- Enhanced Logo/Image with card background -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Title Text -->
+        <ImageView
+            android:id="@+id/logoImageCreate"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_farmer_profile_img"
+            android:contentDescription="@string/app_logo"
+            android:padding="8dp"
+            android:background="#F1F8E9"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Title Text with farming-themed styling -->
     <TextView
         android:id="@+id/titleTextCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_your_account"
-        android:textColor="@color/darkGreen"
-        android:textSize="18sp"
+        android:textColor="#1B5E20"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/logoImageCreate"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintTop_toBottomOf="@id/logoCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <!-- Name Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/full_name"
-        app:layout_constraintTop_toBottomOf="@id/titleTextCreate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Mobile Number Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilMobileNumberCreate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/mobile_number"
-        app:layout_constraintTop_toBottomOf="@id/tilName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMobileNumberCreate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Email Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmailCreate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/mail_id"
-        app:layout_constraintTop_toBottomOf="@id/tilMobileNumberCreate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmailCreate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Password Field -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPasswordCreate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintTop_toBottomOf="@id/tilEmailCreate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPasswordCreate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Create Account Button -->
-    <Button
-        android:id="@+id/btnCreateAccount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/create_account"
-        android:backgroundTint="@color/darkGreen"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/tilPasswordCreate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.7"
         android:layout_marginTop="24dp" />
 
+    <!-- Styled Input Fields Container -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/titleTextCreate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Name Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Mobile Number Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilMobileNumberCreate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mobile_number"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMobileNumberCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmailCreate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/mail_id"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmailCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPasswordCreate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/password"
+                app:boxStrokeColor="#2E7D32"
+                app:hintTextColor="#2E7D32"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPasswordCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Create Account Button with farming theme -->
+
     <!-- Already have an account? Login Text -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#2E7D32"
+        android:text="@string/create_account"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toTopOf="@id/tvAlreadyHaveAccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.85" />
+
     <TextView
         android:id="@+id/tvAlreadyHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:padding="16dp"
         android:text="@string/already_have_account"
-        android:textColor="@color/darkGreen"
+        android:textColor="#1B5E20"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/btnCreateAccount"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

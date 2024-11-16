@@ -155,6 +155,8 @@
     <string name="add">Add</string>
     <string name="enter_weight">Enter Weight</string>
     <string name="add_weight">add Weight</string>
+    <string name="expenditure_managment">Expenditure Managment</string>
+    <string name="fertilizer_info">Fertilizer_Info</string>
 
 
 </resources>

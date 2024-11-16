@@ -76,9 +76,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Setup the navigation drawer
         setupNavigationDrawer();
 
-        // Load default fragment (Home)
+        // Load default fragment (MainHomeFragment) if no saved state exists
         if (savedInstanceState == null) {
             loadFragment(new Home());
+            NavigationView navigationView = findViewById(R.id.navigation_view);
+            navigationView.setCheckedItem(R.id.nav_home); // Highlight the Home menu item
         }
 
         // Setup the profile information (image, name, email)
@@ -256,7 +258,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
 
         if (item.getItemId() == R.id.nav_home) {
-            fragment = new Home();
+            Intent home=new Intent(getApplicationContext(),HomePageActivity.class);
+            startActivity(home);
         } else if (item.getItemId() == R.id.nav_expenditure) {
             fragment = new Fertilizer_Expendituer();
         } else if (item.getItemId() == R.id.nav_market) {
@@ -269,6 +272,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new FragmentExpendGraph();
         } else if (item.getItemId() == R.id.ai_assistant) {
             fragment = new FragmentFarmerAi();
+        }
+        else if (item.getItemId() == R.id.Managment) {
+            fragment = new Home();
         }
 
         if (fragment != null) {

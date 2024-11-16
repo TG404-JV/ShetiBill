@@ -1,0 +1,10 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#FFFFFF" />
+    </item>
+    <item>
+        <bitmap
+            android:src="@drawable/ic_paper_texture_bg"
+            android:tileMode="repeat" />
+    </item>
+</layer-list>

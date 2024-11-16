@@ -23,12 +23,13 @@ public class CropMarket extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crop_market, container, false);
-        viewPager = view.findViewById(R.id.viewPager);
-        tabLayout = view.findViewById(R.id.tabLayout);
+        viewPager = view.findViewById(R.id.buySellViewPager);
+        tabLayout = view.findViewById(R.id.buySellTabLayout);
 
         // Set up ViewPager with FragmentPagerAdapter
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+
 
 
 

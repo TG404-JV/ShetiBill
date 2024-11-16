@@ -1,15 +1,17 @@
 package com.example.farmer.farmerai;
 
+import static com.example.farmer.farmerai.secureAi.SecurityKey.AIMODEL;
+import static com.example.farmer.farmerai.secureAi.SecurityKey.APIKEY;
+import static com.example.farmer.farmerai.secureAi.SecurityKey.DEVELOPER_MESSAGE;
+import static com.example.farmer.farmerai.secureAi.SecurityKey.QUESTION_REFFERENCE;
+
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,8 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
@@ -39,7 +38,6 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +46,6 @@ import java.util.concurrent.Executors;
 
 public class FragmentFarmerAi extends Fragment {
 
-    private static final int PICK_IMAGE_REQUEST = 1;
 
     private RecyclerView recyclerView;
     TextToSpeech   textToSpeech;
@@ -58,10 +55,6 @@ public class FragmentFarmerAi extends Fragment {
     private EditText messageEditText;
     private ImageButton sendButton;
 
-;
-    private Bitmap selectedImage;
-
-    private static final String API_KEY = "AIzaSyCG34Q8Y7USJbk3BVYluNy217GqeU67MSw"; // Replace with your Gemini API key
      String Message;
 
     @Nullable
@@ -85,10 +78,6 @@ public class FragmentFarmerAi extends Fragment {
         sendButton.setOnClickListener(v -> {
             String userMessage = messageEditText.getText().toString().trim();
 
-            if (TextUtils.isEmpty(userMessage) && selectedImage == null) {
-                Toast.makeText(getContext(), "Please enter a message or select an image", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             addUserMessage(userMessage);
             messageEditText.setText("");
@@ -102,12 +91,6 @@ public class FragmentFarmerAi extends Fragment {
         return view;
     }
 
-    private void openImagePicker() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
 
 
     private void addUserMessage(String message) {
@@ -117,12 +100,6 @@ public class FragmentFarmerAi extends Fragment {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-    private void addBotMessage(String message) {
-        ChatMessage botMessage = new ChatMessage(message, false);
-        chatMessages.add(botMessage);
-        chatAdapter.notifyItemInserted(chatMessages.size() - 1);
-        recyclerView.scrollToPosition(chatMessages.size() - 1);
-    }
 
 
     private void fetchBotResponse(String userMessage) {
@@ -132,10 +109,10 @@ public class FragmentFarmerAi extends Fragment {
         chatAdapter.notifyItemInserted(chatMessages.size() - 1);
         recyclerView.scrollToPosition(chatMessages.size() - 1);
 
-        userMessage="If User Ask You Question Regarding Farming Then Only Give Him Answer Otherwise Say Him Hey Im Bhumi Developed By Tejas Kale To Solve Only Farming Releted Queries"+" Question Is "+ userMessage;
+        userMessage = DEVELOPER_MESSAGE + QUESTION_REFFERENCE + userMessage;
         // Set up the generative model with the provided API key
         Executor executor = Executors.newSingleThreadExecutor();
-        GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", API_KEY);
+        GenerativeModel gm = new GenerativeModel(AIMODEL, APIKEY);
         GenerativeModelFutures model = GenerativeModelFutures.from(gm);
 
         // Build the content with the full query
@@ -262,17 +239,14 @@ public class FragmentFarmerAi extends Fragment {
     // Method to read the message aloud (TextToSpeech example)
     private void readMessageAloud(String message) {
         // Initialize TextToSpeech
-        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int langResult = textToSpeech.setLanguage(Locale.US);
-                    if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Toast.makeText(getContext(), "Language not supported", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Text-to-speech initialization failed", Toast.LENGTH_SHORT).show();
+        textToSpeech = new TextToSpeech(getContext(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int langResult = textToSpeech.setLanguage(Locale.US);
+                if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(getContext(), "Language not supported", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(getContext(), "Text-to-speech initialization failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

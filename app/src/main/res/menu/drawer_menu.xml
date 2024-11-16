@@ -6,6 +6,11 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_img"
             android:title="@string/home" />
+
+        <item
+            android:id="@+id/Managment"
+            android:icon="@drawable/ic_farm_tab_img"
+            android:title="@string/expenditure_managment" />
     </group>
 
     <!-- Farm Management Section -->
@@ -13,7 +18,7 @@
         <item
             android:id="@+id/nav_expenditure"
             android:icon="@drawable/ic_expendituer_img"
-            android:title="@string/expenditure" />
+            android:title="@string/fertilizer_info" />
         <item
             android:id="@+id/nav_harvest"
             android:icon="@drawable/ic_harvest_img"

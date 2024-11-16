@@ -3,6 +3,7 @@ package com.example.farmer.cropmarket;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +85,7 @@ public class UploadCropFragment extends Fragment {
         fetchCropsFromFirebase();
 
         // Initialize Floating Action Button
-        FloatingActionButton fabAddCrop = view.findViewById(R.id.fab_add_crop);
+        ExtendedFloatingActionButton fabAddCrop = view.findViewById(R.id.addListingFab);
         fabAddCrop.setOnClickListener(v -> showAddCropDialog());
 
         return view;
@@ -92,14 +96,17 @@ public class UploadCropFragment extends Fragment {
         addCropDialog = new Dialog(getContext());
         addCropDialog.setContentView(R.layout.dialog_add_crop);
 
-        EditText dialogCropNameEditText = addCropDialog.findViewById(R.id.cropNameEditText);
-        EditText dialogCropQuantityEditText = addCropDialog.findViewById(R.id.cropQuantityEditText);
-        EditText dialogCropPriceEditText = addCropDialog.findViewById(R.id.cropPriceEditText);
-        EditText dialogLocationEditText = addCropDialog.findViewById(R.id.locationTextView);
-        EditText dialogContactEditText = addCropDialog.findViewById(R.id.contact);
-        EditText sellerName = addCropDialog.findViewById(R.id.SellerName);
-        Button dialogUploadCropButton = addCropDialog.findViewById(R.id.addCropButton);
+        TextInputEditText dialogCropNameEditText = addCropDialog.findViewById(R.id.cropNameEditText);
+        TextInputEditText dialogCropQuantityEditText = addCropDialog.findViewById(R.id.cropQuantityEditText);
+        TextInputEditText dialogCropPriceEditText = addCropDialog.findViewById(R.id.cropPriceEditText);
+        TextInputEditText dialogLocationEditText = addCropDialog.findViewById(R.id.locationEditText);
+        TextInputEditText dialogContactEditText = addCropDialog.findViewById(R.id.contactEditText);
+        TextInputEditText sellerName = addCropDialog.findViewById(R.id.sellerNameEditText);
+        MaterialButton dialogUploadCropButton = addCropDialog.findViewById(R.id.addCropButton);
         ImageView cropImageView = addCropDialog.findViewById(R.id.cropImageView);
+
+        addCropDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
 
         // Image picker when clicking on ImageView
         cropImageView.setOnClickListener(v -> openImagePicker());

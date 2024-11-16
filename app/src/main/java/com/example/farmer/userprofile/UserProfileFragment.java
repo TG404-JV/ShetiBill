@@ -28,9 +28,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileFragment extends Fragment {
 
-    private TextView tvFarmerName, tvDob, tvMobileNumber, tvPaymentType, tvPaymentPerDay, tvPaymentPerKg, tvDayOfPayment;
+    private TextView  tvDob, tvMobileNumber, tvPaymentType, tvPaymentPerDay, tvPaymentPerKg, tvDayOfPayment;
     private CircleImageView profileImage;
-    private Button btnProfileUpdate, btnLogin, btnLogout;
+    private Button btnProfileUpdate,  btnLogout;
     private TextView ProfileName;
 
     // SharedPreferences for local storage
@@ -76,7 +76,6 @@ public class UserProfileFragment extends Fragment {
 
     private void initializeViews(View view) {
         profileImage = view.findViewById(R.id.profile_image);
-        tvFarmerName = view.findViewById(R.id.tvFarmerName);
         tvDob = view.findViewById(R.id.tvDob);
         tvMobileNumber = view.findViewById(R.id.tvMobileNumber);
         tvPaymentType = view.findViewById(R.id.tvPaymentType);
@@ -84,7 +83,6 @@ public class UserProfileFragment extends Fragment {
         tvPaymentPerKg = view.findViewById(R.id.tvPaymentPerKg);
         tvDayOfPayment = view.findViewById(R.id.tvDayOfPayment);
         btnProfileUpdate = view.findViewById(R.id.btnProfileUpdate);
-        btnLogin = view.findViewById(R.id.btnLogin);
         btnLogout = view.findViewById(R.id.btnLogout);
         ProfileName=view.findViewById(R.id.profile_name);
     }
@@ -92,8 +90,7 @@ public class UserProfileFragment extends Fragment {
     private void fetchFarmerDataFromLocalStorage() {
         // Fetch and set Farmer Name
         String farmerName = sharedPreferences.getString("farmerName", "N/A");
-        Log.d("UserProfileFragment", "Farmer Name: " + farmerName);
-        tvFarmerName.setText(farmerName);
+
         ProfileName.setText(farmerName);
 
         // Fetch and set Date of Birth
@@ -143,11 +140,7 @@ public class UserProfileFragment extends Fragment {
             startActivity(ProfileUpdate);
         });
 
-        // Login button: Navigate to the login screen
-        btnLogin.setOnClickListener(v -> {
-            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(loginIntent);
-        });
+
 
         // Logout button: Log out from Firebase and clear SharedPreferences
         btnLogout.setOnClickListener(v -> {
@@ -174,10 +167,8 @@ public class UserProfileFragment extends Fragment {
         if (mAuth.getCurrentUser() != null) {
             // User is logged in, show Logout button and hide Login button
             btnLogout.setVisibility(View.VISIBLE);
-            btnLogin.setVisibility(View.GONE);
         } else {
             // User is not logged in, show Login button and hide Logout button
-            btnLogin.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.GONE);
         }
     }

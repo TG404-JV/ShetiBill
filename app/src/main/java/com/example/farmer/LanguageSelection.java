@@ -138,8 +138,7 @@ public class LanguageSelection extends AppCompatActivity {
     }
 
     private void restartApp() {
-        Intent intent = new Intent(LanguageSelection.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent intent = new Intent(LanguageSelection.this, HomePageActivity.class);
         startActivity(intent);
         finish();
     }

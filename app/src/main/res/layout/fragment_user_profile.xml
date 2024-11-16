@@ -1,228 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Profile Header Section -->
-        <FrameLayout
+        <!-- Enhanced Header with Farm Background -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp">
+            android:layout_height="320dp">
+
+            <!-- Background Image with Overlay -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_faarm_bg"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@drawable/profile_header_background" />
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_overlay"/>
 
+            <!-- Profile Content -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:src="@drawable/ic_farmer_profile_img"
-                    app:civ_border_width="3dp"
-                    app:civ_border_color="#FFFFFF" />
+                    app:civ_border_width="4dp"
+                    app:civ_border_color="#FFFFFF"/>
 
                 <TextView
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Farmer Name"
+                    android:text="John Smith"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"/>
 
                 <TextView
                     android:id="@+id/profile_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Agricultural Expert"
-                    android:textColor="#E0FFFFFF"
+                    android:text="Organic Farming Expert"
+                    android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
-        </FrameLayout>
+                    android:layout_marginTop="4dp"/>
 
-        <!-- New Farmer Details Section -->
-        <LinearLayout
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Premium Farmer"
+                    android:textColor="@color/primary_color"
+                    app:chipBackgroundColor="#FFFFFF"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Quick Stats Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="-32dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-            <!-- Farmer Name -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Farmer Name"
-                android:textSize="12sp"
-                android:textColor="#666666" />
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/tvFarmerName"
-                android:layout_width="wrap_content"
+                <!-- Total Area -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_area_img"
+                        app:tint="@color/primary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 Acres"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Area"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <!-- Active Crops -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_crop_img"
+                        app:tint="@color/primary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4 Crops"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Active Crops"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <!-- Experience -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_experience_img"
+                        app:tint="@color/primary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12 Years"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Experience"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Personal Information Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="John Doe"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- Date of Birth -->
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_color"
+                    android:drawableStart="@drawable/ic_person_img"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"/>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- Mobile Number -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile Number"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
+
+                <TextView
+                    android:id="@+id/tvMobileNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+91 1234567890"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Birth"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
+
+                <TextView
+                    android:id="@+id/tvDob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01/01/1970"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Payment Information Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tvDob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="01/01/1970"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Information"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_color"
+                    android:drawableStart="@drawable/ic_payment_img"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"/>
 
-            <!-- Mobile Number -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mobile Number"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginVertical="12dp"/>
 
-            <TextView
-                android:id="@+id/tvMobileNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+91 1234567890"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <!-- Payment Type -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Type"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
 
-            <!-- Payment Type -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Type"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                <TextView
+                    android:id="@+id/tvPaymentType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weekly"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvPaymentType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Weekly"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <!-- Payment Per Day -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Per Day"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
 
-            <!-- Payment Per Day -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Per Day"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                <TextView
+                    android:id="@+id/tvPaymentPerDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvPaymentPerDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="500"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <!-- Payment Per KG -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Per KG"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
 
-            <!-- Payment Per KG -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Per KG"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                <TextView
+                    android:id="@+id/tvPaymentPerKg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvPaymentPerKg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <!-- Day of Payment -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Day of Payment"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="12dp" />
 
-            <!-- Day of Payment -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Day of Payment"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:layout_marginTop="12dp" />
+                <TextView
+                    android:id="@+id/tvDayOfPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monday"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvDayOfPayment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monday"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
-        </LinearLayout>
 
-        <!-- Buttons Section -->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:gravity="center">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProfileUpdate"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Update Profile"
-                android:backgroundTint="@color/primary_color"
-                android:textColor="@android:color/white"
-                android:layout_margin="8dp" />
+                android:layout_weight="1"
+                android:text="Edit Profile"
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_edit_img"
+                app:cornerRadius="8dp"
+                android:layout_marginEnd="8dp"/>
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:backgroundTint="@color/primary_color"
-                android:textColor="@android:color/white"
-                android:layout_margin="8dp" />
-
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
-                android:backgroundTint="@color/primary_color"
-                android:textColor="@android:color/white"
-                android:layout_margin="8dp" />
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_logout_img"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:cornerRadius="8dp"/>
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

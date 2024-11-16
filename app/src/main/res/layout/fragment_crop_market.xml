@@ -1,30 +1,121 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/farm_paper_texture_background">
 
-    <!-- Tab Layout -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+    <!-- Market Summary Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/marketSummaryCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-    app:tabSelectedTextColor="@android:color/white"
-    app:tabTextColor="@android:color/white"
-    app:tabIndicatorColor="@android:color/white"
-    app:tabIndicatorHeight="4dp"
-    app:tabBackground="@drawable/tab_background"
-    app:tabPaddingStart="16dp"
-    app:tabPaddingEnd="16dp"/>
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/farm_card_bg">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's Market"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/farm_text_dark"
+                android:drawableStart="@drawable/ic_market_img"
+                android:drawablePadding="8dp"/>
+
+            <!-- Market Trends ScrollView -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Wheat Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.App.CardView.Trend"
+                        android:layout_marginEnd="8dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_profile_contact"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wheat"
+                                android:textColor="@color/farm_text_dark"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₹2,400/q"
+                                android:textStyle="bold"
+                                android:textColor="@color/farm_price_green"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Rice Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.App.CardView.Trend"
+                        android:layout_marginEnd="8dp">
+                        <!-- Similar layout as Wheat -->
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- More crop cards... -->
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- TabLayout for Buy/Sell -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/buySellTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="2dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/tab_background"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/farm_green"
+        app:tabTextColor="@color/farm_text_dark"
+        app:tabIndicatorColor="@color/farm_green"
+        app:tabIndicatorHeight="3dp">
 
-    <!-- Floating Action Button to add crop details -->
-</LinearLayout>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- ViewPager for Buy/Sell content -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/buySellViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="240dp"
+        android:paddingHorizontal="16dp"
+        android:clipToPadding="false"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
