@@ -4,6 +4,7 @@ package com.example.farmer.fertilizer;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmer.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
@@ -27,13 +31,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class Fertilizer_Expendituer extends Fragment {
 
     private TextInputEditText etItemName, etPurchaseDate, etPrice;
     private RadioGroup rgPaymentMode;
-    private RadioButton rbCash, rbCard, rbOnline;
-    private Button btnSave;
+    private MaterialRadioButton rbCash, rbCard, rbOnline;
+    private MaterialButton btnSave;
 
     @Nullable
     @Override
@@ -52,6 +57,9 @@ public class Fertilizer_Expendituer extends Fragment {
 
         // Load saved data if any
         loadSavedData();
+
+        // Set the listener for RadioGroup
+
 
         // Set OnClickListener to show DatePicker
         etPurchaseDate.setOnClickListener(v -> showDatePicker());
@@ -153,5 +161,7 @@ public class Fertilizer_Expendituer extends Fragment {
 
         return expenditureList;
     }
+
+
 }
 

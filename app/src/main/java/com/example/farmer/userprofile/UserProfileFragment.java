@@ -16,12 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.farmer.FarmerDetails;
 import com.example.farmer.LoginActivity;
+import com.example.farmer.MainActivity;
 import com.example.farmer.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -59,6 +64,19 @@ public class UserProfileFragment extends Fragment {
         // Fetch farmer data from local storage
         fetchFarmerDataFromLocalStorage();
 
+         FirebaseAuth firebaseAuth;
+         FirebaseStorage firebaseStorage;
+
+        // Firebase and permissions setup
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        StorageReference profileImageRef = firebaseStorage.getReference().child("profile_images/" + user.getUid() + ".jpg");
+        profileImageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            Glide.with(getActivity()).load(uri).circleCrop().into(profileImage);
+        }).addOnFailureListener(e -> setDefaultProfileImage());
         // Setup button listeners
         setupButtonListeners();
 
@@ -177,4 +195,9 @@ public class UserProfileFragment extends Fragment {
     private void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
+    private void setDefaultProfileImage() {
+        profileImage.setImageResource(R.drawable.ic_farmer_profile_img);
+    }
+
 }

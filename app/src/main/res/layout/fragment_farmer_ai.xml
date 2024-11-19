@@ -1,57 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/natural_cream"
+    android:orientation="vertical">
+
+    <!-- Top Toolbar with Weather Info -->
+
+    <!-- Quick Action Buttons -->
+    <HorizontalScrollView
+        android:id="@+id/quickActionsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_green"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/cropHealthChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Crop Health" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/irrigationChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Irrigation" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/marketPricesChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Market Prices" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/pestControlChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pest Control" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <!-- Chat Messages RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMessages"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        android:layout_above="@id/inputLayout"
+        android:layout_below="@id/quickActionsScroll"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:padding="8dp"
-        android:scrollbars="vertical"
-        android:layout_marginBottom="40dp" />
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
-    <!-- Shimmer Layout for Loading Effect -->
-
-
-
-
+    <!-- Input Layout -->
     <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bar_background"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:background="@drawable/input_background"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageButton
+            android:id="@+id/attachButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_attachment_img"
+            app:tint="@color/forest_green" />
 
         <EditText
-            android:id="@+id/searchEditText"
+            android:id="@+id/messageEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Search"
-            android:inputType="text"
-            android:textColor="@android:color/black"
-            android:scrollHorizontally="true"
-            android:ellipsize="end"
-            android:singleLine="true" />
+            android:background="@drawable/message_input_background"
+            android:hint="Ask about your crops..."
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
 
         <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/sendButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription=""
-            android:src="@drawable/ic_send" />
-
+            android:padding="12dp"
+            android:src="@drawable/ic_send"
+            app:tint="@color/forest_green" />
     </LinearLayout>
 
-    </RelativeLayout>
+</RelativeLayout>

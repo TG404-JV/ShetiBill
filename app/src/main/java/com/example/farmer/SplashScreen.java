@@ -25,6 +25,15 @@ public class SplashScreen extends AppCompatActivity {
         logoImageView = findViewById(R.id.logo);
         appNameTextView = findViewById(R.id.app_name);
 
+        // Hide the status bar and navigation bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hides the navigation bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // Hides the status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Keeps it hidden until user swipes
+        );
         // Animate the logo and app name
         animateLogo();
         animateAppName();

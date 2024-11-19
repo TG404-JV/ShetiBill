@@ -13,9 +13,9 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -33,6 +33,7 @@ import com.google.ai.client.generativeai.GenerativeModel;
 import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
+import com.google.ai.client.generativeai.type.ServerException;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -64,8 +65,8 @@ public class FragmentFarmerAi extends Fragment {
 
         // Initialize views
         recyclerView = view.findViewById(R.id.recyclerViewMessages);
-        messageEditText = view.findViewById(R.id.searchEditText);
-        sendButton = view.findViewById(R.id.searchButton);
+        messageEditText = view.findViewById(R.id.messageEditText);
+        sendButton = view.findViewById(R.id.sendButton);
 
 
         // Set up RecyclerView
@@ -109,7 +110,7 @@ public class FragmentFarmerAi extends Fragment {
         chatAdapter.notifyItemInserted(chatMessages.size() - 1);
         recyclerView.scrollToPosition(chatMessages.size() - 1);
 
-        userMessage = DEVELOPER_MESSAGE + QUESTION_REFFERENCE + userMessage;
+        userMessage=DEVELOPER_MESSAGE+QUESTION_REFFERENCE+ userMessage;
         // Set up the generative model with the provided API key
         Executor executor = Executors.newSingleThreadExecutor();
         GenerativeModel gm = new GenerativeModel(AIMODEL, APIKEY);
@@ -138,8 +139,8 @@ public class FragmentFarmerAi extends Fragment {
                 // Run the UI update on the main thread
                 requireActivity().runOnUiThread(() -> {
                     // Replace loading message with bot response
-                        chatMessages.set(chatMessages.size() - 1, botMessage);  // Replace the loading message
-                        chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
+                    chatMessages.set(chatMessages.size() - 1, botMessage);  // Replace the loading message
+                    chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
 
                 });
             }
@@ -159,9 +160,6 @@ public class FragmentFarmerAi extends Fragment {
             }
         }, executor);
     }
-
-    // Show a dialog when user message is clicked
-// Show a dialog when user message is clicked
 // Show a dialog when user message is clicked
     private void showUserMessageDialog(ChatMessage message) {
         // Inflate the custom dialog layout

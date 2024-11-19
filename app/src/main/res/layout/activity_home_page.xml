@@ -7,80 +7,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/natural_green_light"
-    android:layout_marginTop="70dp"
+    style="@style/TextAppearance.Compat.Notification"
     tools:context=".HomePageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Custom Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/forest_green"
+            android:elevation="4dp">
 
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="12dp"
-                    android:src="@drawable/menu_icon"
-                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:text="Farm Manager"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="16dp" />
+                    android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/weather_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="16dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_weather_tab_img"
-                    app:tint="@color/white" />
-            </LinearLayout>
 
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:background="@color/background_light">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Weather Summary Card -->
+                <!-- Weather Card with Enhanced Design -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/weather_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="8dp"
+                    app:cardCornerRadius="12dp"
                     app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/weather_gradient_bg"
                         android:orientation="vertical"
                         android:padding="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_weather_tab_img"
+                            android:drawablePadding="8dp"
                             android:text="Today's Weather"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -88,153 +83,162 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Quick Actions Grid -->
+                <!-- Quick Actions Grid with Enhanced Design -->
                 <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/quick_actions_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/weather_card"
                     app:columnCount="2"
                     app:rowCount="2">
 
                     <!-- Crop Management Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="140dp"
                         android:layout_margin="8dp"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         app:layout_columnWeight="1">
 
                         <LinearLayout
-                            android:id="@+id/cropManagment"
+                            android:id="@+id/cropManagement"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/card_gradient_green"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_crop_img" />
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_crop_img"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Crop Management"
-                                android:textAlignment="center" />
+                                android:text="Crop\nManagement"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Irrigation Control Card -->
+                    <!-- Market Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="140dp"
                         android:layout_margin="8dp"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         app:layout_columnWeight="1">
 
                         <LinearLayout
+                            android:id="@+id/Market"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/card_gradient_blue"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_market_img" />
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_market_img"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Market"
-                                android:textAlignment="center" />
+                                android:text="Market\nPrices"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Equipment Tracking Card -->
+                    <!-- AI Assistant Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="140dp"
                         android:layout_margin="8dp"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         app:layout_columnWeight="1">
 
                         <LinearLayout
+                            android:id="@+id/askAI"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/card_gradient_purple"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_ai_img" />
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_ai_img"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="ASK AI"
-                                android:textAlignment="center" />
+                                android:text="Smart\nAssistant"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Task Management Card -->
+                    <!-- Fertilizer Management Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_height="140dp"
                         android:layout_margin="8dp"
-                        app:cardCornerRadius="8dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="4dp"
                         app:layout_columnWeight="1">
 
                         <LinearLayout
+                            android:id="@+id/Fertilizer"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/card_gradient_orange"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="16dp">
 
                             <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:src="@drawable/ic_fertilizer_tab_img" />
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/ic_fertilizer_tab_img"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Fertilizer Managment"
-                                android:textAlignment="center" />
+                                android:text="Fertilizer\nManagement"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                 </androidx.gridlayout.widget.GridLayout>
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
     </RelativeLayout>
 
-
-
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        app:headerLayout="@layout/nav_header"
-        app:itemIconTint="@color/forest_green"
-        app:itemTextColor="@color/dark_gray"
-        app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

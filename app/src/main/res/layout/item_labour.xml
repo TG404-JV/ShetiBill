@@ -2,127 +2,146 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="#F0F0F0"
-    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F0F0F0"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:background="@drawable/farm_card_gradient"
+        android:orientation="vertical">
 
+        <!-- Header Section with Farm Worker Info -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="#4CAF50"
+            android:padding="12dp">
 
-            <ImageView
-                android:id="@+id/appLogo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/circle_background"
-                android:foregroundTintMode="multiply"
-                android:src="@drawable/ic_farmer_profile_img" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/workerImage"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="2dp"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_farmer_profile_img"
+                app:shapeAppearanceOverlay="@style/CircularImageView"/>
 
-            <TextView
-                android:id="@+id/CropName"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:text="@string/labor_expenditure"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/laborWorkingType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/daily"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/laborName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/labor_name"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/divider_color" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalWeightName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_weight"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/totalWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/totalWeightName"
-                android:text="@string/_100kg"
-                android:textSize="16sp" />
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:layout_toLeftOf="@id/workDate"
-                android:textAlignment="viewEnd"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/laborWorkingType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/work_type_badge"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:text="@string/daily"
+                    android:textColor="#4CAF50"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/workDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_date_img"
+                android:drawablePadding="4dp"
                 android:text="@string/_19_09_2024"
-                android:layout_alignParentEnd="true"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/labor_name"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/laborName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/developer_name"
-                android:textSize="16sp" />
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:drawableTint="@color/white" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/AddWeightRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:scrollbars="horizontal" />
-
+        <!-- Work Details Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:orientation="vertical">
+
+            <!-- Crop Details -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@drawable/crop_info_background"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_crop_img"/>
+
+                <TextView
+                    android:id="@+id/CropName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/labor_expenditure"
+                    android:textColor="#2E7D32"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/totalWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_100kg"
+                        android:textColor="#2E7D32"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_weight"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Weight Records RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/AddWeightRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="40dp"
+                android:background="@drawable/weight_list_background"
+                android:padding="8dp"
+                android:scrollbars="horizontal" />
+
+            <!-- Action Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,61 +149,71 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/addWeightBtn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_add_btn" />
+                    android:text="Add Weight"
+                    android:textSize="10dp"
+                    app:icon="@drawable/ic_add_btn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="#4CAF50"
+                    app:strokeColor="#4CAF50"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/removeWeightBtn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_remove" />
+                    android:text="Remove"
+                    android:textSize="10dp"
+                    app:icon="@drawable/ic_remove"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="#F44336"
+                    app:strokeColor="#F44336"/>
             </LinearLayout>
 
+            <!-- Menu Actions -->
             <LinearLayout
+                android:id="@+id/menuTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:id="@+id/menuTask"
                 android:visibility="gone"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/copyBtn"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_copy_btn" />
+                    app:icon="@drawable/ic_copy_btn"
+                    android:textColor="#666666"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/shareBtn"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_share_btn" />
+                    app:icon="@drawable/ic_share_btn"
+                    android:textColor="#666666"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/editBtn"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_edit_btn" />
+                    app:icon="@drawable/ic_edit_btn"
+                    android:textColor="#666666"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/deleteBtn"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="#F0F0F0"
-                    android:src="@drawable/ic_delete_btn" />
+                    app:icon="@drawable/ic_delete_btn"
+                    android:textColor="#666666"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

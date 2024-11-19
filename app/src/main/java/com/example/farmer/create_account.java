@@ -36,6 +36,16 @@ public class create_account extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
 
+        // Hide the status bar and navigation bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hides the navigation bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // Hides the status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Keeps it hidden until user swipes
+        );
+
         // Initialize UI elements
         etName = findViewById(R.id.etName);
         etMobileNumber = findViewById(R.id.etMobileNumberCreate);

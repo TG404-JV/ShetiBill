@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:padding="16dp"
     tools:context=".fertilizer.Fertilizer_Expendituer">
 
     <LinearLayout
@@ -14,37 +13,65 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title TextView -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Header Section with Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
-            android:text="@string/fertilizer_expenditure"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textColor="@color/primary_text_color" />
+            android:background="@drawable/header_background"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <!-- CardView for Input Fields -->
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_fertilizer_img_png" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/fertilizer_expenditure"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Track your farm inputs expenses"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Main Content Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="-32dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="24dp">
 
-                <!-- Item Name Input -->
+                <!-- Item Name Input with Icon -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/item_name_e_g_fertilizer_pesticide"
-                    android:padding="8dp">
+                    app:startIconDrawable="@drawable/ic_item"
+                    android:textAlignment="viewEnd"
+                    app:startIconTint="@color/primary_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etItemName"
@@ -53,28 +80,33 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Purchase Date Input -->
+                <!-- Purchase Date Input with Calendar Icon -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:hint="@string/purchase_date_dd_mm_yyyy"
-                    android:padding="8dp">
+                    app:startIconDrawable="@drawable/ic_date_img"
+                    app:startIconTint="@color/primary_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPurchaseDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="date" />
+                        android:focusable="false"
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Purchase Amount Input -->
+                <!-- Purchase Amount Input with Currency Icon -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:hint="@string/purchase_amount_in_currency"
-                    android:padding="8dp">
+                    app:startIconDrawable="@drawable/ic_currency"
+                    app:startIconTint="@color/primary_color">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFertilizerPrice"
@@ -83,41 +115,83 @@
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <RadioGroup
-                    android:id="@+id/rgPaymentMode"
+                <!-- Payment Mode Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Payment Mode"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    app:cardBackgroundColor="@color/surface_color"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/stroke_color"
+                    app:strokeWidth="1dp">
 
-                    <RadioButton
-                        android:id="@+id/rbCash"
-                        android:layout_width="wrap_content"
+                    <RadioGroup
+                        android:id="@+id/rgPaymentMode"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Cash" />
+                        android:orientation="horizontal"
+                        android:padding="16dp">
 
-                    <RadioButton
-                        android:id="@+id/rbCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Card" />
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rbCash"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:button="@null"
+                            android:drawableTop="@drawable/ic_cash"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Cash"
+                            android:textColor="@color/primary_text_color" />
 
-                    <RadioButton
-                        android:id="@+id/rbOnline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Online" />
-                </RadioGroup>
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rbCard"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:button="@null"
+                            android:drawableTop="@drawable/ic_card"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Card"
+                            android:textColor="@color/primary_text_color" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rbOnline"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:button="@null"
+                            android:drawableTop="@drawable/ic_online"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Online"
+                            android:textColor="@color/primary_text_color" />
+                    </RadioGroup>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Submit Button -->
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/rounded_button"
-                    android:backgroundTint="@color/primary_color"
-                    android:text="Submit"
-                    android:textColor="@android:color/white" />
+                    android:layout_marginTop="24dp"
+                    android:paddingVertical="12dp"
+                    android:text="Save Expenditure"
+                    android:textAllCaps="false"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_save_img"
+                    app:iconGravity="textStart" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

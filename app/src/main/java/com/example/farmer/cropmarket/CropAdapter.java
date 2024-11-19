@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -89,8 +91,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         TextView cropPriceTextView;
         TextView cropSellerNameTextView;  // Field for seller name
         TextView sellerLocationTextView;   // Field for location
-        ImageView cropImageView;            // ImageView for crop image
-        ImageButton callButton;             // Call button
+        ShapeableImageView cropImageView;            // ImageView for crop image
+        MaterialButton callButton;             // Call button
 
         public CropViewHolder(@NonNull View itemView) {
             super(itemView);

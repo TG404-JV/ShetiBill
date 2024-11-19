@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmer.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -137,7 +138,7 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         TextView labourNameTextView, workDateTextView, totalWeightTextView, laborWorkingType, CropName;
         RecyclerView weightRecyclerView;
         LinearLayout LabourModificationMenu;
-        ImageButton addWeightBtn, subWeightBtn, shareBtn, copyBtn, editBtn, deleteBtn;
+        MaterialButton addWeightBtn, subWeightBtn, shareBtn, copyBtn, editBtn, deleteBtn;
 
         LabourViewHolder(@NonNull View itemView) {
             super(itemView);

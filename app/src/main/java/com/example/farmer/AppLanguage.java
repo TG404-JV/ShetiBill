@@ -17,6 +17,7 @@ public class AppLanguage extends Application {
     public void onCreate() {
         super.onCreate();
 
+
         // Get the selected language from SharedPreferences
         String selectedLanguage = getSelectedLanguage();
 

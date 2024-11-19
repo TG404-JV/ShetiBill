@@ -85,6 +85,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Setup the profile information (image, name, email)
         setupProfileInfo();
+
+        // Check if we should load a specific fragment
+        String fragmentToLoad = getIntent().getStringExtra("LOAD_FRAGMENT");
+        if (fragmentToLoad != null ) {
+            if (fragmentToLoad.equals("MARKET"))
+            {
+                // Create and load the CropManagementFragment
+                CropMarket cropFragment = new CropMarket();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, cropFragment) // Use your frame layout ID here
+                        .addToBackStack(null)
+                        .commit();
+            } else if (fragmentToLoad.equals("askAI")) {
+
+                FragmentFarmerAi fragmentFarmerAi = new FragmentFarmerAi();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fragmentFarmerAi) // Use your frame layout ID here
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+
+            else if (fragmentToLoad.equals("Fertilizer")) {
+
+                Fertilizer_Expendituer fertilizerExpendituer = new Fertilizer_Expendituer();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, fertilizerExpendituer) // Use your frame layout ID here
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+
+        }
     }
 
     private void setupNavigationDrawer() {
@@ -209,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loginLogoutButton.setTextColor(getResources().getColor(android.R.color.holo_red_dark)); // Logout color
         } else {
             loginLogoutButton.setText(R.string.login);
-            loginLogoutButton.setTextColor(getResources().getColor(android.R.color.holo_green_dark)); // Login color
+            loginLogoutButton.setTextColor(getResources().getColor(android.R.color.white)); // Login color
         }
     }
 
