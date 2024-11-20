@@ -13,6 +13,7 @@
 
     <!-- App Logo Description -->
     <string name="app_logo" translatable="false">App Logo</string>
+    <string name="loading" translatable="false">Loading</string>
 
     <!-- Create Account Screen Title -->
 

@@ -19,7 +19,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_faarm_bg"
+                android:src="@drawable/ic_farmer_bg"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -27,7 +27,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient_overlay"/>
+                android:background="@drawable/gradient_scrim"/>
 
             <!-- Profile Content -->
             <LinearLayout
@@ -43,6 +43,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:src="@drawable/ic_farmer_profile_img"
+                    android:background="@drawable/rounded_nav_background"
                     app:civ_border_width="4dp"
                     app:civ_border_color="#FFFFFF"/>
 
