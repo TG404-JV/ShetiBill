@@ -200,8 +200,14 @@
     <color name="nav_item_active">#000000</color> <!-- Active state (black) -->
     <color name="nav_item_inactive">#808080</color> <!-- Inactive state (gray) -->
     <color name="nav_ripple_color">#FFCCBC</color> <!-- Optional ripple color -->
-
+    <color name="gray_disabled">#9E9E9E</color>
+    <color name="background_cream">#FFF9F5</color>
+    <color name="green_dark">#2E7D32</color>
+    <color name="green_light">#E8F5E9</color>
     <color name="natural_cream">#FFFBF5</color>
+    <color name="farm_background">#F5F5F0</color>
+    <color name="farm_primary_text">#2C5E20</color>
+    <color name="farm_accent">#4CAF50</color>
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
     <color name="price_green">#2E7D32</color>

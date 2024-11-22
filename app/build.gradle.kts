@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.adapters)
     implementation(libs.gridlayout)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -79,6 +80,11 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.5.0")
 
     implementation ("com.github.YarikSOffice:lingver:1.0.0")
+
+    implementation ("com.github.delight-im:Android-AdvancedWebView:v3.2.1")
+    implementation ("com.airbnb.android:lottie:6.6.0")
+
+
 
 
 

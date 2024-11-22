@@ -12,9 +12,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SplashScreen extends AppCompatActivity {
 
-    private ImageView logoImageView;
+    private CircleImageView logoImageView;
     private TextView appNameTextView;
 
     @Override

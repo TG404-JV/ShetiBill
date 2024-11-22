@@ -158,6 +158,8 @@
     <string name="add_weight">add Weight</string>
     <string name="expenditure_managment">Expenditure Managment</string>
     <string name="fertilizer_info">Fertilizer_Info</string>
+    <string name="delete">delete</string>
+    <string name="read">read</string>
 
 
 </resources>

@@ -5,269 +5,395 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <!-- Background Animation -->
+        <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/anim_sky"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:alpha="0.6"
+            app:lottie_speed="0.5" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewLocation"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
+                <!-- Farm Info Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/wather_gradient_background">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            app:lottie_rawRes="@raw/anim_farm"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Green Valley Farm"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:gravity="center"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="📍 Sacramento Valley, CA"
+                            android:textColor="#E0FFFFFF"
+                            android:gravity="center"
+                            android:paddingBottom="16dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Weather Overview Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewWeatherSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Today's Field Conditions"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#2E7D32"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                app:lottie_rawRes="@raw/anim_weather"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="16dp">
+
+                                <TextView
+                                    android:id="@+id/textViewTemperature"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="25°C"
+                                    android:textSize="36sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#2E7D32"/>
+
+                                <TextView
+                                    android:id="@+id/textViewDescription"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Perfect Growing Conditions"
+                                    android:textSize="16sp"
+                                    android:textColor="#558B2F"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Field Metrics Grid -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
+                    android:layout_marginBottom="16dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <!-- Humidity Card -->
+                    <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editTextCity"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Farm Location"
-                            android:drawableStart="@drawable/ic_location_img"
-                            android:drawableTint="@color/greenColor"
-                            android:drawablePadding="8dp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/buttonGetWeather"
-                        android:layout_width="wrap_content"
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                app:lottie_rawRes="@raw/anim_humidity"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Humidity"
+                                android:textColor="#558B2F"
+                                android:layout_marginTop="8dp"/>
+
+                            <TextView
+                                android:id="@+id/textViewHumidity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="65%"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="#2E7D32"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Wind Speed Card -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="Check"
-                        app:icon="@drawable/ic_search_img"/>
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
+
+                            <com.airbnb.lottie.LottieAnimationView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                app:lottie_rawRes="@raw/anim_wind"
+                                app:lottie_autoPlay="true"
+                                app:lottie_loop="true"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wind Speed"
+                                android:textColor="#558B2F"
+                                android:layout_marginTop="8dp"/>
+
+                            <TextView
+                                android:id="@+id/textViewWindSpeed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5 km/h"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="#2E7D32"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewWeatherSummary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp">
-
-                <LinearLayout
+                <!-- Crop Status Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCropRecommendation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/textViewTemperature"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="#2E7D32"
-                        android:text="25°C"
-                        android:drawableStart="@drawable/ic_cloudy_img"
-                        android:drawablePadding="8dp"/>
-
-                    <TextView
-                        android:id="@+id/textViewDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:layout_marginTop="8dp"
-                        android:text="Sunny with Gentle Breeze"
-                        android:textColor="#757575"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:id="@+id/layoutFarmingIndicators"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardHumidity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp">
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_humidity_img"
-                            app:tint="#2196F3"/>
+                        android:padding="20dp">
 
                         <TextView
-                            android:id="@+id/textViewHumidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="65% Humidity"
-                            android:textColor="#607D8B"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardWindSpeed"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_wind_img" />
-
-                        <TextView
-                            android:id="@+id/textViewWindSpeed"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="5 km/h Wind"
-                            android:textColor="#607D8B"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardCropRecommendation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Crop Recommendation"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="#2E7D32"
-                        android:drawableStart="@drawable/ic_crop_img"
-                        android:drawablePadding="8dp"/>
-
-                    <TextView
-                        android:id="@+id/textViewCropRecommendation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Best suited for: Corn, Soybeans"
-                        android:textColor="#616161"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardSoilHealth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Soil Health"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="#2E7D32"
-                        android:drawablePadding="8dp"
-                        app:drawableStartCompat="@drawable/ic_soil" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="pH Level"
-                            android:textColor="#616161"/>
-
-                        <TextView
-                            android:id="@+id/textViewPHLevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="6.5"
+                            android:text="Crop Status"
+                            android:drawableStart="@drawable/ic_crop_img"
+                            android:drawablePadding="8dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
                             android:textColor="#2E7D32"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="16dp">
+
+                            <TextView
+                                android:id="@+id/textViewCropRecommendation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Current Crops"
+                                android:textColor="#558B2F"/>
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <com.google.android.material.chip.Chip
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Corn 🌽"
+                                    app:chipBackgroundColor="#E8F5E9"/>
+
+                                <com.google.android.material.chip.Chip
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Soybeans 🫘"
+                                    app:chipBackgroundColor="#E8F5E9"/>
+                            </com.google.android.material.chip.ChipGroup>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Growth Progress"
+                            android:textColor="#558B2F"
+                            android:layout_marginTop="16dp"/>
+
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:progress="65"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:progressTint="#2E7D32"/>
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Soil Health Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSoilHealth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Nutrient Level"
-                            android:textColor="#616161"/>
-
-                        <TextView
-                            android:id="@+id/textViewNutrientLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Moderate"
-                            android:textColor="#FFA500"/>
+                            android:text="Soil Analysis"
+                            android:drawableStart="@drawable/ic_soil"
+                            android:drawablePadding="8dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#2E7D32"/>
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:rowCount="2"
+                            android:layout_marginTop="16dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="pH Level"
+                                    android:textColor="#558B2F"/>
+
+                                <TextView
+                                    android:id="@+id/textViewPHLevel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="6.5"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#2E7D32"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:orientation="vertical"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Moisture"
+                                    android:textColor="#558B2F"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Optimal"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#2E7D32"/>
+                            </LinearLayout>
+                        </GridLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <!-- Location Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonGetCurrentLocationWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Get Current Location Weather"
+                    android:backgroundTint="#2E7D32"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_location_img"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

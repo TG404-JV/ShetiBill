@@ -1,5 +1,6 @@
 package com.example.farmer.home.bottomtab.labour;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -10,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -127,6 +126,22 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
 
 
         updateTotalWeight(labour, holder); // Update the total weight dynamically
+
+
+        holder.labourDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.isLabourDetailsVisible) {
+                    // Collapse the view with animation
+                    collapseView(holder.LabourMoreDetails);
+                    holder.isLabourDetailsVisible = false;
+                } else {
+                    // Expand the view with animation
+                    expandView(holder.LabourMoreDetails);
+                    holder.isLabourDetailsVisible = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -139,6 +154,10 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         RecyclerView weightRecyclerView;
         LinearLayout LabourModificationMenu;
         MaterialButton addWeightBtn, subWeightBtn, shareBtn, copyBtn, editBtn, deleteBtn;
+
+        LinearLayout labourDetail,LabourMoreDetails;
+
+        Boolean isLabourDetailsVisible=false;
 
         LabourViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -155,6 +174,8 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
             LabourModificationMenu = itemView.findViewById(R.id.menuTask);
             laborWorkingType = itemView.findViewById(R.id.laborWorkingType);
             CropName = itemView.findViewById(R.id.CropName);
+            labourDetail=itemView.findViewById(R.id.LabourHeader);
+            LabourMoreDetails=itemView.findViewById(R.id.LabourMoreDetails);
         }
     }
 
@@ -266,4 +287,53 @@ public class LabourAdapter extends RecyclerView.Adapter<LabourAdapter.LabourView
         }
         holder.totalWeightTextView.setText("Total: " + totalWeight);
     }
+
+
+    private void collapseView(final View view) {
+        // Get the current height of the view
+        int initialHeight = view.getHeight();
+
+        // Animate the view height to 0
+        ValueAnimator animator = ValueAnimator.ofInt(initialHeight, 0);
+        animator.setDuration(300); // Duration of the collapse animation
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // Set the new height value during animation
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = (int) valueAnimator.getAnimatedValue();
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        animator.start();
+    }
+
+
+    private void expandView(final View view) {
+        // Measure the height of the view before setting it to visible
+        view.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = view.getMeasuredHeight();
+
+        // Set the height to 0 initially
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = 0;
+        view.setLayoutParams(layoutParams);
+        view.setVisibility(View.VISIBLE);
+
+        // Animate the view height to the target height
+        ValueAnimator animator = ValueAnimator.ofInt(0, targetHeight);
+        animator.setDuration(300); // Duration of the expand animation
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // Set the new height value during animation
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = (int) valueAnimator.getAnimatedValue();
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        animator.start();
+    }
+
+
 }

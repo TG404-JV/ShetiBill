@@ -187,13 +187,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(LanguageChange);
         } else if (item.getItemId() == R.id.action_about_app) {
 
-            Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show();  // Toast message
+            Intent About=new Intent(MainActivity.this,ActiviyAboutUS.class);
+            startActivity(About);
 
         } else if (item.getItemId() == R.id.action_privacy_policy) {
             // Handle privacy policy
             /* Intent intent = new Intent(this, PrivacyPolicyActivity.class);
             startActivity(intent);
             return true; */
+            Intent Privacy=new Intent(MainActivity.this,ActivityPrivacyPolicy.class);
+            startActivity(Privacy);
+
         }
         return super.onOptionsItemSelected(item);
     }

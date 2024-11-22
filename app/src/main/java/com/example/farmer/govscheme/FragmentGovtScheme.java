@@ -1,6 +1,7 @@
 package com.example.farmer.govscheme;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,49 +21,71 @@ import androidx.fragment.app.Fragment;
 
 import com.example.farmer.R;
 
-public class FragmentGovtScheme extends Fragment {
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import im.delight.android.webview.AdvancedWebView;
 
-    private WebView myWebView;
+public class FragmentGovtScheme extends Fragment implements AdvancedWebView.Listener {
+
+    private AdvancedWebView mWebView;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_govt_scheme, container, false);
-        myWebView = view.findViewById(R.id.myWebView);
+        mWebView = view.findViewById(R.id.myWebView);
+        progressBar = view.findViewById(R.id.progressBar);
 
-        // Enable JavaScript
-        WebSettings webSettings = myWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        // Allow mixed content if needed
-        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-
-        // Set a WebViewClient to handle page navigation
-        myWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                // Handle SSL certificate errors
-                handler.proceed(); // Ignore SSL certificate errors (use with caution)
-            }
-        });
-
-        // Set a WebChromeClient for better handling of JavaScript dialogs, favicons, titles, and the progress
-        myWebView.setWebChromeClient(new WebChromeClient());
-
-        // Load the desired URL
-        myWebView.loadUrl("https://agriwelfare.gov.in/en/Major#skiptomain"); // Replace with the desired URL
-
+        setupWebView();
         return view;
     }
 
+    private void setupWebView() {
+        mWebView.setListener(getActivity(), this);
+        mWebView.setMixedContentAllowed(true);
+        mWebView.setGeolocationEnabled(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
+
+        mWebView.loadUrl("https://www.myscheme.gov.in/schemes/chief-minister-sustainable-agriculture-irrigation-scheme");
+    }
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // Clear the WebView to prevent memory leaks
-        if (myWebView != null) {
-            myWebView.clearHistory();
-            myWebView.removeAllViews();
-            myWebView.destroy();
-        }
+    public void onPageStarted(String url, Bitmap favicon) {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPageFinished(String url) {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPageError(int errorCode, String description, String failingUrl) {
+        progressBar.setVisibility(View.GONE);
+        // Handle error scenario
+    }
+
+    @Override
+    public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) {
+
+    }
+
+    @Override
+    public void onExternalPageRequest(String url) {
+        // Handle external page requests if needed
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mWebView.onDestroy();
     }
 }

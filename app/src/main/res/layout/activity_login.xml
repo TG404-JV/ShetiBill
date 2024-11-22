@@ -35,14 +35,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/logoImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_farmer_profile_img"
-            android:contentDescription="App Logo"
-            android:padding="8dp"
-            android:background="#F1F8E9"/>
+            android:src="@drawable/ic_shetibill_logo"
+            android:contentDescription="App Logo" />
     </androidx.cardview.widget.CardView>
 
     <!-- Welcome Text with farming style -->
@@ -50,7 +48,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Fresh Food App"
+        android:text="Welcome to ShetiBIll"
         android:textColor="#1B5E20"
         android:textSize="24sp"
         android:textStyle="bold"

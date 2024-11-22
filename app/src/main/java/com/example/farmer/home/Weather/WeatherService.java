@@ -18,14 +18,29 @@ public class WeatherService {
     private static final String API_KEY = "02ac04b938246d20bad8c2d267c9497e";
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
 
-    public void fetchWeatherData(String city, WeatherCallback callback) {
-        OkHttpClient client = new OkHttpClient.Builder()
+    private final OkHttpClient client;
+
+    public WeatherService() {
+        this.client = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .build();
+    }
 
+    // Fetch weather data by city name
+    public void fetchWeatherDataByCity(String city, WeatherCallback callback) {
         String url = String.format("%s?q=%s&appid=%s&units=metric", BASE_URL, city, API_KEY);
+        fetchWeatherData(url, callback);
+    }
 
+    // Fetch weather data by coordinates
+    public void fetchWeatherDataByCoordinates(double latitude, double longitude, WeatherCallback callback) {
+        String url = String.format("%s?lat=%f&lon=%f&appid=%s&units=metric", BASE_URL, latitude, longitude, API_KEY);
+        fetchWeatherData(url, callback);
+    }
+
+    // General method to fetch weather data
+    public void fetchWeatherData(String url, WeatherCallback callback) {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -54,48 +69,55 @@ public class WeatherService {
         });
     }
 
+    // Parse the JSON response into WeatherData
     private WeatherData parseWeatherData(String jsonData) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonData);
 
-        // Main weather details
-        JSONObject main = jsonObject.getJSONObject("main");
-        double temperature = main.getDouble("temp");
-        int humidity = main.getInt("humidity");
+        // Extract main weather details
+        JSONObject main = jsonObject.optJSONObject("main");
+        double temperature = main != null ? main.optDouble("temp", 0.0) : 0.0;
+        int humidity = main != null ? main.optInt("humidity", 0) : 0;
 
-        // Weather description
-        JSONObject weatherObj = jsonObject.getJSONArray("weather").getJSONObject(0);
-        String description = weatherObj.getString("description");
+        // Extract weather description
+        JSONObject weatherObj = jsonObject.getJSONArray("weather").optJSONObject(0);
+        String description = weatherObj != null ? weatherObj.optString("description", "No description") : "No description";
 
-        // Wind details
-        JSONObject windObj = jsonObject.getJSONObject("wind");
-        double windSpeed = windObj.getDouble("speed");
+        // Extract wind details
+        JSONObject windObj = jsonObject.optJSONObject("wind");
+        double windSpeed = windObj != null ? windObj.optDouble("speed", 0.0) : 0.0;
 
-        // Soil health estimations
-        double phLevel = estimatePHLevel(temperature, humidity);
+        // Estimate soil health data
+        double phLevel = estimatePHLevel(temperature, humidity, windSpeed);
         String nutrientLevel = estimateNutrientLevel(temperature, humidity);
 
         return new WeatherData(temperature, humidity, windSpeed, description, phLevel, nutrientLevel);
     }
 
-    private double estimatePHLevel(double temperature, int humidity) {
-        // Simple estimation based on temperature and humidity
+    // PH level estimation based on temperature, humidity, and wind speed
+    private double estimatePHLevel(double temperature, int humidity, double windSpeed) {
         double basePH = 6.5;
-        double adjustment = (temperature / 30) * 0.5 + (humidity / 100) * 0.5;
-        return Math.min(Math.max(basePH + adjustment, 5.5), 7.5);
+        double tempAdjustment = (temperature - 20) / 10;
+        double humidityAdjustment = (humidity - 50) / 50.0;
+        double windAdjustment = windSpeed / 10.0;
+
+        double estimatedPH = basePH + tempAdjustment + humidityAdjustment - windAdjustment;
+        return Math.max(5.5, Math.min(estimatedPH, 8.0)); // Ensure PH is within realistic bounds
     }
 
+    // Nutrient level estimation based on temperature and humidity
     private String estimateNutrientLevel(double temperature, int humidity) {
-        // Simple nutrient level estimation
-        if (temperature > 25 && humidity > 60) return "High";
+        if (temperature > 30 && humidity > 60) return "High";
         if (temperature > 20 && humidity > 50) return "Moderate";
         return "Low";
     }
 
+    // Callback interface
     public interface WeatherCallback {
         void onWeatherReceived(WeatherData weatherData);
         void onError(String errorMessage);
     }
 
+    // Weather data structure
     public static class WeatherData {
         public final double temperature;
         public final int humidity;
