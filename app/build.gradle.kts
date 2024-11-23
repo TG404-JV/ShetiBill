@@ -83,6 +83,7 @@ dependencies {
 
     implementation ("com.github.delight-im:Android-AdvancedWebView:v3.2.1")
     implementation ("com.airbnb.android:lottie:6.6.0")
+    implementation ("com.github.chrisbanes:PhotoView:2.3.0")
 
 
 

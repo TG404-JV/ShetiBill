@@ -1,22 +1,20 @@
 package com.example.farmer.fertilizer;
 
-
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmer.R;
@@ -31,14 +29,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 public class Fertilizer_Expendituer extends Fragment {
 
     private TextInputEditText etItemName, etPurchaseDate, etPrice;
     private RadioGroup rgPaymentMode;
     private MaterialRadioButton rbCash, rbCard, rbOnline;
-    private MaterialButton btnSave;
+    private MaterialButton btnSave, btnUploadReceipt;
+    private ImageView ivReceiptPreview;
+    private String receiptFilePath = ""; // To store the URI of the receipt
+    private static final String PREF_NAME = "FertilizerPrefs";
 
     @Nullable
     @Override
@@ -53,55 +53,65 @@ public class Fertilizer_Expendituer extends Fragment {
         rbCard = view.findViewById(R.id.rbCard);
         rbOnline = view.findViewById(R.id.rbOnline);
         btnSave = view.findViewById(R.id.btnSave);
+        btnUploadReceipt = view.findViewById(R.id.btnUploadReceipt);
         etPrice = view.findViewById(R.id.etFertilizerPrice);
+        ivReceiptPreview = view.findViewById(R.id.ivReceiptPreview); // Initialize the ImageView
 
-        // Load saved data if any
-        loadSavedData();
-
-        // Set the listener for RadioGroup
-
-
-        // Set OnClickListener to show DatePicker
+        // Set listeners
         etPurchaseDate.setOnClickListener(v -> showDatePicker());
-
-        // Save data when the save button is clicked
         btnSave.setOnClickListener(v -> saveData());
+        btnUploadReceipt.setOnClickListener(v -> uploadReceipt());
 
         return view;
     }
 
-    // Method to show DatePicker
+    // Show DatePicker dialog
     private void showDatePicker() {
-        // Get current date
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Create DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-                    // Set the selected date to the TextInputEditText
                     String formattedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                     etPurchaseDate.setText(formattedDate);
                 }, year, month, day);
-
-        // Show the DatePickerDialog
         datePickerDialog.show();
     }
 
-    // Method to save data into SharedPreferences
+    // Launch file picker for receipt upload
+    private void uploadReceipt() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Receipt"), 101);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == getActivity().RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                receiptFilePath = selectedImageUri.toString();
+                ivReceiptPreview.setImageURI(selectedImageUri); // Set the image in ImageView
+                Toast.makeText(getActivity(), "Receipt uploaded successfully!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // Save all data into SharedPreferences
     private void saveData() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FertilizerPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // Get the user input
+        // Get user input
         String itemName = etItemName.getText().toString();
         String purchaseDate = etPurchaseDate.getText().toString();
         String price = etPrice.getText().toString();
+
         int selectedPaymentModeId = rgPaymentMode.getCheckedRadioButtonId();
         String paymentMode = "";
-
         if (selectedPaymentModeId == R.id.rbCash) {
             paymentMode = "Cash";
         } else if (selectedPaymentModeId == R.id.rbCard) {
@@ -117,6 +127,7 @@ public class Fertilizer_Expendituer extends Fragment {
             jsonObject.put("PurchaseDate", purchaseDate);
             jsonObject.put("PurchaseAmount", price);
             jsonObject.put("PaymentMode", paymentMode);
+            jsonObject.put("ReceiptPath", receiptFilePath); // Save receipt URI
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -137,22 +148,34 @@ public class Fertilizer_Expendituer extends Fragment {
         editor.putString("expenditure_list", jsonArray.toString());
         editor.apply();
 
-        // Show toast message after saving
-        Toast.makeText(getActivity(), "Data saved successfully!", Toast.LENGTH_SHORT).show();
+        // Notify the user
+        Toast.makeText(getActivity(), "Expenditure saved successfully!", Toast.LENGTH_SHORT).show();
+
+        // Clear fields
+        clearFields();
     }
 
-    // Method to load saved data
-    private List<FertilizerExpenditure> loadSavedData() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FertilizerPrefs", Context.MODE_PRIVATE);
+    // Clear all input fields
+    private void clearFields() {
+        etItemName.setText("");
+        etPurchaseDate.setText("");
+        etPrice.setText("");
+        rgPaymentMode.clearCheck();
+        receiptFilePath = "";
+        ivReceiptPreview.setImageResource(0); // Clear ImageView
+    }
+
+    // Load saved data into a list for RecyclerView
+    public static List<FertilizerExpenditure> loadSavedData(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         List<FertilizerExpenditure> expenditureList = new ArrayList<>();
 
-        // Retrieve the JSON array of expenditures from SharedPreferences
         String expenditureData = sharedPreferences.getString("expenditure_list", "[]");
         try {
             JSONArray jsonArray = new JSONArray(expenditureData);
             for (int i = 0; i < jsonArray.length(); i++) {
-                // Convert each JSON object to a FertilizerExpenditure object
-                FertilizerExpenditure expenditure = FertilizerExpenditure.fromJson(jsonArray.getJSONObject(i));
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                FertilizerExpenditure expenditure = FertilizerExpenditure.fromJson(jsonObject);
                 expenditureList.add(expenditure);
             }
         } catch (JSONException e) {
@@ -161,7 +184,4 @@ public class Fertilizer_Expendituer extends Fragment {
 
         return expenditureList;
     }
-
-
 }
-

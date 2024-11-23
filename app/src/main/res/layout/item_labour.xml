@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <!-- Crop Details -->
             <LinearLayout

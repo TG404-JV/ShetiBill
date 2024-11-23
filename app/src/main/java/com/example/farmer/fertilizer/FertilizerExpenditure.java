@@ -7,7 +7,7 @@ import org.json.JSONObject;
 public class FertilizerExpenditure {
     private String itemName;
     private String purchaseDate;
-    private String purchaseAmount;
+    private String purchaseAmount; // Field for the purchase amount
     private String paymentMode;
     private String receiptImagePath;
 
@@ -20,45 +20,45 @@ public class FertilizerExpenditure {
         this.receiptImagePath = receiptImagePath;
     }
 
-    // Getter for itemName
-
-    public String getAmount() {
-        return purchaseAmount;
-    }
-
+    // Getter methods
     public String getItemName() {
         return itemName;
     }
 
-    // Getter for purchaseDate
     public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    // Getter for purchaseAmount
-    public String getPurchaseAmount() {
+    public String getPurchaseAmount() { // Getter for purchase amount
         return purchaseAmount;
     }
 
-    // Getter for paymentMode
+    public String getAmount()
+    {
+        return purchaseAmount;
+    }
+
     public String getPaymentMode() {
         return paymentMode;
     }
 
-    // Getter for receiptImagePath
     public String getReceiptImagePath() {
         return receiptImagePath;
     }
 
-    // Static method to create an instance from JSON
-    public static FertilizerExpenditure fromJson(JSONObject jsonObject) throws JSONException {
-        String itemName = jsonObject.optString("ItemName");
-        String purchaseDate = jsonObject.optString("PurchaseDate");
-        String purchaseAmount = jsonObject.optString("PurchaseAmount");
-        String paymentMode = jsonObject.optString("PaymentMode");
-        String receiptImagePath = jsonObject.optString("ReceiptImagePath", null);
+    // Static method to create an instance from a JSON object
+    public static FertilizerExpenditure fromJson(JSONObject jsonObject) {
+        try {
+            String itemName = jsonObject.optString("ItemName", "");
+            String purchaseDate = jsonObject.optString("PurchaseDate", "");
+            String purchaseAmount = jsonObject.optString("PurchaseAmount", "");
+            String paymentMode = jsonObject.optString("PaymentMode", "");
+            String receiptPath = jsonObject.optString("ReceiptPath", ""); // Use "ReceiptPath" to match saveData()
 
-        return new FertilizerExpenditure(itemName, purchaseDate, purchaseAmount, paymentMode, receiptImagePath);
+            return new FertilizerExpenditure(itemName, purchaseDate, purchaseAmount, paymentMode, receiptPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
-

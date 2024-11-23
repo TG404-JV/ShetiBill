@@ -160,6 +160,7 @@
     <string name="fertilizer_info">Fertilizer_Info</string>
     <string name="delete">delete</string>
     <string name="read">read</string>
+    <string name="close">close</string>
 
 
 </resources>

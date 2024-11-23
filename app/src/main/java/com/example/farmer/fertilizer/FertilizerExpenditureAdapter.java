@@ -1,24 +1,39 @@
 package com.example.farmer.fertilizer;
 
+import static androidx.core.content.ContextCompat.startActivity;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.farmer.R;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.button.MaterialButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<FertilizerExpenditureAdapter.ViewHolder> {
@@ -48,10 +63,34 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
         holder.tvPurchaseAmount.setText(expenditure.getPurchaseAmount());
         holder.tvPaymentMode.setText(expenditure.getPaymentMode());
 
-        // Set up the click listener for card flip animation
-        holder.itemView.setOnClickListener(v -> flipCard(holder));
+        // Retrieve image
+        final String imagePath = expenditure.getReceiptImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            if (imagePath.startsWith("content://") || imagePath.startsWith("file://")) {
+                // Load URI or file path using Glide
+                Glide.with(context)
+                        .load(imagePath)
+                        .placeholder(R.drawable.ic_payment_mode_img) // Default placeholder
+                        .into(holder.IVfertilizerName);
+            } else {
+                // Decode Base64 image if the path is encoded data
+                try {
+                    byte[] decodedBytes = Base64.decode(imagePath, Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                    holder.IVfertilizerName.setImageBitmap(bitmap);
+                } catch (IllegalArgumentException e) {
+                    holder.IVfertilizerName.setImageResource(R.drawable.ic_payment_mode_img); // Default image for errors
+                    Toast.makeText(context, "Invalid image format", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            holder.IVfertilizerName.setImageResource(R.drawable.ic_payment_mode_img); // Default image
+        }
 
-        // Set up Copy button functionality
+        // View image in a popup on click
+        holder.viewImg.setOnClickListener(v -> showImagePopup(imagePath));
+
+        // Copy button functionality
         holder.copyBtn.setOnClickListener(v -> {
             String data = expenditure.getItemName() + " - " + expenditure.getPurchaseAmount() + " - " + expenditure.getPaymentMode();
             android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -60,20 +99,80 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
             Toast.makeText(context, "Data copied to clipboard", Toast.LENGTH_SHORT).show();
         });
 
-        // Set up Share button functionality
+        // Share button functionality
         holder.shareBtn.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             String shareBody = "Fertilizer Purchase\nItem: " + expenditure.getItemName() + "\nAmount: " + expenditure.getPurchaseAmount() + "\nPayment Mode: " + expenditure.getPaymentMode();
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
             context.startActivity(Intent.createChooser(shareIntent, "Share using"));
         });
 
-        // Set up Edit button functionality (dummy logic)
+        // Edit button functionality
         holder.editBtn.setOnClickListener(v -> {
             Toast.makeText(context, "Edit functionality", Toast.LENGTH_SHORT).show();
-            // You can add logic to open a new activity or fragment to edit the expenditure entry
+            // Add logic for editing the expenditure entry
         });
+
+        holder.FertilizerDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.isCardVisible) {
+                    // Show the card button with animation
+                    holder.cardBtn.setVisibility(View.VISIBLE);
+                    holder.cardBtn.animate()
+                            .alpha(1f) // Fade in
+                            .translationY(0) // Slide in (or set your preferred translation direction)
+                            .setDuration(300) // Animation duration
+                            .start();
+                    holder.isCardVisible = false;
+                } else {
+                    // Hide the card button with animation
+                    holder.cardBtn.animate()
+                            .alpha(0f) // Fade out
+                            .translationY(-100) // Slide out (you can adjust the value to your preference)
+                            .setDuration(300) // Animation duration
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    holder.cardBtn.setVisibility(View.GONE);
+                                }
+                            })
+                            .start();
+                    holder.isCardVisible = true;
+                }
+            }
+        });
+
+        holder.FertilizerCollaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.isCollapsVisible) {
+                    // Show FertilizerDetails with animation
+                    holder.FertilizerDetails.setVisibility(View.VISIBLE);
+                    holder.FertilizerDetails.animate()
+                            .alpha(1f) // Fade in
+                            .translationY(0) // Slide in (you can adjust the direction or value)
+                            .setDuration(300) // Animation duration
+                            .start();
+                    holder.isCollapsVisible = false;
+                } else {
+                    // Hide FertilizerDetails with animation
+                    holder.FertilizerDetails.animate()
+                            .alpha(0f) // Fade out
+                            .translationY(-100) // Slide out (you can adjust the value to your preference)
+                            .setDuration(300) // Animation duration
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    holder.FertilizerDetails.setVisibility(View.GONE);
+                                }
+                            })
+                            .start();
+                    holder.isCollapsVisible = true;
+                }
+            }
+        });
+
     }
 
     @Override
@@ -81,38 +180,105 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
         return expenditureList.size();
     }
 
-    // Method to flip the card
-    private void flipCard(FertilizerExpenditureAdapter.ViewHolder holder) {
-        boolean isBackVisible = holder.cardBtn.getVisibility() == View.VISIBLE;
+    // Method to show image popup
+    private void showImagePopup(String imagePath) {
+        if (imagePath == null || imagePath.isEmpty()) {
+            Toast.makeText(context, "No image available", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        if (isBackVisible) {
-            // Flip back to front
-            AnimatorSet flipOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.flip_out);
-            AnimatorSet flipIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.flip_in);
-            flipOut.setTarget(holder.itemView);
-            flipIn.setTarget(holder.itemView);
-            flipOut.start();
-            holder.cardBtn.setVisibility(View.GONE);
-            flipIn.start();
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.image_popup);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        PhotoView popupImageView = dialog.findViewById(R.id.popupImageView);
+
+        if (imagePath.startsWith("content://") || imagePath.startsWith("file://")) {
+            // Load URI or file path into the popup
+            Glide.with(context)
+                    .load(imagePath)
+                    .into(popupImageView);
         } else {
-            // Flip front to back
-            AnimatorSet flipOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.flip_out);
-            AnimatorSet flipIn = (AnimatorSet) AnimatorInflater.loadAnimator(context, R.animator.flip_in);
-            flipOut.setTarget(holder.itemView);
-            flipIn.setTarget(holder.itemView);
-            flipOut.start();
-            holder.cardBtn.setVisibility(View.VISIBLE);
-            flipIn.start();
+            // Decode Base64 image for the popup
+            try {
+                byte[] decodedBytes = Base64.decode(imagePath, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                popupImageView.setImageBitmap(bitmap);
+            } catch (IllegalArgumentException e) {
+                Toast.makeText(context, "Invalid image format", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Share Button functionality - Share image directly
+        dialog.findViewById(R.id.btnShare).setOnClickListener(v -> {
+            Bitmap bitmap = ((BitmapDrawable) popupImageView.getDrawable()).getBitmap();
+            String path = saveImageToExternalStorage(bitmap);  // Save image to external storage
+
+            if (path != null) {
+                File imageFile = new File(path);
+                Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", imageFile);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);  // Share the image URI
+                context.startActivity(Intent.createChooser(shareIntent, "Share Image"));
+            } else {
+                Toast.makeText(context, "Failed to save the image", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Download Button functionality - Save image to file manager
+        dialog.findViewById(R.id.btnDownload).setOnClickListener(v -> {
+            Bitmap bitmap = ((BitmapDrawable) popupImageView.getDrawable()).getBitmap();
+            String path = saveImageToExternalStorage(bitmap);  // Save image to external storage
+
+            if (path != null) {
+                Toast.makeText(context, "Image saved to " + path, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to save the image", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.findViewById(R.id.closePopupButton).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+    // Method to save image to external storage and return the file path
+    private String saveImageToExternalStorage(Bitmap bitmap) {
+        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyAppImages");
+        if (!directory.exists()) {
+            directory.mkdirs(); // Create the directory if it doesn't exist
+        }
+
+        String fileName = "image_" + System.currentTimeMillis() + ".jpg";
+        File file = new File(directory, fileName);
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);  // Save the image as JPEG
+            fos.flush();
+            return file.getAbsolutePath();  // Return the path where the image is saved
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvItemName;
         TextView tvPurchaseDate;
         TextView tvPurchaseAmount;
         TextView tvPaymentMode;
-        LinearLayout cardBtn;
+        ImageView IVfertilizerName;
+
+        MaterialButton viewImg;
+        LinearLayout cardBtn,FertilizerDetails;
         MaterialButton copyBtn, shareBtn, editBtn;
+
+        RelativeLayout FertilizerCollaps;
+
+        boolean isCardVisible=false;
+        boolean isCollapsVisible=false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,13 +286,16 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
             tvPurchaseDate = itemView.findViewById(R.id.tvPurchaseDate);
             tvPurchaseAmount = itemView.findViewById(R.id.tvPurchaseAmount);
             tvPaymentMode = itemView.findViewById(R.id.tvPaymentMode);
-            cardBtn = itemView.findViewById(R.id.cardBtn);  // Hidden buttons container
+            IVfertilizerName = itemView.findViewById(R.id.IVfertilizerName);
+            cardBtn = itemView.findViewById(R.id.cardBtn);
             copyBtn = itemView.findViewById(R.id.CopyBtn);
             shareBtn = itemView.findViewById(R.id.ShareBtn);
             editBtn = itemView.findViewById(R.id.EditBtn);
-
-            // Initially hide the buttons
+            viewImg = itemView.findViewById(R.id.viewReceiptButton);
+            FertilizerDetails=itemView.findViewById(R.id.FertilizerDetails);
+            FertilizerCollaps=itemView.findViewById(R.id.FertilizerCollaps);
             cardBtn.setVisibility(View.GONE);
+            FertilizerDetails.setVisibility(View.GONE);
         }
     }
 }

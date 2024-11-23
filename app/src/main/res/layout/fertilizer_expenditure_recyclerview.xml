@@ -3,212 +3,312 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#E0E0E0">
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header Section with Gradient Background -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/header_gradient"
-            android:padding="16dp">
 
-            <!-- Fertilizer Icon with Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/iconContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="0dp">
 
-                <ImageView
-                    android:id="@+id/IVfertilizerName"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_user_profile_img" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Fertilizer Details -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/iconContainer"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvItemName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/name_font"
-                    android:text="@string/fertilizer_name"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:id="@+id/dateImg"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_date_img"
-                        app:tint="#E0E0E0" />
-
-                    <TextView
-                        android:id="@+id/tvPurchaseDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_21_nov_2023"
-                        android:textColor="#E0E0E0"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <!-- Content Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Price Section with Material Design -->
-            <com.google.android.material.card.MaterialCardView
+            <RelativeLayout
+                android:id="@+id/FertilizerCollaps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
+                android:background="@drawable/header_gradient_enhanced"
+                android:padding="20dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- Profile Container with Shadow -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/iconContainer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="12dp">
+                    android:layout_centerVertical="true"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp"
+                    app:cardBackgroundColor="#FFFFFF">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_price_img"
-                        app:tint="#50C878" />
+                        android:id="@+id/IVfertilizerName"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_user_profile_img" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Enhanced Details with Better Typography -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toStartOf="@id/statusChip"
+                    android:layout_toEndOf="@id/iconContainer"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvItemName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="@string/price"
-                        android:textColor="#424242"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tvPurchaseAmount"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:text="@string/_450"
-                        android:textColor="#50C878"
-                        android:textSize="16sp"
+                        android:fontFamily="@font/name_font"
+                        android:text="@string/fertilizer_name"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Payment Mode Section -->
-            <com.google.android.material.card.MaterialCardView
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/date_background"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp">
+
+                        <ImageView
+                            android:id="@+id/dateImg"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_date_img"
+                            app:tint="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/tvPurchaseDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_21_nov_2023"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Enhanced Status Badge -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/statusChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Completed"
+                    android:textColor="#FFFFFF"
+                    app:chipBackgroundColor="#4CAF50"
+                    app:chipIconTint="#FFFFFF" />
+            </RelativeLayout>
+
+        <!-- Enhanced Content Section with Animation -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/FertilizerDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <LinearLayout
+                <!-- Enhanced Price Section -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="12dp">
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_payment_mode_img"
-                        app:tint="#50C878" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:padding="4dp"
+                            android:background="@drawable/circle_background"
+                            android:src="@drawable/ic_price_img"
+                            app:tint="#4CAF50" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/price"
+                            android:textColor="#212121"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvPurchaseAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/_450"
+                            android:textColor="#4CAF50"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Enhanced Payment Section -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:padding="4dp"
+                            android:background="@drawable/circle_background"
+                            android:src="@drawable/ic_payment_mode_img"
+                            app:tint="#4CAF50" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/payment_mode"
+                            android:textColor="#212121"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvPaymentMode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/cash"
+                            android:textColor="#212121"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Enhanced Receipt Section -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/receiptContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#F8F9FA"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:padding="4dp"
+                                android:background="@drawable/circle_background"
+                                android:src="@drawable/ic_payment_img"
+                                app:tint="#4CAF50" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:text="Payment Receipt"
+                                android:textColor="#212121"
+                                android:textSize="16sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/viewReceiptButton"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="View"
+                                android:textColor="#4CAF50"
+                                app:icon="@drawable/ic_view_img"
+                                app:iconTint="#4CAF50" />
+                        </LinearLayout>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:id="@+id/receiptPreview"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:scaleType="centerCrop"
+                                android:visibility="gone"
+                                android:background="#E0E0E0"/>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Enhanced Action Buttons -->
+                <LinearLayout
+                    android:id="@+id/cardBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="end">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/CopyBtn"
+                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/copy"
+                        app:backgroundTint="#4CAF50"
+                        app:icon="@drawable/ic_copy_btn"
+                        app:iconTint="@color/white" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/ShareBtn"
+                        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="@string/payment_mode"
-                        android:textColor="#424242"
-                        android:textSize="16sp" />
+                        android:contentDescription="@string/share"
+                        app:backgroundTint="#4CAF50"
+                        app:iconTint="@color/white"
+                        app:icon="@drawable/ic_share_btn" />
 
-                    <TextView
-                        android:id="@+id/tvPaymentMode"
-                        android:layout_width="0dp"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/EditBtn"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:text="@string/cash"
-                        android:textColor="#424242"
-                        android:textSize="16sp" />
+                        android:layout_marginStart="12dp"
+                        android:contentDescription="@string/edit"
+                        app:backgroundTint="#4CAF50"
+                        app:icon="@drawable/ic_dark_edit_btn" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Action Buttons -->
-            <LinearLayout
-                android:id="@+id/cardBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                android:gravity="end">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/CopyBtn"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/copy"
-                    app:icon="@drawable/ic_copy_btn"
-                    app:iconTint="#50C878" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/ShareBtn"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/share"
-                    app:icon="@drawable/ic_share_btn"
-                    app:iconTint="#50C878" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/EditBtn"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/edit"
-                    app:icon="@drawable/ic_dark_edit_btn"
-                    app:iconTint="#50C878" />
             </LinearLayout>
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
