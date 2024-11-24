@@ -2,6 +2,8 @@ package com.example.farmer.home.bottomtab;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
@@ -51,7 +53,7 @@ public class MainFertilizerExpenditureFragment extends Fragment {
 
         totalSpendingAmount = view.findViewById(R.id.totalSpendingAmount);
         averageSpendingAmount = view.findViewById(R.id.averageSpendingAmount);
-        printButton = view.findViewById(R.id.Print);
+        printButton = view.findViewById(R.id.printButton);
 
         printButton.setOnClickListener(v -> printExpenditures());
 
@@ -98,7 +100,13 @@ public class MainFertilizerExpenditureFragment extends Fragment {
 
     private void printExpenditures() {
         PrintManager printManager = (PrintManager) getActivity().getSystemService(Context.PRINT_SERVICE);
-        PrintDocumentAdapter adapter = new FertilizerExpenditurePrintAdapter(getContext(), expenditureList);
+
+        // Load your logo from resources
+        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shetibill_logo); // Replace 'logo' with your logo resource name
+
+        // Pass the bitmap to the adapter
+        PrintDocumentAdapter adapter = new FertilizerExpenditurePrintAdapter(getContext(), expenditureList, logoBitmap);
+
         printManager.print("Fertilizer Expenditure Summary", adapter, new PrintAttributes.Builder().build());
     }
 

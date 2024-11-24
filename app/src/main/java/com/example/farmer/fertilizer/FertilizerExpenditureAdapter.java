@@ -245,7 +245,7 @@ public class FertilizerExpenditureAdapter extends RecyclerView.Adapter<Fertilize
 
     // Method to save image to external storage and return the file path
     private String saveImageToExternalStorage(Bitmap bitmap) {
-        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyAppImages");
+        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "ShetiBill");
         if (!directory.exists()) {
             directory.mkdirs(); // Create the directory if it doesn't exist
         }
