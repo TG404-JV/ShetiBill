@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,8 +25,8 @@ public class create_account extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     // Declare UI elements
-    private EditText etName, etMobileNumber, etEmail, etPassword;
-    private Button btnCreateAccount;
+    private TextInputEditText etName, etMobileNumber, etEmail, etPassword;
+    private MaterialButton btnCreateAccount;
     private TextView tvAlreadyHaveAccount, tvSkipCreate;
 
     @Override

@@ -103,6 +103,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
           <ImageButton
+              android:visibility="gone"
               android:id="@+id/attachButton"
               android:layout_width="48dp"
               android:layout_height="48dp"

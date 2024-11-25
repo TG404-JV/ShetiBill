@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class Fertilizer_Expendituer extends Fragment {
     private MaterialRadioButton rbCash, rbCard, rbOnline;
     private MaterialButton btnSave, btnUploadReceipt;
     private ImageView ivReceiptPreview;
+
+
     private String receiptFilePath = ""; // To store the URI of the receipt
     private static final String PREF_NAME = "FertilizerPrefs";
 
@@ -61,6 +64,9 @@ public class Fertilizer_Expendituer extends Fragment {
         etPurchaseDate.setOnClickListener(v -> showDatePicker());
         btnSave.setOnClickListener(v -> saveData());
         btnUploadReceipt.setOnClickListener(v -> uploadReceipt());
+
+
+
 
         return view;
     }

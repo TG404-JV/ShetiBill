@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,8 @@ public class MainFertilizerExpenditureFragment extends Fragment {
     private TextView totalSpendingAmount;
     private TextView averageSpendingAmount;
     private ImageView printButton;
+   private LinearLayout Amount_Section,Statistics_Section;
+   private Boolean isSectionVisible=false;
 
     @Nullable
     @Override
@@ -54,6 +57,36 @@ public class MainFertilizerExpenditureFragment extends Fragment {
         totalSpendingAmount = view.findViewById(R.id.totalSpendingAmount);
         averageSpendingAmount = view.findViewById(R.id.averageSpendingAmount);
         printButton = view.findViewById(R.id.printButton);
+        Amount_Section=view.findViewById(R.id.Amount);
+        Statistics_Section=view.findViewById(R.id.Statistics);
+
+
+        Amount_Section.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSectionVisible) {
+                    // Slide up animation
+                    Statistics_Section.animate()
+                            .translationY(Statistics_Section.getHeight())
+                            .setDuration(300)
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Statistics_Section.setVisibility(View.GONE);
+                                }
+                            });
+                    isSectionVisible = false;
+                } else {
+                    // Make the section visible and slide down animation
+                    Statistics_Section.setVisibility(View.VISIBLE);
+                    Statistics_Section.setTranslationY(Statistics_Section.getHeight());
+                    Statistics_Section.animate()
+                            .translationY(0)
+                            .setDuration(300);
+                    isSectionVisible = true;
+                }
+            }
+        });
 
         printButton.setOnClickListener(v -> printExpenditures());
 

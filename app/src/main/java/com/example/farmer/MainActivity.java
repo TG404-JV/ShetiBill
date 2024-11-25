@@ -246,7 +246,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             loginLogoutButton.setText(R.string.logout);
-            loginLogoutButton.setTextColor(getResources().getColor(android.R.color.holo_red_dark)); // Logout color
+            loginLogoutButton.setTextColor(getResources().getColor(android.R.color.white)); // Logout color
+            loginLogoutButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {
             loginLogoutButton.setText(R.string.login);
             loginLogoutButton.setTextColor(getResources().getColor(android.R.color.white)); // Login color

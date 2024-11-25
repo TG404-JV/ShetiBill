@@ -84,6 +84,21 @@ dependencies {
     implementation ("com.github.delight-im:Android-AdvancedWebView:v3.2.1")
     implementation ("com.airbnb.android:lottie:6.6.0")
     implementation ("com.github.chrisbanes:PhotoView:2.3.0")
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth")
+        // Firebase Auth with Phone
+        implementation ("com.google.firebase:firebase-auth:22.3.0")
+
+        // SafetyNet for device verification
+        implementation ("com.google.android.gms:play-services-safetynet:18.0.1")
+
+        // Play Services Auth for reCAPTCHA
+        implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
 
 
 

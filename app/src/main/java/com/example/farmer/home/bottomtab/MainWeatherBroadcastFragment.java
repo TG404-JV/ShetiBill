@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +23,10 @@ import com.example.farmer.R;
 import com.example.farmer.home.Weather.WeatherService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+
+import java.util.List;
+import java.util.Locale;
 
 public class MainWeatherBroadcastFragment extends Fragment {
     private static final String PREF_NAME = "WeatherHistory"; // Unified preference name
@@ -40,6 +43,7 @@ public class MainWeatherBroadcastFragment extends Fragment {
     private TextView textViewHumidity;
     private TextView textViewWindSpeed;
     private TextView textViewCropRecommendation;
+    private TextView textViewLocationName;
 
     private FusedLocationProviderClient fusedLocationClient;
     private SharedPreferences sharedPreferences;
@@ -57,6 +61,7 @@ public class MainWeatherBroadcastFragment extends Fragment {
         textViewHumidity = view.findViewById(R.id.textViewHumidity);
         textViewWindSpeed = view.findViewById(R.id.textViewWindSpeed);
         textViewCropRecommendation = view.findViewById(R.id.textViewCropRecommendation);
+        textViewLocationName = view.findViewById(R.id.textViewLocationName);
 
         weatherService = new WeatherService();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
@@ -84,13 +89,22 @@ public class MainWeatherBroadcastFragment extends Fragment {
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
 
+                        // Fetch location name (e.g., city)
+                        String locationName = getLocationName(latitude, longitude);
+                        if (locationName != null) {
+                            textViewLocationName.setText(locationName);
+                        } else {
+                            textViewLocationName.setText("Unknown Location");
+                        }
+
+                        // Fetch weather data
                         weatherService.fetchWeatherDataByCoordinates(latitude, longitude, new WeatherService.WeatherCallback() {
                             @Override
                             public void onWeatherReceived(WeatherService.WeatherData weatherData) {
                                 requireActivity().runOnUiThread(() -> {
                                     updateWeatherUI(weatherData);
                                     updateCropRecommendation(weatherData);
-                                    saveWeatherData("Current Location", weatherData);
+                                    saveWeatherData(locationName != null ? locationName : "Unknown Location", weatherData);
                                 });
                             }
 
@@ -104,6 +118,19 @@ public class MainWeatherBroadcastFragment extends Fragment {
                         Toast.makeText(requireContext(), "Unable to fetch location. Try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private String getLocationName(double latitude, double longitude) {
+        try {
+            Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                return addresses.get(0).getLocality(); // Get city or locality name
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void updateWeatherUI(WeatherService.WeatherData weatherData) {
@@ -154,6 +181,7 @@ public class MainWeatherBroadcastFragment extends Fragment {
         String windSpeed = sharedPreferences.getString(KEY_WIND_SPEED, null);
 
         if (city != null && temperature != null && description != null && humidity != -1 && windSpeed != null) {
+            textViewLocationName.setText(city);
             textViewTemperature.setText(temperature);
             textViewDescription.setText(description);
             textViewHumidity.setText(String.format("%d%% Humidity", humidity));
