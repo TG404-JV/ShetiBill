@@ -32,7 +32,7 @@
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_shetibill_logo"
+                android:src="@mipmap/ic_launcher_round"
                 android:background="@color/white"/>
         </androidx.cardview.widget.CardView>
 

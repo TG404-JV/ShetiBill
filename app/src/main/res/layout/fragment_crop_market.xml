@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/farm_paper_texture_background">
+   >
 
     <!-- Market Summary Card -->
 <LinearLayout
@@ -40,7 +40,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatCheckedTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Today's Market"
@@ -399,9 +399,7 @@
 
 
 
-</LinearLayout>    <!-- TabLayout for Buy/Sell -->
-
-    <!-- ViewPager for Buy/Sell content -->
+</LinearLayout>
 
 
 
