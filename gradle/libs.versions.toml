@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.0"
+agp = "8.7.2"
 compiler = "4.15.1"
 firebaseAppcheckPlayintegrity = "18.0.0"
 firebaseBom = "33.6.0"
@@ -11,14 +11,14 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.0"
-constraintlayout = "2.1.4"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
 firebaseDatabase = "21.0.0"
-firebaseStorage = "21.0.0"
-firebaseAuth = "23.0.0"
+firebaseStorage = "21.0.1"
+firebaseAuth = "23.1.0"
 picasso = "2.71828"
 playServicesMlkitTextRecognitionCommon = "19.1.0"
-firebaseFirestore = "25.1.0"
+firebaseFirestore = "25.1.1"
 adapters = "3.2.0-alpha11"
 gridlayout = "1.0.0"
 reactiveStreams = "1.0.4"
@@ -26,6 +26,7 @@ retrofit = "2.9.0"
 roomCompiler = "2.6.1"
 roomRuntime = "2.6.1"
 playServicesLocation = "21.3.0"
+coordinatorlayout = "1.2.0"
 
 [libraries]
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
@@ -56,6 +57,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

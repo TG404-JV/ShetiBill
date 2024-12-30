@@ -13,6 +13,8 @@ pluginManagement {
         // Add JitPack repository here
         maven("https://jitpack.io")
     }
+
+
 }
 
 dependencyResolutionManagement {
@@ -24,7 +26,10 @@ dependencyResolutionManagement {
         // Add JitPack repository here as well
         maven("https://jitpack.io")
     }
+
+
 }
+
 
 rootProject.name = "Farmer"
 include(":app")

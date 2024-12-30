@@ -3,7 +3,6 @@ package com.example.farmer.farmerai;
 import static com.example.farmer.farmerai.secureAi.SecurityKey.AIMODEL;
 import static com.example.farmer.farmerai.secureAi.SecurityKey.APIKEY;
 import static com.example.farmer.farmerai.secureAi.SecurityKey.DEVELOPER_MESSAGE;
-import static com.example.farmer.farmerai.secureAi.SecurityKey.QUESTION_REFFERENCE;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -15,7 +14,6 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -47,16 +45,15 @@ import java.util.concurrent.Executors;
 
 public class FragmentFarmerAi extends Fragment {
 
-
     private RecyclerView recyclerView;
-    TextToSpeech   textToSpeech;
+    private TextToSpeech textToSpeech;
     private ChatMessageAdapter chatAdapter;
     private List<ChatMessage> chatMessages;
 
     private EditText messageEditText;
     private ImageButton sendButton;
 
-     String Message;
+    String Message;
 
     @Nullable
     @Override
@@ -68,7 +65,6 @@ public class FragmentFarmerAi extends Fragment {
         messageEditText = view.findViewById(R.id.messageEditText);
         sendButton = view.findViewById(R.id.sendButton);
 
-
         // Set up RecyclerView
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatMessageAdapter(chatMessages, this::showUserMessageDialog); // Pass method reference
@@ -79,20 +75,17 @@ public class FragmentFarmerAi extends Fragment {
         sendButton.setOnClickListener(v -> {
             String userMessage = messageEditText.getText().toString().trim();
 
-
-            addUserMessage(userMessage);
-            messageEditText.setText("");
-
-
+            if (!userMessage.isEmpty()) {
+                addUserMessage(userMessage);
+                messageEditText.setText("");
                 fetchBotResponse(userMessage);
-
+            } else {
+                Toast.makeText(getContext(), "Please enter a message", Toast.LENGTH_SHORT).show();
+            }
         });
-
 
         return view;
     }
-
-
 
     private void addUserMessage(String message) {
         ChatMessage userMessage = new ChatMessage(message, true);
@@ -101,8 +94,6 @@ public class FragmentFarmerAi extends Fragment {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-
-
     private void fetchBotResponse(String userMessage) {
         // Add a loading message to the chat
         ChatMessage loadingMessage = new ChatMessage(true);  // Loading state
@@ -110,7 +101,9 @@ public class FragmentFarmerAi extends Fragment {
         chatAdapter.notifyItemInserted(chatMessages.size() - 1);
         recyclerView.scrollToPosition(chatMessages.size() - 1);
 
-        userMessage=DEVELOPER_MESSAGE+QUESTION_REFFERENCE+ userMessage;
+        // Prepend developer message (if needed)
+        userMessage = DEVELOPER_MESSAGE + userMessage;
+
         // Set up the generative model with the provided API key
         Executor executor = Executors.newSingleThreadExecutor();
         GenerativeModel gm = new GenerativeModel(AIMODEL, APIKEY);
@@ -133,34 +126,47 @@ public class FragmentFarmerAi extends Fragment {
 
                 // Clean up the response by removing unwanted characters or text
                 String output = generatedText.replace("*", "");
+
+                // Create a bot message with the generated text
                 ChatMessage botMessage = new ChatMessage(output, false);
 
-
-                // Run the UI update on the main thread
-                requireActivity().runOnUiThread(() -> {
-                    // Replace loading message with bot response
-                    chatMessages.set(chatMessages.size() - 1, botMessage);  // Replace the loading message
-                    chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
-
-                });
+                // Run the UI update on the main thread, ensuring activity is still available
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        // Replace the loading message with the bot response
+                        chatMessages.set(chatMessages.size() - 1, botMessage);  // Replace the loading message
+                        chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
+                    });
+                }
             }
 
             @Override
             public void onFailure(@NonNull Throwable t) {
-                // Log error
+                // Log the error
                 Log.e("BotResponseError", "Error generating response", t);
 
-                // Handle failure case
-                requireActivity().runOnUiThread(() -> {
-                    // Replace loading message with an error message
-                    ChatMessage errorMessage = new ChatMessage("Sorry, I couldn't generate a response. Please try again.", false);
-                    chatMessages.set(chatMessages.size() - 1, errorMessage);  // Replace loading message
-                    chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
-                });
+                if (t instanceof ServerException) {
+                    // Handle API-specific errors
+                    Log.e("BotResponseError", "ServerException: " + t.getMessage());
+                } else {
+                    // Handle other errors (e.g., network issues)
+                    Log.e("BotResponseError", "Error: " + t.getMessage());
+                }
+
+                // Handle failure case on the main thread, ensuring activity is still available
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        // Replace loading message with an error message
+                        ChatMessage errorMessage = new ChatMessage("Sorry, I couldn't generate a response. Please try again.", false);
+                        chatMessages.set(chatMessages.size() - 1, errorMessage);  // Replace loading message
+                        chatAdapter.notifyItemChanged(chatMessages.size() - 1);  // Notify adapter
+                    });
+                }
             }
         }, executor);
     }
-// Show a dialog when user message is clicked
+
+    // Show a dialog when user message is clicked
     private void showUserMessageDialog(ChatMessage message) {
         // Inflate the custom dialog layout
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -179,14 +185,11 @@ public class FragmentFarmerAi extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-
-
         // Set up the share button
         btnShare.setOnClickListener(v -> {
             // Code to share the message (e.g., using Intent)
             shareMessage(message.getMessage());
             dialog.dismiss();
-
         });
 
         // Set up the delete button
@@ -202,16 +205,14 @@ public class FragmentFarmerAi extends Fragment {
             // Code to copy the message to clipboard
             copyToClipboard(message.getMessage());
             dialog.dismiss();
-
         });
 
         // Set up the read button to read the message aloud
         btnRead.setOnClickListener(v -> {
             // Code to read the message aloud (you can use TextToSpeech)
-            Message=message.getMessage();
+            Message = message.getMessage();
             readMessageAloud(Message);
             dialog.dismiss();
-
         });
 
         // Show the dialog

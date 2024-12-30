@@ -7,12 +7,16 @@ android {
     namespace = "com.example.farmer"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "com.example.farmer"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,8 +25,16 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // You can also define a different API key for the release build here if needed
         }
+
+        debug {
+            // You can define a different API key for debug builds here
+        }
+
+
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -43,6 +55,7 @@ dependencies {
     implementation(libs.adapters)
     implementation(libs.gridlayout)
     implementation(libs.play.services.location)
+    implementation(libs.coordinatorlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -60,7 +73,9 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     // add the dependency for the Google AI client SDK for Android
-    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+
+    // ListenableFuture for asynchronous operations
 
     // Required for one-shot operations (to use `ListenableFuture` from Guava Android)
     implementation("com.google.guava:guava:31.0.1-android")
@@ -98,11 +113,6 @@ dependencies {
 
         // Play Services Auth for reCAPTCHA
         implementation ("com.google.android.gms:play-services-auth:20.7.0")
-
-
-
-
-
 
 
 }
