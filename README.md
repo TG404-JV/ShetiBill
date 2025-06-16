@@ -1,6 +1,6 @@
 # ShetiBill - Digital Farming Assistant 🌾
 
-![ShetiBill Logo](https://github.com/TG404-JV/ShetiBill/blob/main/app/src/main/res/drawable/logo.png)
+![ShetiBill Logo](logo.png)
 
 **Your Complete Digital Farming Partner**
 
@@ -91,7 +91,7 @@ implementation 'com.github.YarikSOffice:lingver:1.0.0'
 
 | Home Screen | Market Prices | Crop Marketplace | Labor Management |
 |-------------|---------------|------------------|------------------|
-| ![Home](screenshots/home.png) | ![Market](screenshots/market.png) | ![Marketplace](screenshots/marketplace.png) | ![Labor](screenshots/labor.png) |
+| ![Home](home.png) | ![Market](market.png) | ![Marketplace](marketplace.png) | ![Labor](labor.png) |
 
 | Fertilizer Tracking | Government Schemes | Loan Calculator | Authentication |
 |-------------------|-------------------|-----------------|----------------|
