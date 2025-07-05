@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "130458328698",
+    "firebase_url": "https://sheti-bill-default-rtdb.firebaseio.com",
+    "project_id": "sheti-bill",
+    "storage_bucket": "sheti-bill.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130458328698:android:570851c374bb0c67c425c3",
+        "android_client_info": {
+          "package_name": "com.example.farmer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130458328698-ts44f6eiqqpbmin4ebpj09lptvikoh22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.farmer",
+            "certificate_hash": "01de5a103695ee442e978d1bd127119131e3d80b"
+          }
+        },
+        {
+          "client_id": "130458328698-0qrias2ukrbi0g4oa42qglcgk00s6qji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmypRHawDlBZ40RPWqFeyUFq6lYKhMrYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130458328698-0qrias2ukrbi0g4oa42qglcgk00s6qji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

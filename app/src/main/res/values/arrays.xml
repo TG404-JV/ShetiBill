@@ -1,0 +1,23 @@
+<resources>
+    <string-array name="loan_type_array">
+        <item>Home</item>
+        <item>Personal</item>
+        <item>Car</item>
+    </string-array>
+    <string-array name="sort_options">
+        <item>All</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Quarterly</item>
+    </string-array>
+
+    <array name="time_intervals">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>All-time</item>
+    </array>
+
+
+</resources>

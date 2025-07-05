@@ -1,0 +1,154 @@
+<resources>
+    <string name="app_name" translatable="false">ShetiBill</string>
+    <string name="hello_blank_fragment" translatable="false">नमस्कार, रिक्त फॅगमेंट</string>
+    <string name="navigation_drawer_open" translatable="false">नेव्हिगेशन ड्रॉवर उघडा</string>
+    <string name="navigation_drawer_close" translatable="false">नेव्हिगेशन ड्रॉवर बंद करा</string>
+    <string name="create_account_title" translatable="false">खाते तयार करा</string>
+    <string name="first_name" translatable="false">पहिले नाव</string>
+    <string name="password" translatable="false">संकेतशब्द</string>
+    <string name="create_account" translatable="false">खाते तयार करा</string>
+    <string name="last_name" translatable="false">आडनाव</string>
+    <string name="currency_format" translatable="false">₹ %.2f</string>
+
+    <!-- App Logo Description -->
+    <string name="app_logo" translatable="false">अॅप लोगो</string>
+
+    <!-- Input Field Hints -->
+    <string name="email" translatable="false">ईमेल पत्ता</string>
+    <string name="mobile_no" translatable="false">मोबाइल नंबर</string>
+    <string name="dob" translatable="false">जन्मतारीख</string>
+    <string name="farm_size" translatable="false">शेताचे आकार (एकर मध्ये)</string>
+
+    <!-- Buttons and Text -->
+    <string name="log_in" translatable="false">लॉग इन</string>
+    <string name="already_have_account" translatable="false">तुमच्याकडे आधीच खाते आहे? लॉग इन करा</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_field" translatable="false">हे फील्ड रिक्त असू शकत नाही</string>
+    <string name="error_invalid_email" translatable="false">कृपया वैध ईमेल पत्ता प्रविष्ट करा</string>
+    <string name="error_password_short" translatable="false">संकेतशब्द किमान 6 अक्षरे लांब असावा</string>
+    <string name="error_invalid_mobile" translatable="false">कृपया वैध मोबाइल नंबर प्रविष्ट करा</string>
+    <string name="mic_desc" translatable="false">शोधासाठी माइक</string>
+    <string name="day" translatable="false">दिवस</string>
+    <string name="pressure" translatable="false">दबाव</string>
+    <string name="wind" translatable="false">वारा</string>
+    <string name="humidity" translatable="false">आर्द्रता</string>
+    <string name="enter_city_name" translatable="false">शहराचे नाव प्रविष्ट करा</string>
+    <string name="updated_at" translatable="false">अपडेट केलेले</string>
+    <string name="monday" translatable="false">सोमवार</string>
+    <string name="tuesday" translatable="false">मंगळवार</string>
+    <string name="wednesday" translatable="false">बुधवार</string>
+    <string name="thursday" translatable="false">गुरुवार</string>
+    <string name="friday" translatable="false">शुक्रवार</string>
+    <string name="saturday" translatable="false">शनिवार</string>
+    <string name="sunday" translatable="false">रविवार</string>
+    <string name="search_hint" translatable="false">शोधा</string>
+    <string name="copy" translatable="false">कॉपी</string>
+    <string name="share" translatable="false">शेअर करा</string>
+    <string name="edit" translatable="false">संपादित करा</string>
+    <string name="skip" translatable="false">वगळा</string>
+    <string name="create_your_account" translatable="false">तुमचे खाते तयार करा</string>
+    <string name="full_name" translatable="false">पूर्ण नाव</string>
+    <string name="mobile_number" translatable="false">मोबाइल नंबर</string>
+    <string name="mail_id" translatable="false">ईमेल</string>
+    <string name="forgot_password" translatable="false">संकेतशब्द विसरलात?</string>
+    <string name="don_t_have_an_account_create_one" translatable="false">खाते नाही? एक तयार करा</string>
+    <string name="Title" translatable="false">शेतकऱ्यांचे सक्षमीकरण, बिल सुलभ करणे</string>
+    <string name="bot_response" translatable="false">बॉट संदेश इथे</string>
+    <string name="crop_image" translatable="false">प्रतिमा क्रॉप करा</string>
+    <string name="cabbages" translatable="false">कोबी</string>
+    <string name="_20_quintal" translatable="false">20 क्विंटल</string>
+    <string name="space" translatable="false">|</string>
+    <string name="_280_quintal" translatable="false">₹280/क्विंटल</string>
+    <string name="developer_name" translatable="false">तेजस काळे</string>
+    <string name="developer_adderess" translatable="false">खुप्ता, छ. संभाजीनगर महाराष्ट्र</string>
+    <string name="call_button" translatable="false">कॉल बटण</string>
+    <string name="crop_name" translatable="false">पीकाचे नाव</string>
+    <string name="quantity" translatable="false">प्रमाण</string>
+    <string name="price_per_unit" translatable="false">प्रति युनिट किंमत</string>
+    <string name="seller_name" translatable="false">विक्रेत्याचे नाव</string>
+    <string name="developer_contact" translatable="false">8788466016</string>
+    <string name="add_crop" translatable="false">पीक जोडा</string>
+    <string name="add_labour_details" translatable="false">मजुरीचे तपशील जोडा</string>
+    <string name="labour_name" translatable="false">मजुराचे नाव:</string>
+    <string name="enter_labour_name" translatable="false">मजुराचे नाव प्रविष्ट करा</string>
+    <string name="work_date" translatable="false">कामाची तारीख:</string>
+    <string name="select_work_date" translatable="false">कामाची तारीख निवडा</string>
+    <string name="crop_name_textview" translatable="false">पीकाचे नाव:</string>
+    <string name="enter_crop_name" translatable="false">पीकाचे नाव प्रविष्ट करा</string>
+    <string name="working_type" translatable="false">कामाचा प्रकार:</string>
+    <string name="daily_basis" translatable="false">दैनिक</string>
+    <string name="per_kg" translatable="false">प्रति किलो</string>
+    <string name="save" translatable="false">जतन करा</string>
+    <string name="cancel" translatable="false">रद्द करा</string>
+    <string name="edit_labour_name" translatable="false">मजुराचे नाव संपादित करा</string>
+    <string name="edit_work_date" translatable="false">कामाची तारीख संपादित करा</string>
+    <string name="enter_work_date" translatable="false">कामाची तारीख प्रविष्ट करा</string>
+    <string name="fertilizer_name" translatable="false">खताचे नाव</string>
+    <string name="_21_nov_2023" translatable="false">21 नोव्हेंबर 2023</string>
+    <string name="price" translatable="false">किंमत</string>
+    <string name="_450" translatable="false">₹450</string>
+    <string name="payment_mode" translatable="false">पेमेंट मोड</string>
+    <string name="cash" translatable="false">रोख</string>
+    <string name="this_month" translatable="false">या महिन्यात</string>
+    <string name="_2_480" translatable="false">₹2,480</string>
+    <string name="labor" translatable="false">मजुरी</string>
+    <string name="fertilizer" translatable="false">खते</string>
+    <string name="add_expense" translatable="false">खर्च जोडा</string>
+    <string name="attach_image" translatable="false">प्रतिमा संलग्न करा</string>
+    <string name="ask_farmer_ai" translatable="false">शेतकरी एआय ला विचारा...</string>
+    <string name="send" translatable="false">पाठवा</string>
+    <string name="remove_selected_image" translatable="false">निवडलेली प्रतिमा काढा</string>
+    <string name="fertilizer_expenditure" translatable="false">खत खर्च</string>
+    <string name="item_name_e_g_fertilizer_pesticide" translatable="false">वस्तूचे नाव (उदा. खत, कीटकनाशक)</string>
+    <string name="purchase_date_dd_mm_yyyy" translatable="false">खरेदीची तारीख (दि/मि/वर्ष)</string>
+    <string name="purchase_amount_in_currency" translatable="false">खरेदी रक्कम (चलनात)</string>
+    <string name="loan_emi_calculator" translatable="false">कर्ज ईएमआय कॅल्क्युलेटर</string>
+    <string name="loan_amount" translatable="false">कर्जाची रक्कम</string>
+    <string name="loan_tenure_years" translatable="false">कर्ज कालावधी (वर्षे)</string>
+    <string name="interest_rate" translatable="false">व्याज दर (%)</string>
+    <string name="calculate_emi" translatable="false">ईएमआय कॅल्क्युलेट करा</string>
+    <string name="your_amortization_details" translatable="false">तुमचे अमोर्टायझेशन तपशील</string>
+    <string name="search_labour" translatable="false">मजुर शोधा</string>
+    <string name="sort_by" translatable="false">क्रमवारी लावा</string>
+    <string name="add_labour" translatable="false">मजुरी जोडा</string>
+    <string name="total_fertilizer_spending" translatable="false">एकूण खत खर्च</string>
+    <string name="_12_345" translatable="false">₹12,345</string>
+    <string name="average_spending" translatable="false">सरासरी खर्च</string>
+    <string name="_1_234" translatable="false">₹1,234</string>
+    <string name="farmer_name" translatable="false">शेतकऱ्याचे नाव</string>
+    <string name="farmer_example_com" translatable="false">farmer@example.com</string>
+    <string name="birthdate_jan_1_1980" translatable="false">जन्मतारीख: 1 जानेवारी 1980</string>
+    <string name="contact_1234567890" translatable="false">संपर्क: +1234567890</string>
+    <string name="acres_owned_20" translatable="false">20 एकर मालकीचे</string>
+    <string name="profile" translatable="false">प्रोफाइल</string>
+    <string name="logout" translatable="false">बाहेर पडा</string>
+    <string name="labor_expenditure" translatable="false">मजुरी खर्च</string>
+    <string name="daily" translatable="false">दैनिक</string>
+    <string name="total_weight" translatable="false">एकूण वजन:</string>
+    <string name="_100kg" translatable="false">100 किलो</string>
+    <string name="date" translatable="false">तारीख:</string>
+    <string name="_19_09_2024" translatable="false">19/09/2024</string>
+    <string name="labor_name" translatable="false">मजुराचे नाव:</string>
+    <string name="user_name" translatable="false">वापरकर्त्याचे नाव</string>
+    <string name="user_example_com" translatable="false">user@example.com</string>
+    <string name="login" translatable="false">लॉगिन</string>
+    <string name="user_message_here" translatable="false">वापरकर्त्याचा संदेश इथे</string>
+    <string name="home" translatable="false">मुख्यपृष्ठ</string>
+    <string name="weather" translatable="false">हवामान</string>
+    <string name="account" translatable="false">खाते</string>
+    <string name="expenditure" translatable="false">खर्च</string>
+    <string name="harvest" translatable="false">पीक</string>
+    <string name="market" translatable="false">बाजार</string>
+    <string name="loan_calculator" translatable="false">कर्ज कॅल्क्युलेटर</string>
+    <string name="government_schemes" translatable="false">सरकारी योजना</string>
+    <string name="ask_ai" translatable="false">एआय ला विचारा</string>
+    <string name="sort_by_name" translatable="false">नावानुसार क्रमवारी लावा</string>
+    <string name="sort_by_date" translatable="false">तारखेप्रमाणे क्रमवारी लावा</string>
+    <string name="sort_by_size" translatable="false">आकारानुसार क्रमवारी लावा</string>
+    <string name="choose_language" translatable="false">भाषा निवडा</string>
+    <string name="labour_details" translatable="false">मजुरीचे तपशील</string>
+    <string name="add" translatable="false">जोडा</string>
+    <string name="enter_weight" translatable="false">वजन प्रविष्ट करा</string>
+    <string name="add_weight" translatable="false">वजन जोडा</string>
+</resources>

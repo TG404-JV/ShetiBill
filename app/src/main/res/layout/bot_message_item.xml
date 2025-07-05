@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="start"
+    android:padding="8dp">
+
+    <!-- Shimmer container -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerContainer"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"> <!-- Initially hidden -->
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/bot_message_rounded_corener_bg"
+            android:layout_marginEnd="8dp" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Text view for bot message -->
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bot_message_background"
+        android:padding="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:maxWidth="250dp"
+        android:visibility="visible" />
+</LinearLayout>

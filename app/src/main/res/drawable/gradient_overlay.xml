@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Earthy gradient overlay for farming theme -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base layer with soil/earth colors -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#4A3C2E"
+            android:centerColor="#76613E"
+            android:endColor="#9B7E4B"
+            android:centerY="0.6" />
+        </shape>
+    </item>
+
+    <!-- Second layer with transparent greens for crops -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="90"
+                android:startColor="#334D2F0F"
+            android:centerColor="#33556B2F"
+            android:endColor="#338FBC8F"
+            android:centerY="0.3" />
+        </shape>
+    </item>
+
+    <!-- Optional sunlight effect at the top -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="100%p"
+                android:centerX="0.5"
+                android:centerY="0.0"
+                android:startColor="#33FFD700"
+            android:endColor="#00FFD700"
+            />
+        </shape>
+    </item>
+</layer-list>

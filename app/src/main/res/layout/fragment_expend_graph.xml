@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Pie Chart for Fertilizer Expenditure -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/fertilizerPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <!-- Message if no data available -->
+    <TextView
+        android:id="@+id/emptyFertilizerStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Data Available"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
+    <!-- Time Interval Radio Group -->
+    <RadioGroup
+        android:id="@+id/timeIntervalGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radio_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily"/>
+        <RadioButton
+            android:id="@+id/radio_weekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weekly"/>
+        <RadioButton
+            android:id="@+id/radio_monthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monthly"/>
+    </RadioGroup>
+</LinearLayout>

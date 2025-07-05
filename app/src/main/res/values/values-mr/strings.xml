@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">Farmer</string>
+    <string name="create_account_title">खाते तयार करा</string>
+    <string name="first_name">पहिले नाव</string>
+    <string name="password">संकेतशब्द</string>
+    <string name="create_account">खाते तयार करा</string>
+    <!-- Continue translating all the strings here -->
+</resources>

@@ -1,0 +1,153 @@
+<resources>
+    <string name="app_name" translatable="false">ShetiBill</string>
+    <string name="hello_blank_fragment" translatable="false">হ্যালো, খালি ফ্রাগমেন্ট</string>
+    <string name="navigation_drawer_open" translatable="false">নেভিগেশন ড্রয়ার খুলুন</string>
+    <string name="navigation_drawer_close" translatable="false">নেভিগেশন ড্রয়ার বন্ধ করুন</string>
+    <string name="create_account_title" translatable="false">অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="first_name" translatable="false">প্রথম নাম</string>
+    <string name="password" translatable="false">পাসওয়ার্ড</string>
+    <string name="create_account" translatable="false">অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="last_name" translatable="false">শেষ নাম</string>
+    <string name="currency_format" translatable="false">₹ %.2f</string>
+
+    <!-- App Logo Description -->
+    <string name="app_logo" translatable="false">অ্যাপ্লিকেশন লোগো</string>
+
+    <!-- Input Field Hints -->
+    <string name="email" translatable="false">ইমেইল ঠিকানা</string>
+    <string name="mobile_no" translatable="false">মোবাইল নম্বর</string>
+    <string name="dob" translatable="false">জন্ম তারিখ</string>
+    <string name="farm_size" translatable="false">খামারের আয়তন (একর)</string>
+
+    <!-- Buttons and Text -->
+    <string name="log_in" translatable="false">লগ ইন করুন</string>
+    <string name="already_have_account" translatable="false">ইতিমধ্যেই একটি অ্যাকাউন্ট আছে? লগ ইন করুন</string>
+
+    <!-- Error Messages -->
+    <string name="error_empty_field" translatable="false">এই ফিল্ডটি খালি রাখা যাবে না</string>
+    <string name="error_invalid_email" translatable="false">একটি বৈধ ইমেইল ঠিকানা লিখুন</string>
+    <string name="error_password_short" translatable="false">পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে</string>
+    <string name="error_invalid_mobile" translatable="false">একটি বৈধ মোবাইল নম্বর লিখুন</string>
+    <string name="mic_desc" translatable="false">সন্ধানের জন্য মাইক্রোফোন</string>
+    <string name="day" translatable="false">দিন</string>
+    <string name="pressure" translatable="false">চাপ</string>
+    <string name="wind" translatable="false">বাতাস</string>
+    <string name="humidity" translatable="false">আর্দ্রতা</string>
+    <string name="enter_city_name" translatable="false">শহরের নাম লিখুন</string>
+    <string name="updated_at" translatable="false">আপডেট</string>
+    <string name="monday" translatable="false">সোমবার</string>
+    <string name="tuesday" translatable="false">মঙ্গলবার</string>
+    <string name="wednesday" translatable="false">বুধবার</string>
+    <string name="thursday" translatable="false">বৃহস্পতিবার</string>
+    <string name="friday" translatable="false">শুক্রবার</string>
+    <string name="saturday" translatable="false">শনিবার</string>
+    <string name="sunday" translatable="false">রবিবার</string>
+    <string name="search_hint" translatable="false">অনুসন্ধান করুন</string>
+    <string name="copy" translatable="false">কপি করুন</string>
+    <string name="share" translatable="false">শেয়ার করুন</string>
+    <string name="edit" translatable="false">সম্পাদনা করুন</string>
+    <string name="skip" translatable="false">এড়িয়ে যান</string>
+    <string name="create_your_account" translatable="false">আপনার অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="full_name" translatable="false">সম্পূর্ণ নাম</string>
+    <string name="mobile_number" translatable="false">মোবাইল নম্বর</string>
+    <string name="mail_id" translatable="false">ইমেইল</string>
+    <string name="forgot_password" translatable="false">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="don_t_have_an_account_create_one" translatable="false">অ্যাকাউন্ট নেই? একটি তৈরি করুন</string>
+    <string name="Title" translatable="false">কৃষক ক্ষমতায়ন, বিলিং সহজতর</string>
+    <string name="bot_response" translatable="false">বট বার্তা এখানে</string>
+    <string name="crop_image" translatable="false">ছবি কাটুন</string>
+    <string name="cabbages" translatable="false">বাঁধাকপি</string>
+    <string name="_20_quintal" translatable="false">২০ কুইন্টাল</string>
+    <string name="space" translatable="false">|</string>
+    <string name="_280_quintal" translatable="false">₹২৮০/কুইন্টাল</string>
+    <string name="developer_name" translatable="false">তেজস কালে</string>
+    <string name="developer_adderess" translatable="false">খুপ্তা, ছ. সাম্ভাজিনগর গুজরাট</string>
+    <string name="call_button" translatable="false">কল বাটন</string>
+    <string name="crop_name" translatable="false">শস্যের নাম</string>
+    <string name="quantity" translatable="false">পরিমাণ</string>
+    <string name="price_per_unit" translatable="false">প্রতি ইউনিট মূল্য</string>
+    <string name="seller_name" translatable="false">বিক্রেতার নাম</string>
+    <string name="developer_contact" translatable="false">৮৭৮৮৪৬৬০১৬</string>
+    <string name="add_crop" translatable="false">শস্য যোগ করুন</string>
+    <string name="add_labour_details" translatable="false">শ্রমের বিবরণ যোগ করুন</string>
+    <string name="labour_name" translatable="false">শ্রমিকের নাম:</string>
+    <string name="enter_labour_name" translatable="false">শ্রমিকের নাম লিখুন</string>
+    <string name="work_date" translatable="false">কাজের তারিখ:</string>
+    <string name="select_work_date" translatable="false">কাজের তারিখ নির্বাচন করুন</string>
+    <string name="crop_name_textview" translatable="false">শস্যের নাম:</string>
+    <string name="enter_crop_name" translatable="false">শস্যের নাম লিখুন</string>
+    <string name="working_type" translatable="false">কাজের ধরণ:</string>
+    <string name="daily_basis" translatable="false">দৈনিক</string>
+    <string name="per_kg" translatable="false">প্রতি কেজি</string>
+    <string name="save" translatable="false">সংরক্ষণ করুন</string>
+    <string name="cancel" translatable="false">বাতিল করুন</string>
+    <string name="edit_labour_name" translatable="false">শ্রমিকের নাম সম্পাদনা করুন</string>
+    <string name="edit_work_date" translatable="false">কাজের তারিখ সম্পাদনা করুন</string>
+    <string name="enter_work_date" translatable="false">কাজের তারিখ লিখুন</string>
+    <string name="fertilizer_name" translatable="false">সার এর নাম</string>
+    <string name="_21_nov_2023" translatable="false">২১ নভেম্বর ২০২৩</string>
+    <string name="price" translatable="false">মূল্য</string>
+    <string name="_450" translatable="false">₹৪৫০</string>
+    <string name="payment_mode" translatable="false">পেমেন্ট মোড</string>
+    <string name="cash" translatable="false">নগদ</string>
+    <string name="this_month" translatable="false">এই মাসে</string>
+    <string name="_2_480" translatable="false">₹২,৪৮০</string>
+    <string name="labor" translatable="false">শ্রমিক</string>
+    <string name="fertilizer" translatable="false">সার</string>
+    <string name="add_expense" translatable="false">ব্যয় যোগ করুন</string>
+    <string name="attach_image" translatable="false">ছবি সংযুক্ত করুন</string>
+    <string name="ask_farmer_ai" translatable="false">কৃষক এআইকে জিজ্ঞাসা করুন...</string>
+    <string name="send" translatable="false">প্রেরণ করুন</string>
+    <string name="remove_selected_image" translatable="false">নির্বাচিত ছবি মুছুন</string>
+    <string name="fertilizer_pesticide" translatable="false">বস্তুর নাম (যেমন সার, কীটনাশক)</string>
+    <string name="purchase_date_dd_mm_yyyy" translatable="false">ক্রয়ের তারিখ (দিন/মাস/বছর)</string>
+    <string name="purchase_amount_in_currency" translatable="false">ক্রয়ের পরিমাণ (মুদ্রায়)</string>
+    <string name="loan_emi_calculator" translatable="false">ঋণ EMI ক্যালকুলেটর</string>
+    <string name="loan_amount" translatable="false">ঋণের পরিমাণ</string>
+    <string name="loan_tenure_years" translatable="false">ঋণের মেয়াদ (বছর)</string>
+    <string name="interest_rate" translatable="false">সুদ হার (%)</string>
+    <string name="calculate_emi" translatable="false">EMI গণনা করুন</string>
+    <string name="your_amortization_details" translatable="false">আপনার অ্যামর্টাইজেশন বিবরণ</string>
+    <string name="search_labour" translatable="false">শ্রমিক খুঁজুন</string>
+    <string name="sort_by" translatable="false">ক্রমানুসারে সাজান</string>
+    <string name="add_labour" translatable="false">শ্রমিক যোগ করুন</string>
+    <string name="total_fertilizer_spending" translatable="false">মোট সার খরচ</string>
+    <string name="_12_345" translatable="false">₹১২,৩৪৫</string>
+    <string name="average_spending" translatable="false">গড় খরচ</string>
+    <string name="_1_234" translatable="false">₹১,২৩৪</string>
+    <string name="farmer_name" translatable="false">কৃষকের নাম</string>
+    <string name="farmer_example_com" translatable="false">farmer@example.com</string>
+    <string name="birthdate_jan_1_1980" translatable="false">জন্ম তারিখ: ১ জানুয়ারী ১৯৮০</string>
+    <string name="contact_1234567890" translatable="false">যোগাযোগ: +১২৩৪৫৬৭৮৯০</string>
+    <string name="acres_owned_20" translatable="false">২০ একর মালিকানা</string>
+    <string name="profile" translatable="false">প্রোফাইল</string>
+    <string name="logout" translatable="false">লগ আউট</string>
+    <string name="labor_expenditure" translatable="false">শ্রমিক খরচ</string>
+    <string name="daily" translatable="false">দৈনিক</string>
+    <string name="total_weight" translatable="false">মোট ওজন:</string>
+    <string name="_100kg" translatable="false">১০০ কেজি</string>
+    <string name="date" translatable="false">তারিখ:</string>
+    <string name="_19_09_2024" translatable="false">১৯/০৯/২০২৪</string>
+    <string name="labor_name" translatable="false">শ্রমিকের নাম:</string>
+    <string name="user_name" translatable="false">ব্যবহারকারীর নাম</string>
+    <string name="user_example_com" translatable="false">user@example.com</string>
+    <string name="login" translatable="false">লগ ইন করুন</string>
+    <string name="user_message_here" translatable="false">ব্যবহারকারীর বার্তা এখানে</string>
+    <string name="home" translatable="false">মূল পৃষ্ঠা</string>
+    <string name="weather" translatable="false">আবহাওয়া</string>
+    <string name="account" translatable="false">অ্যাকাউন্ট</string>
+    <string name="expenditure" translatable="false">খরচ</string>
+    <string name="harvest" translatable="false">ফসল</string>
+    <string name="market" translatable="false">বাজার</string>
+    <string name="loan_calculator" translatable="false">ঋণ ক্যালকুলেটর</string>
+    <string name="government_schemes" translatable="false">সরকারি প্রকল্প</string>
+    <string name="ask_ai" translatable="false">AI কে প্রশ্ন করুন</string>
+    <string name="sort_by_name" translatable="false">নাম অনুযায়ী সাজান</string>
+    <string name="sort_by_date" translatable="false">তারিখ অনুযায়ী সাজান</string>
+    <string name="sort_by_size" translatable="false">আকার অনুযায়ী সাজান</string>
+    <string name="choose_language" translatable="false">ভাষা নির্বাচন করুন</string>
+    <string name="labour_details" translatable="false">শ্রমিকের বিবরণ</string>
+    <string name="add" translatable="false">যোগ করুন</string>
+    <string name="enter_weight" translatable="false">ওজন লিখুন</string>
+    <string name="add_weight" translatable="false">ওজন যোগ করুন</string>
+</resources>
