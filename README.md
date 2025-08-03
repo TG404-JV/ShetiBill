@@ -42,12 +42,6 @@
 
 ---
 
-## 📸 Screenshots
-
-> 📷 _Add screenshots of your app UI here to showcase its functionality._  
-> You can use Markdown image syntax like this:  
-> `![Home Screen](screenshots/home_screen.png)`
-
 ---
 
 ## 🚀 Getting Started
@@ -60,9 +54,9 @@
 ### Setup Instructions
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/shetibill.git
-````
+   bash
+   git clone https://github.com/TG404-JV/ShetiBill
+
 
 2. **Open the project in Android Studio**
 
@@ -73,7 +67,6 @@
 
 4. **Build and run the app**
 
----
 
 ## 🔐 Security Measures
 
@@ -90,7 +83,6 @@
 Android Developer | Java | Kotlin | Firebase
 📧 [cse.tejas@gmail.com](mailto:cse.tejas@gmail.com)
 🔗 [LinkedIn](https://linkedin.com/in/4littg)
-🌐 [Portfolio](#)
 
 ---
 
@@ -117,5 +109,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 > **ShetiBill** aims to bridge the digital divide in agriculture and empower farmers through intuitive and intelligent mobile solutions.
 
-```
 
